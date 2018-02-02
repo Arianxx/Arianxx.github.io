@@ -79,5 +79,5 @@ theme: even
 deploy:
   type: git
   repo: git@github.com:Arianxx/Arianxx.github.io.git
-  branch: 
-  message: 
+  branch: master
+  message: Update the blog.
