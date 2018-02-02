@@ -26,6 +26,5 @@ script:
 after_success:
   - git config --global user.name "Arianxx"
   - git config --global user.email "34032486+Arianxx@users.noreply.github.com"
-  - sed -n'' "/^ *repo/s~github\.com~${githubToken}@github.com~" _config.yml
   - hexo deploy
 # E: Build LifeCycle
