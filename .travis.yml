@@ -24,7 +24,7 @@ install:
 script:
   - hexo generate
 after_success:
-  - git config --global user.name "Arainxx"
+  - git config --global user.name "Arianxx"
   - git config --global user.email "34032486+Arianxx@users.noreply.github.com"
   - sed -i'' "/^ *repo/s~github\.com~${githubToken}@github.com~" _config.yml
   - hexo deploy
