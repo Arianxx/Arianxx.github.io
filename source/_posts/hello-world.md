@@ -3,12 +3,12 @@ title: Hello World
 ---
 Welcome to [Hexo](https://hexo.io/)! This is your very first post. Check [documentation](https://hexo.io/docs/) for more info. If you get any problems when using Hexo, you can find the answer in [troubleshooting](https://hexo.io/docs/troubleshooting.html) or you can ask me on [GitHub](https://github.com/hexojs/hexo/issues).
 
-## Quick Start
+## 测试页面！
 
 ### Create a new post
 
 ``` bash
-$ hexo new "My New Post"
+$ “看到这个页面，说明持续集成环境搭建成功。
 ```
 
 More info: [Writing](https://hexo.io/docs/writing.html)
