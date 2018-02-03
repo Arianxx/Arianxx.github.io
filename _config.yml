@@ -81,3 +81,9 @@ deploy:
   repo: git@github.com:Arianxx/Arianxx.github.io.git
   branch: master
   message: Update the blog.
+
+# Sitemap Setting
+sitemap:
+  path: sitemap.xml
+baidusitemap:
+  path: baidusitemap.xml
