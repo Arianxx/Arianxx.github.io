@@ -2,12 +2,13 @@
 title: 南邮ctf训练平台Vigenere writeup
 date: 2018-02-04 19:10:44
 tags: 
-    -ctf
-    -writeup
-    -密码学
+    - ctf 
+    - writeup
+    - 密码学
 categories: ctf
 ---
 >原题链接：[http://ctf.nuptsast.com/challenges#Vigenere]()
+
 ## 题目分析
 题目原文：
 > It is said that Vigenere cipher does not achieve the perfect secrecy actually :-)
@@ -17,39 +18,39 @@ categories: ctf
 > 3.The key is last 6 words of the plain text(with "nctf{}" when submitted, also without any interpunction)
 
 加密代码：
->```c
->  #include <stdio.h>
-> #define KEY_LENGTH 2 // Can be anything from 1 to 13
-> 
-> main(){
->   unsigned char ch;
->   FILE *fpIn, *fpOut;
->   int i;
->   unsigned char key[KEY_LENGTH] = {0x00, 0x00};
->   /* of course, I did not use the all-0s key to encrypt */
-> 
->   fpIn = fopen("ptext.txt", "r");
->   fpOut = fopen("ctext.txt", "w");
-> 
->   i=0;
->   while (fscanf(fpIn, "%c", &ch) != EOF) {
->     /* avoid encrypting newline characters */  
->     /* In a "real-world" implementation of the Vigenere cipher, 
->        every ASCII character in the plaintext would be encrypted.
->        However, I want to avoid encrypting newlines here because 
->        it makes recovering the plaintext slightly more difficult... */
->     /* ...and my goal is not to create "production-quality" code =) */
->     if (ch!='\n') {
->       fprintf(fpOut, "%02X", ch ^ key[i % KEY_LENGTH]); // ^ is logical XOR    
->       i++;
->       }
->     }
->  
->   fclose(fpIn);
->   fclose(fpOut);
->   return;
-> } 
->```
+```c
+  #include <stdio.h>
+  #define KEY_LENGTH 2 // Can be anything from 1 to 13
+ 
+ main(){
+   unsigned char ch;
+   FILE *fpIn, *fpOut;
+   int i;
+   unsigned char key[KEY_LENGTH] = {0x00, 0x00};
+   /* of course, I did not use the all-0s key to encrypt */
+ 
+   fpIn = fopen("ptext.txt", "r");
+   fpOut = fopen("ctext.txt", "w");
+ 
+   i=0;
+   while (fscanf(fpIn, "%c", &ch) != EOF) {
+     /* avoid encrypting newline characters */  
+     /* In a "real-world" implementation of the Vigenere cipher, 
+        every ASCII character in the plaintext would be encrypted.
+        However, I want to avoid encrypting newlines here because 
+        it makes recovering the plaintext slightly more difficult... */
+     /* ...and my goal is not to create "production-quality" code =) */
+     if (ch!='\n') {
+       fprintf(fpOut, "%02X", ch ^ key[i % KEY_LENGTH]); // ^ is logical XOR    
+       i++;
+       }
+     }
+  
+   fclose(fpIn);
+   fclose(fpOut);
+   return;
+ } 
+```
 
 密文：[http://ctf.nuptsast.com/static/uploads/9a27a6c8b9fb7b8d2a07ad94924c02e5/code.txt]()
 
@@ -111,7 +112,8 @@ def controlFlow():
             if 0 == len(a):
                 break;          #密钥每一位一定有值
         else:
-            #没有空集就通过字频求具体指
+            #没有空集就通过字频求具体值
+            ......      #省略的代码
 ```
 
 其中，getKeyRange求出每一位密钥的可能值：
@@ -133,7 +135,7 @@ def getKeyRange(keyLength, cipher):
                     break
             else:
                 keyGroup[count].append(keyTest)
-        count+=1
+        count+=1        #下一组密文
 
     return keyGroup
 ```
@@ -198,16 +200,15 @@ def cipherDecrypt(key, cipher):
 ```
 
 最终得出的结果为：
-```
-A possible key is: [186, 31, 145, 178, 83, 205, 62] 
-
-A possible plainText is: Cryptography is the practice and study of techniques for, among other things, secure communication in the presence of attackers. Cryptography has been used for hundreds, if not thousands, of years, but traditional cryptosystems were designed and evaluated in a fairly ad hoc manner. For example, the Vigenere encryption scheme was thought to be secure for decades after it was invented, but we now know, and this exercise demonstrates, that it can be broken very easily. 
-```
+> A possible key is: [186, 31, 145, 178, 83, 205, 62] 
+> 
+> A possible plainText is: Cryptography is the practice and study of techniques for, among other things, secure communication in the presence of attackers. Cryptography has been used for hundreds, if not thousands, of years, but traditional cryptosystems were designed and evaluated in a fairly ad hoc manner. For example, the Vigenere encryption scheme was thought to be secure for decades after it was invented, but we now know, and this exercise demonstrates, that it can be broken very easily. 
 
 题目中说falg是原文最后六个字母，没有标点，因此最终得到的falg为：
-```
-nctf{it can be broken very easily}          #对我一点也不简单就是了…
-```
+
+> nctf{it can be broken very easily}          
+
+对我一点也不简单就是了…
 
 ## 结语
 觉得很有意义的一道题，通过这道题学习了许多知识点，所以写成了博客。希望文中不对的地方能够被大家指正:p。
