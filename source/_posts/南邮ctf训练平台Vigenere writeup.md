@@ -215,9 +215,9 @@ def cipherDecrypt(key, cipher):
 
 ---
 
-*~~看了两篇writeup才能做出来什么的…TAT。~~*
+*~~看了两篇writeup才能做出来什么的…。~~*
 
-## 参考链接
+## 参考
 [https://findneo.github.io/2017/10/nupt-vigenere/]()
 [http://blog.csdn.net/qq_31344951/article/details/77934717]()
 [https://zh.wikipedia.org/wiki/%E7%BB%B4%E5%90%89%E5%B0%BC%E4%BA%9A%E5%AF%86%E7%A0%81]()
