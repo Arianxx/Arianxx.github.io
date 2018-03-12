@@ -109,13 +109,13 @@ live2d:
     vHeadPos: 0.618
   display:
     superSample: 2
-    width: 150
-    height: 300
+    width: 120
+    height: 240
     position: left
     hOffset: 0
-    vOffset: -160
+    vOffset: -165
   mobile:
-    show: true
+    show: false
     scale: 0.5
   react:
     opacityDefault: 1
