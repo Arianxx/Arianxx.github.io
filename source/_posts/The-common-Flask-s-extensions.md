@@ -144,6 +144,19 @@ PageDown是使用JacaScript实现的客户端MarkDown到HTML的转换程序。�
 
 文档：[Flask-PageDown](https://github.com/miguelgrinberg/Flask-PageDown)
 
+## Flask-HTTPAuth
+Flask-HTTPAuth是一个支持为Flask路由应用一些http验证方法的简单扩展。
+Flask-HTTPAuth支持HTTPBasicAuth、HTTPDigestAuth、HTTPTokenAuth和混合验证。
+
+文档：[Flask-HTTPAuth](http://flask-httpauth.readthedocs.io/en/latest/)
+
+## Flask-KVSession
+Flask-KVSessin重写了Flask基于客户端的session机制。不再客户端储存数据，只在客户端储存一个安全生成的ID，而实际数据则储存在服务器端。
+
+提高了Flask Session机制的安全性。
+
+文档：[Flask-Session](https://pythonhosted.org/Flask-KVSession/)
+
 ## 待续...
 ![youya](http://arian-blogs.oss-cn-beijing.aliyuncs.com/18-4-13/54750302.jpg)
 ╮(╯-╰)╭
