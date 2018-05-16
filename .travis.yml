@@ -20,6 +20,7 @@ before_install:
   - git clone https://github.com/Arianxx/hexo-theme-even.git themes/even
 
 install:
+  - npm upgrade
   - npm install # 安装 package.json 中的插件
 script:
   - hexo generate
