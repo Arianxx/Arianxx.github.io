@@ -5,13 +5,15 @@
     
   <url>
     <loc>https://arianx.me/2018/05/14/Explore-the-usage-of-super/</loc>
-    <lastmod>2018-05-14T16:57:14.740Z</lastmod>
+    <lastmod>2018-05-15T23:43:52.375Z</lastmod>
     <data>
         <display>
-        <title>Explore type and object in python.</title>
+        <title>浅析python中super用法，兼及继承机制</title>
         <pubTime>2018-05-14T14:05:27.000Z</pubTime>
         
         <tag>python</tag>
+         
+        <tag>算法</tag>
          
          
            
