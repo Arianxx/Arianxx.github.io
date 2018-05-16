@@ -1,0 +1,536 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+  <head>
+    
+<meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+
+  <meta name="description" content="Flask常见扩展总结"/>
+
+
+
+
+  <meta name="keywords" content="python, Flask, Arian.X" />
+
+
+
+
+
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="Arian.X">
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=2.6.0" />
+
+
+
+<link rel="canonical" href="https://arianx.me/2018/04/13/The-common-Flask-s-extensions/"/>
+
+
+<link rel="stylesheet" type="text/css" href="/css/style.css?v=2.6.0" />
+
+
+
+
+
+
+  
+  <script id="baidu_analytics">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?7da15ed69b10673f5e71fb736eca6373";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+  <script id="google_analytics">
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+        ga('create', 'UA-113448663-1', 'auto');
+        ga('send', 'pageview');
+  </script>
+
+
+  <script id="baidu_push">
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+
+
+
+
+
+
+
+    <title> Flask常见扩展总结 - Arian.X </title>
+  </head>
+
+  <body><div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/." class="logo">Arian.X</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    
+      <a href="/">
+        <li class="mobile-menu-item">
+          
+          
+            首页
+          
+        </li>
+      </a>
+    
+      <a href="/archives/">
+        <li class="mobile-menu-item">
+          
+          
+            归档
+          
+        </li>
+      </a>
+    
+      <a href="/tags">
+        <li class="mobile-menu-item">
+          
+          
+            标签
+          
+        </li>
+      </a>
+    
+      <a href="/about">
+        <li class="mobile-menu-item">
+          
+          
+            关于
+          
+        </li>
+      </a>
+    
+  </ul>
+</nav>
+
+    <div class="container" id="mobile-panel">
+      <header id="header" class="header"><div class="logo-wrapper">
+  <a href="/." class="logo">Arian.X</a>
+</div>
+
+<nav class="site-navbar">
+  
+    <ul id="menu" class="menu">
+      
+        <li class="menu-item">
+          <a class="menu-item-link" href="/">
+            
+            
+              首页
+            
+          </a>
+        </li>
+      
+        <li class="menu-item">
+          <a class="menu-item-link" href="/archives/">
+            
+            
+              归档
+            
+          </a>
+        </li>
+      
+        <li class="menu-item">
+          <a class="menu-item-link" href="/tags">
+            
+            
+              标签
+            
+          </a>
+        </li>
+      
+        <li class="menu-item">
+          <a class="menu-item-link" href="/about">
+            
+            
+              关于
+            
+          </a>
+        </li>
+      
+    </ul>
+  
+</nav>
+
+      </header>
+
+      <main id="main" class="main">
+        <div class="content-wrapper">
+          <div id="content" class="content">
+            
+  
+  <article class="post">
+    <header class="post-header">
+      <h1 class="post-title">
+        
+          Flask常见扩展总结
+        
+      </h1>
+
+      <div class="post-meta">
+        <span class="post-time">
+          2018-04-13
+        </span>
+        
+          <div class="post-category">
+            
+              <a href="/categories/笔记/">笔记</a>
+            
+          </div>
+        
+        
+      </div>
+    </header>
+
+    
+    
+  <div class="post-toc" id="post-toc">
+    <h2 class="post-toc-title">文章目录</h2>
+    <div class="post-toc-content">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#前言"><span class="toc-text">前言</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Flask-WTF"><span class="toc-text">Flask-WTF</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Flask-SQLAlchemy"><span class="toc-text">Flask-SQLAlchemy</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Flask-MongoEngine"><span class="toc-text">Flask-MongoEngine</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Flask-Login"><span class="toc-text">Flask-Login</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Flask-Migrate"><span class="toc-text">Flask-Migrate</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Flask-RESTful"><span class="toc-text">Flask-RESTful</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Flask-Admin"><span class="toc-text">Flask-Admin</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Flask-Bcrypt"><span class="toc-text">Flask-Bcrypt</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Flask-Cache"><span class="toc-text">Flask-Cache</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Flask-SSLify"><span class="toc-text">Flask-SSLify</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Flask-Bootstrap"><span class="toc-text">Flask-Bootstrap</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Flask-Principal"><span class="toc-text">Flask-Principal</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Flask-DebugToolbar"><span class="toc-text">Flask-DebugToolbar</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Flask-Security"><span class="toc-text">Flask-Security</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Flask-Paginate"><span class="toc-text">Flask-Paginate</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Flask-Mail"><span class="toc-text">Flask-Mail</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Flask-BasicAuth"><span class="toc-text">Flask-BasicAuth</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Flask-Assets"><span class="toc-text">Flask-Assets</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Flask-PageDown"><span class="toc-text">Flask-PageDown</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Flask-HTTPAuth"><span class="toc-text">Flask-HTTPAuth</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Flask-KVSession"><span class="toc-text">Flask-KVSession</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#待续…"><span class="toc-text">待续…</span></a></li></ol>
+    </div>
+  </div>
+
+
+    <div class="post-content">
+      
+        <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p><a href="http://flask.pocoo.org/" target="_blank" rel="noopener">Flask</a>是一个用python编写的、基于<a href="http://werkzeug.pocoo.org/" target="_blank" rel="noopener">Werkzeug WSGI</a>和<a href="http://jinja.pocoo.org/docs/2.10/" target="_blank" rel="noopener">Jinja2</a>的轻量级Web应用框架。因为其相比于django等框架来说简洁的功能与架构，常常被称为”microframework”。然而，称Flask为微框架并不意味着它相比起其它框架来说功能更少——Flask拥有强大的可扩展性以及活跃的社区。开发者可以根据自身的需求，自由的选择扩展包来增强其功能。</p>
+<p>合理的选择扩展包，将极大的减少开发时间，提高开发效率。下面，本文就将列举出Flask应用程序开发中的一些常用扩展，以便于参考和查询。</p>
+<h2 id="Flask-WTF"><a href="#Flask-WTF" class="headerlink" title="Flask-WTF"></a>Flask-WTF</h2><p>Flask-WTF将Flask和<a href="https://wtforms.readthedocs.io/en/stable/" target="_blank" rel="noopener">WTForms</a>做了简单集成，包含<a href="https://en.wikipedia.org/wiki/Cross-site_request_forgery" target="_blank" rel="noopener">CSRF</a>，文件上传，验证码服务等。</p>
+<p>特点：</p>
+<ol>
+<li>集成WTForms</li>
+<li>使用CSRF token保证安全性</li>
+<li>全局CSRF防御</li>
+<li>支持验证码服务</li>
+<li>配合<a href="https://pythonhosted.org/Flask-Uploads/" target="_blank" rel="noopener">Flask-Uploads</a>运作的文件上传服务</li>
+<li>使用<a href="http://pythonhosted.org/Flask-Babel/" target="_blank" rel="noopener">Flask-Babel</a>支持国际化</li>
+</ol>
+<p>Flask-WTF集成了WTForms，使用它，可以以面向对象语言中类的形式构建表单，简化了处理、验证表单所需操作，使表单设计与Flask其它部分统一。</p>
+<p>文档：<a href="https://flask-wtf.readthedocs.io/en/stable/" target="_blank" rel="noopener">Flask-WTF</a></p>
+<h2 id="Flask-SQLAlchemy"><a href="#Flask-SQLAlchemy" class="headerlink" title="Flask-SQLAlchemy"></a>Flask-SQLAlchemy</h2><p>Flask-SQLAlchemy为使用Flask开发的应用程序提供了<a href="http://www.sqlalchemy.org/" target="_blank" rel="noopener">SQLAlchemy</a>的支持。它支持0.8及以上版本的SQLAlchemy，旨在通过提供有用的默认值和额外的帮助来简化Flask中SQLAlchemy的使用，使完成常见的任务变得更简单。</p>
+<p>SQLAlchemy为python提供了<a href="https://en.wikipedia.org/wiki/Orm" target="_blank" rel="noopener">ORM</a>(对象关系映射)。简单地说，ORM就是为操作不同数据库提供了一个用面向对象思想设计的统一上层接口，隐藏了在具体语言中真实操作、连接数据库的底层实现，从而解耦了应用和数据库，使得方便的更换数据库成为可能。（但同样，正因如此，ORM往往不能覆盖各数据库的特有功能）。通过Flask-SQLAlchemy，可以方便的在Flask使用SQLAlchemy。</p>
+<p>文档：<a href="http://www.pythondoc.com/flask-sqlalchemy/" target="_blank" rel="noopener">Flask-SQLAlchemy</a></p>
+<h2 id="Flask-MongoEngine"><a href="#Flask-MongoEngine" class="headerlink" title="Flask-MongoEngine"></a>Flask-MongoEngine</h2><p>Flask-MongoEngine集成了<a href="http://mongoengine.org/" target="_blank" rel="noopener">MongoEngine</a>。</p>
+<p>通过它能够方便的在Flask中使用MongoDB。</p>
+<p>文档：<a href="http://docs.mongoengine.org/projects/flask-mongoengine/en/latest/" target="_blank" rel="noopener">Flask-MongoEngine</a></p>
+<h2 id="Flask-Login"><a href="#Flask-Login" class="headerlink" title="Flask-Login"></a>Flask-Login</h2><p>Flask-Login为Flask提供了用户会话管理。它能够处理如登陆、登出、持久记住用户会话等常见任务。</p>
+<p>它将：</p>
+<ol>
+<li>将活动的用户ID储存在session中，让你能够方便的对他们进行登入登出操作。</li>
+<li>让你能够限制视图只允许登入（或登出）用户访问。</li>
+<li>处理常见的“记住我”功能。</li>
+<li>保护你的用户会话以防被cookie小偷窃取。</li>
+<li>之后可能会与Flask-Principal或其它验证扩展集成。</li>
+</ol>
+<p>然而，它不会：</p>
+<ol>
+<li>将特定的数据库或其它储存方法强加给你。用户如何载入，决定权完全在你的手中。</li>
+<li>限制你使用如用户名和密码，OpenIDs，或其它验证方法。</li>
+<li>处理超出“登入登出”之外的权限。</li>
+<li>处理用户注册或账户重置。</li>
+</ol>
+<p>文档：<a href="https://flask-login.readthedocs.io/en/latest/" target="_blank" rel="noopener">Flask-Login</a></p>
+<h2 id="Flask-Migrate"><a href="#Flask-Migrate" class="headerlink" title="Flask-Migrate"></a>Flask-Migrate</h2><p>Flask-Migrate是一个使用<a href="https://pypi.python.org/pypi/alembic" target="_blank" rel="noopener">Alembic</a>处理Flask应用程序中SQLAlchemy数据库迁移的扩展。数据库操作由Flask命令行接口或通过<a href="grate.readthedocs.io/en/latest/">Flask-Script</a>扩展而得到支持。</p>
+<p>Flask中的SQLAlchemy只有在不存在这个表时才会按照程序中的定义新建一个表。然而，在开发过程中不免要更改表结构，此时就可以借助这个扩展来方便的更新数据库。</p>
+<p>文档：<a href="https://flask-migrate.readthedocs.io/en/latest/" target="_blank" rel="noopener">Flask-Migrate</a></p>
+<h2 id="Flask-RESTful"><a href="#Flask-RESTful" class="headerlink" title="Flask-RESTful"></a>Flask-RESTful</h2><p>Flask-RESTful是一个为Flask增加了快速绑定REST风格API功能的扩展。它是一个与你已经存在的ORM/库之间协同工作的轻量级抽象。Flask-RESTful鼓励使用最少设置的最佳实践。</p>
+<p>文档:<a href="https://flask-restful.readthedocs.io/en/latest/" target="_blank" rel="noopener">Flask-RESTful</a></p>
+<h2 id="Flask-Admin"><a href="#Flask-Admin" class="headerlink" title="Flask-Admin"></a>Flask-Admin</h2><p>Flask-Admin解决了在现有数据模型上构建管理界面的无聊问题。通过一定的努力，它能让你使用一个用户友好的界面管理web服务器数据。</p>
+<p>文档：<a href="https://flask-admin.readthedocs.io/en/latest/" target="_blank" rel="noopener">Flask-Admin</a></p>
+<h2 id="Flask-Bcrypt"><a href="#Flask-Bcrypt" class="headerlink" title="Flask-Bcrypt"></a>Flask-Bcrypt</h2><p>Flask-Bcrypt是一个为Flask应用程序提供了Bcrypt散列工具的Flask扩展。</p>
+<p>Bcrypt是一种比MD5或SHA1稍慢，但更加安全、不易碰撞的散列算法。</p>
+<p>文档：<a href="https://flask-bcrypt.readthedocs.io/en/latest/" target="_blank" rel="noopener">Flask-Bcrypt</a></p>
+<a id="more"></a>
+<h2 id="Flask-Cache"><a href="#Flask-Cache" class="headerlink" title="Flask-Cache"></a>Flask-Cache</h2><p>Flask-Cache用于缓存常用Web应用程序页面，从而在下一次请求时直接从缓存中返回而不用再查询、构建页面，从而极大的优化了Web应用程序的响应速度。</p>
+<p>值得注意的是，不是每个页面都适合使用Flask-Cache缓存——数据经常变化的页面不适于被缓存。</p>
+<p>文档：<a href="https://pythonhosted.org/Flask-Cache/" target="_blank" rel="noopener">Flask-Cache</a></p>
+<h2 id="Flask-SSLify"><a href="#Flask-SSLify" class="headerlink" title="Flask-SSLify"></a>Flask-SSLify</h2><p>Flask-SSLify是一个简单扩展，能够将所有访问都重定向到https。</p>
+<p>文档:<a href="https://pypi.python.org/pypi/Flask-SSLify" target="_blank" rel="noopener">Flask-SSLify</a></p>
+<h2 id="Flask-Bootstrap"><a href="#Flask-Bootstrap" class="headerlink" title="Flask-Bootstrap"></a>Flask-Bootstrap</h2><p>Flask-Bootstrap为Flask应用程序提供了内建的Bootstrap支持，从而可以方便的在程序中集成Bootstrap，并且使用扩展提供的默认布局。</p>
+<p>值得注意的是，到目前为止，Flask-Bootstrap似乎默认只支持Bootstrap2、3,不支持Bootstrap4。</p>
+<p>文档：<a href="https://pythonhosted.org/Flask-Bootstrap/" target="_blank" rel="noopener">Flask-Bootstrap</a></p>
+<h2 id="Flask-Principal"><a href="#Flask-Principal" class="headerlink" title="Flask-Principal"></a>Flask-Principal</h2><p>Flask-Principal为Flask提供了用户权限控制。它通过提供一个松散的框架，将位于Web应用程序中的不同部分的两种服务类型提供者（身份验证提供者、用户信息提供者）联系起来。</p>
+<p>文档：<a href="http://pythonhosted.org/Flask-Principal/" target="_blank" rel="noopener">Flask-Principal</a></p>
+<h2 id="Flask-DebugToolbar"><a href="#Flask-DebugToolbar" class="headerlink" title="Flask-DebugToolbar"></a>Flask-DebugToolbar</h2><p>Flask-DebugToolbar为应用程序添加了一个工具栏，包含许多对debugging有益的应用程序相关信息。</p>
+<p>文档：<a href="https://flask-debugtoolbar.readthedocs.io/en/latest/" target="_blank" rel="noopener">Flask-DebugToolbar</a></p>
+<h2 id="Flask-Security"><a href="#Flask-Security" class="headerlink" title="Flask-Security"></a>Flask-Security</h2><p>Flask-Security支持为Flask应用程序快速添加常用的安全机制。</p>
+<p>文档：<a href="https://pythonhosted.org/Flask-Security/index.html" target="_blank" rel="noopener">Flask-Security</a></p>
+<h2 id="Flask-Paginate"><a href="#Flask-Paginate" class="headerlink" title="Flask-Paginate"></a>Flask-Paginate</h2><p>Flask-Paginate提供了分页工具，可以在模板中快速简洁的创建出分页样式。</p>
+<p>文档：<a href="http://flask-paginate.readthedocs.io/en/latest/" target="_blank" rel="noopener">Flask-Paginate</a></p>
+<h2 id="Flask-Mail"><a href="#Flask-Mail" class="headerlink" title="Flask-Mail"></a>Flask-Mail</h2><p>Flask-Mail为Flask集成了简单的SMTP邮件服务。使用它，可以方便的通过视图和脚本向用户、管理员发送邮件。</p>
+<p>文档：<a href="https://pythonhosted.org/Flask-Mail/" target="_blank" rel="noopener">Flask-Mail</a></p>
+<h2 id="Flask-BasicAuth"><a href="#Flask-BasicAuth" class="headerlink" title="Flask-BasicAuth"></a>Flask-BasicAuth</h2><p>Flask-BasicAuth使用HTTP基础访问验证功能为Flask应用提供了保护某些视图或整个应用的简洁方法。</p>
+<p>Flask-BasicAuth常用于Flask应用程序中API的访问验证。</p>
+<p>文档：<a href="https://flask-basicauth.readthedocs.io/en/latest/" target="_blank" rel="noopener">Flask-BasicAuth</a></p>
+<h2 id="Flask-Assets"><a href="#Flask-Assets" class="headerlink" title="Flask-Assets"></a>Flask-Assets</h2><p>Flask-Assets集成了webassets。使用它，可以方便的将不同的静态资源文件整合、压缩在一起，从而减少响应的大小，优化Web应用程序的访问速度。</p>
+<p>文档：<a href="https://flask-assets.readthedocs.io/en/latest/" target="_blank" rel="noopener">Flask-Assets</a></p>
+<h2 id="Flask-PageDown"><a href="#Flask-PageDown" class="headerlink" title="Flask-PageDown"></a>Flask-PageDown</h2><p>PageDown是使用JacaScript实现的客户端MarkDown到HTML的转换程序。而Flask-PageDown扩展则将PageDown集成到了Flask-WTF表单字段里。</p>
+<p>文档：<a href="https://github.com/miguelgrinberg/Flask-PageDown" target="_blank" rel="noopener">Flask-PageDown</a></p>
+<h2 id="Flask-HTTPAuth"><a href="#Flask-HTTPAuth" class="headerlink" title="Flask-HTTPAuth"></a>Flask-HTTPAuth</h2><p>Flask-HTTPAuth是一个支持为Flask路由应用一些http验证方法的简单扩展。<br>Flask-HTTPAuth支持HTTPBasicAuth、HTTPDigestAuth、HTTPTokenAuth和混合验证。</p>
+<p>文档：<a href="http://flask-httpauth.readthedocs.io/en/latest/" target="_blank" rel="noopener">Flask-HTTPAuth</a></p>
+<h2 id="Flask-KVSession"><a href="#Flask-KVSession" class="headerlink" title="Flask-KVSession"></a>Flask-KVSession</h2><p>Flask-KVSessin重写了Flask基于客户端的session机制。不再客户端储存数据，只在客户端储存一个安全生成的ID，而实际数据则储存在服务器端。</p>
+<p>提高了Flask Session机制的安全性。</p>
+<p>文档：<a href="https://pythonhosted.org/Flask-KVSession/" target="_blank" rel="noopener">Flask-Session</a></p>
+<h2 id="待续…"><a href="#待续…" class="headerlink" title="待续…"></a>待续…</h2><p><img src="http://arian-blogs.oss-cn-beijing.aliyuncs.com/18-4-13/54750302.jpg" alt="youya"><br>╮(╯-╰)╭</p>
+
+      
+    </div>
+
+    
+      
+      
+
+  <div class="post-copyright">
+    <p class="copyright-item">
+      <span>原文作者: </span>
+      <a href="https://arianx.me">Arian</a>
+    </p>
+    <p class="copyright-item">
+      <span>原文链接: </span>
+      <a href="https://arianx.me/2018/04/13/The-common-Flask-s-extensions/">https://arianx.me/2018/04/13/The-common-Flask-s-extensions/</a>
+    </p>
+    <p class="copyright-item">
+      <span>许可协议: </span>
+      
+      本文采用<a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/" target="_blank">知识共享署名-非商业性使用 4.0 国际许可协议</a>
+    </p>
+  </div>
+
+
+
+      
+      
+    
+
+    
+      <footer class="post-footer">
+        
+          <div class="post-tags">
+            
+              <a href="/tags/python/">python</a>
+            
+              <a href="/tags/Flask/">Flask</a>
+            
+          </div>
+        
+        
+        
+  <nav class="post-nav">
+    
+      <a class="prev" href="/2018/05/14/Explore-the-usage-of-super/">
+        <i class="iconfont icon-left"></i>
+        <span class="prev-text nav-default">Explore type and object in python.</span>
+        <span class="prev-text nav-mobile">上一篇</span>
+      </a>
+    
+    
+      <a class="next" href="/2018/03/05/扔鸡蛋问题/">
+        <span class="next-text nav-default">扔鸡蛋问题</span>
+        <span class="prev-text nav-mobile">下一篇</span>
+        <i class="iconfont icon-right"></i>
+      </a>
+    
+  </nav>
+
+      </footer>
+    
+
+  </article>
+
+
+          </div>
+          
+  <div class="comments" id="comments">
+    
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
+      </div>
+    
+  </div>
+
+
+        </div>
+      </main>
+
+      <footer id="footer" class="footer">
+
+  <div class="social-links">
+    
+      
+        
+          <a href="mailto:ysnyyhs@163.com" class="iconfont icon-email" title="email"></a>
+        
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+        
+          <a href="https://github.com/Arianxx" class="iconfont icon-github" title="github"></a>
+        
+      
+    
+      
+    
+      
+    
+      
+        
+          <a href="https://www.douban.com/people/131732783/" class="iconfont icon-douban" title="douban"></a>
+        
+      
+    
+      
+    
+      
+    
+      
+    
+    
+    
+      <a href="/atom.xml" class="iconfont icon-rss" title="rss"></a>
+    
+  </div>
+
+
+<div class="copyright">
+  <span class="power-by">
+    由 <a class="hexo-link" href="https://hexo.io/">Hexo</a> 强力驱动
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    主题 - 
+    <a class="theme-link" href="https://github.com/ahonn/hexo-theme-even">Even</a>
+  </span>
+
+  <span class="copyright-year">
+    
+    &copy; 
+     
+      2017 - 
+    
+    2018
+
+    <span class="heart">
+      <i class="iconfont icon-heart"></i>
+    </span>
+    <span class="author">Arian</span>
+  </span>
+</div>
+
+      </footer>
+
+      <div class="back-to-top" id="back-to-top">
+        <i class="iconfont icon-up"></i>
+      </div>
+    </div>
+
+    
+  
+  <script type="text/javascript">
+    var disqus_config = function () {
+        this.page.url = 'https://arianx.me/2018/04/13/The-common-Flask-s-extensions/';
+        this.page.identifier = '2018/04/13/The-common-Flask-s-extensions/';
+        this.page.title = 'Flask常见扩展总结';
+    };
+    (function() {
+    var d = document, s = d.createElement('script');
+
+    s.src = '//arianx.disqus.com/embed.js';
+
+    s.setAttribute('data-timestamp', +new Date());
+    (d.head || d.body).appendChild(s);
+    })();  
+  </script>
+
+  
+
+  
+
+
+
+    
+
+
+
+
+  
+    <script type="text/javascript" src="/lib/jquery/jquery-3.1.1.min.js"></script>
+  
+
+  
+    <script type="text/javascript" src="/lib/slideout/slideout.js"></script>
+  
+
+  
+
+
+    <script type="text/javascript" src="/js/src/even.js?v=2.6.0"></script>
+<script type="text/javascript" src="/js/src/bootstrap.js?v=2.6.0"></script>
+
+  <script src="/live2dw/lib/L2Dwidget.min.js?0c58a1486de42ac6cc1c59c7d98ae887"></script><script>L2Dwidget.init({"model":{"scale":1,"hHeadPos":0.5,"vHeadPos":0.618,"jsonPath":"/live2dw/assets/model.model.json"},"display":{"superSample":2,"width":120,"height":240,"position":"left","hOffset":0,"vOffset":-165},"mobile":{"show":false,"scale":0.5},"react":{"opacityDefault":1,"opacityOnhover":1}});</script></body>
+</html>
