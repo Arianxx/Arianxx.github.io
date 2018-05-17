@@ -324,7 +324,7 @@ static
 
 最后，有趣的一点是，在途中我打算查看super对象的源码时，通过pycharm，却只看到了带有“real signature unknown”注释的pass实现。这说明python是在c语言层面实现super对象的。
 
-#### 参考链接
+## 参考链接
 https://www.jianshu.com/p/45619cf50aa7
 
 https://docs.python.org/3/library/functions.html#super
