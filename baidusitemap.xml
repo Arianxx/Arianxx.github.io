@@ -4,8 +4,48 @@
 
     
   <url>
+    <loc>https://arianx.me/2018/05/31/meta-programming-explore/</loc>
+    <lastmod>2018-05-31T15:32:23.054Z</lastmod>
+    <data>
+        <display>
+        <title>内省python元类执行流程</title>
+        <pubTime>2018-05-31T12:44:06.000Z</pubTime>
+        
+        <tag>python</tag>
+         
+         
+           
+             
+              <breadCrumb title="python" url="https://arianx.me/categories/python/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>https://arianx.me/2018/05/31/type-and-object-explore/</loc>
+    <lastmod>2018-05-31T12:40:44.433Z</lastmod>
+    <data>
+        <display>
+        <title>python中type和object</title>
+        <pubTime>2018-05-31T09:50:25.000Z</pubTime>
+        
+        <tag>python</tag>
+         
+         
+           
+             
+              <breadCrumb title="python" url="https://arianx.me/categories/python/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
     <loc>https://arianx.me/2018/05/14/Explore-the-usage-of-super/</loc>
-    <lastmod>2018-05-17T00:03:03.003Z</lastmod>
+    <lastmod>2018-05-31T12:39:12.514Z</lastmod>
     <data>
         <display>
         <title>浅析python中super用法，兼及继承机制</title>

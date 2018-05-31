@@ -2,9 +2,23 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://arianx.me/2018/05/31/meta-programming-explore/</loc>
+    
+    <lastmod>2018-05-31T15:32:23.054Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://arianx.me/2018/05/31/type-and-object-explore/</loc>
+    
+    <lastmod>2018-05-31T12:40:44.433Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>https://arianx.me/2018/05/14/Explore-the-usage-of-super/</loc>
     
-    <lastmod>2018-05-17T00:03:03.003Z</lastmod>
+    <lastmod>2018-05-31T12:39:12.514Z</lastmod>
     
   </url>
   
