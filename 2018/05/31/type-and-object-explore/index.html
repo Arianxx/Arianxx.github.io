@@ -275,7 +275,7 @@
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>issubclass(object, type)</span><br><span class="line"><span class="keyword">False</span></span><br></pre></td></tr></table></figure>
 <p>object是type的实例，但不是type的子类。object是一切类的父类。</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>isinstance(object, object)</span><br><span class="line"><span class="keyword">True</span></span><br></pre></td></tr></table></figure>
-<p>object是type的实例，type是object的子类，因此object是自身的子类。</p>
+<p>object是type的实例，type是object的子类，因此object是自身的实例。</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>issubclass(type, type)</span><br><span class="line"><span class="keyword">True</span></span><br></pre></td></tr></table></figure>
 <p>一切类都是自身的子类。</p>
 <h2 id="元编程"><a href="#元编程" class="headerlink" title="元编程"></a>元编程</h2><p>上面提到，一切类都是type的实例，这体现出python动态语言的特性。实际上，通过type，可以实现<code>元编程</code>，在运行时动态创建、修改类。这个话题就在另一篇文章里再说吧！</p>
