@@ -2,6 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://arianx.me/2018/06/07/The-usage-of-the-raise-from-in-python/</loc>
+    
+    <lastmod>2018-06-07T16:52:13.019Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>https://arianx.me/2018/05/31/meta-programming-explore/</loc>
     
     <lastmod>2018-06-01T02:42:48.684Z</lastmod>

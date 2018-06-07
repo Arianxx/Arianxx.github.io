@@ -4,6 +4,26 @@
 
     
   <url>
+    <loc>https://arianx.me/2018/06/07/The-usage-of-the-raise-from-in-python/</loc>
+    <lastmod>2018-06-07T16:52:13.019Z</lastmod>
+    <data>
+        <display>
+        <title>python在异常捕获里抛出异常</title>
+        <pubTime>2018-06-07T14:50:17.000Z</pubTime>
+        
+        <tag>python</tag>
+         
+         
+           
+             
+              <breadCrumb title="python" url="https://arianx.me/categories/python/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
     <loc>https://arianx.me/2018/05/31/meta-programming-explore/</loc>
     <lastmod>2018-06-01T02:42:48.684Z</lastmod>
     <data>
