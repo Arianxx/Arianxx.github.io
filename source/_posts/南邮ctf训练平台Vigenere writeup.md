@@ -225,7 +225,7 @@ def cipherDecrypt(key, cipher):
 [https://www.zhihu.com/question/29515338]()
 [http://blog.csdn.net/limisky/article/details/16885959]()
 
-<!--read more-->
+<!--MORE-->
 ## 完整代码
 ```python
 def readCipher(filename):
