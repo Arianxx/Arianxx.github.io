@@ -2,6 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://arianx.me/about/index.html</loc>
+    
+    <lastmod>2018-06-17T16:34:26.025Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>https://arianx.me/2018/06/17/Heap-in-python/</loc>
     
     <lastmod>2018-06-17T15:24:45.263Z</lastmod>
@@ -68,13 +75,6 @@
     <loc>https://arianx.me/2018/03/05/%E6%89%94%E9%B8%A1%E8%9B%8B%E9%97%AE%E9%A2%98/</loc>
     
     <lastmod>2018-04-13T11:46:30.268Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://arianx.me/about/index.html</loc>
-    
-    <lastmod>2018-02-19T09:59:55.839Z</lastmod>
     
   </url>
   
