@@ -215,6 +215,67 @@
     <header class="post-header">
       <h1 class="post-title">
         
+          <a class="post-link" href="/2018/06/17/Heap-in-python/">堆排序python实现</a>
+        
+      </h1>
+
+      <div class="post-meta">
+        <span class="post-time">
+          2018-06-17
+        </span>
+        
+          <div class="post-category">
+            
+              <a href="/categories/算法/">算法</a>
+            
+          </div>
+        
+        
+      </div>
+    </header>
+
+    
+    
+
+    <div class="post-content">
+      
+        
+        
+          
+        
+
+        
+          <h2 id="堆"><a href="#堆" class="headerlink" title="堆"></a>堆</h2><p>堆是一种基于树的数据结构，其父节点总是大于（最大堆）或小于（最小堆）其子节点，并且其根节点总是树中最小（或最大）的那个节点。</p>
+<p>堆排序常被用来实现<code>优先队列</code>，用于按给定的因子排定元素的优先级。而其本身最常采用的实现方式是扁平储存的二叉树。在二叉树实现的堆中，一个节点的兄弟节点并无特定的关系。唯一的关系存在于父节点和子结点中。</p>
+<p>由于堆的二叉树总会是一个完全二叉树，且是用列表的方式扁平储存二叉树以实现堆，所以，在堆的列表中，序号为 n 的节点有以下几个特征：</p>
+<ol>
+<li>其父节点为 <code>(n - 1) // 2</code> （取整）。</li>
+<li>其左子节点为 <code>n * 2 + 1</code>。</li>
+<li>其右子节点为 <code>n * 2 + 2</code>。</li>
+</ol>
+<h2 id="操作"><a href="#操作" class="headerlink" title="操作"></a>操作</h2><h3 id="插入"><a href="#插入" class="headerlink" title="插入"></a>插入</h3><p>对堆执行插入操作，只需将其推入列表尾部，然后逐一与其父节点进行比较，如果逆序就交换。直到不再交换，则节点已经在正确为止。</p>
+<p>关键代码：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">heap_up</span><span class="params">(self, index)</span>:</span></span><br><span class="line">        parent = self.parent(index)</span><br><span class="line">        <span class="keyword">while</span> <span class="keyword">True</span>:</span><br><span class="line">            <span class="keyword">if</span> <span class="keyword">not</span> self.compare(self._heap[parent], self._heap[index]):</span><br><span class="line">                self._heap[parent], self._heap[index] = \</span><br><span class="line">                    self._heap[index], self._heap[parent]</span><br><span class="line">            <span class="keyword">else</span>:</span><br><span class="line">                <span class="keyword">break</span></span><br><span class="line">            index = parent</span><br><span class="line">            parent = self.parent(index)</span><br><span class="line"></span><br><span class="line">            <span class="keyword">if</span> index == parent:</span><br><span class="line">                <span class="keyword">break</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">insert</span><span class="params">(self, node)</span>:</span></span><br><span class="line">        self._heap.append(node)</span><br><span class="line">        self.size += <span class="number">1</span></span><br><span class="line">        self.heap_up(self.size - <span class="number">1</span>)</span><br></pre></td></tr></table></figure></p>
+<h3 id="提取"><a href="#提取" class="headerlink" title="提取"></a>提取</h3><p>提取堆中最大的一个元素，只需提取第一个元素，然后用最后一个元素覆盖第一个元素。再逐一将这个元素与和这个元素差距最大的子元素比较，如果逆序就交换。直到不再交换为止，删除最后一个元素，返回提取出来的第一个元素。操作完毕。</p>
+<p>关键代码：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"> <span class="function"><span class="keyword">def</span> <span class="title">heap_down</span><span class="params">(self, index=<span class="number">0</span>)</span>:</span></span><br><span class="line">        <span class="keyword">while</span> <span class="keyword">True</span>:</span><br><span class="line">            child = self.max_child(index)</span><br><span class="line">            <span class="keyword">if</span> <span class="keyword">not</span> child:</span><br><span class="line">                <span class="keyword">break</span></span><br><span class="line">            <span class="keyword">else</span>:</span><br><span class="line">                <span class="keyword">if</span> self.compare(self._heap[child], self._heap[index]):</span><br><span class="line">                    self._heap[child], self._heap[index] = \</span><br><span class="line">                        self._heap[index], self._heap[child]</span><br><span class="line">                    index = child</span><br><span class="line">                <span class="keyword">else</span>:</span><br><span class="line">                    <span class="keyword">break</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">extract</span><span class="params">(self)</span>:</span></span><br><span class="line">        top = self._heap[<span class="number">0</span>]</span><br><span class="line">        self._heap[<span class="number">0</span>] = self._heap[self.size - <span class="number">1</span>]</span><br><span class="line">        self.heap_down()</span><br><span class="line">        self._heap.pop()</span><br><span class="line">        self.size -= <span class="number">1</span></span><br><span class="line">        <span class="keyword">return</span> top</span><br></pre></td></tr></table></figure></p>
+          <div class="read-more">
+            <a href="/2018/06/17/Heap-in-python/" class="read-more-link">阅读更多</a>
+          </div>
+        
+      
+    </div>
+
+    
+
+    
+
+  </article>
+
+    
+      
+  <article class="post">
+    <header class="post-header">
+      <h1 class="post-title">
+        
           <a class="post-link" href="/2018/06/17/python-avl-binary-tree/">AVL树python实现</a>
         
       </h1>
