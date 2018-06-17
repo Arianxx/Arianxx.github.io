@@ -1,0 +1,518 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+  <head>
+    
+<meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+
+  <meta name="description" content="AVL树python实现"/>
+
+
+
+
+  <meta name="keywords" content="python, 算法, Arian.X" />
+
+
+
+
+
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="Arian.X">
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=2.6.0" />
+
+
+
+<link rel="canonical" href="https://arianx.me/2018/06/17/python-avl-binary-tree/"/>
+
+
+<link rel="stylesheet" type="text/css" href="/css/style.css?v=2.6.0" />
+
+
+
+
+
+
+  
+  <script id="baidu_analytics">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?7da15ed69b10673f5e71fb736eca6373";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+  <script id="google_analytics">
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+        ga('create', 'UA-113448663-1', 'auto');
+        ga('send', 'pageview');
+  </script>
+
+
+  <script id="baidu_push">
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+
+
+
+
+
+
+
+    <title> AVL树python实现 - Arian.X </title>
+  </head>
+
+  <body><div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/." class="logo">Arian.X</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    
+      <a href="/">
+        <li class="mobile-menu-item">
+          
+          
+            首页
+          
+        </li>
+      </a>
+    
+      <a href="/archives/">
+        <li class="mobile-menu-item">
+          
+          
+            归档
+          
+        </li>
+      </a>
+    
+      <a href="/tags">
+        <li class="mobile-menu-item">
+          
+          
+            标签
+          
+        </li>
+      </a>
+    
+      <a href="/about">
+        <li class="mobile-menu-item">
+          
+          
+            关于
+          
+        </li>
+      </a>
+    
+  </ul>
+</nav>
+
+    <div class="container" id="mobile-panel">
+      <header id="header" class="header"><div class="logo-wrapper">
+  <a href="/." class="logo">Arian.X</a>
+</div>
+
+<nav class="site-navbar">
+  
+    <ul id="menu" class="menu">
+      
+        <li class="menu-item">
+          <a class="menu-item-link" href="/">
+            
+            
+              首页
+            
+          </a>
+        </li>
+      
+        <li class="menu-item">
+          <a class="menu-item-link" href="/archives/">
+            
+            
+              归档
+            
+          </a>
+        </li>
+      
+        <li class="menu-item">
+          <a class="menu-item-link" href="/tags">
+            
+            
+              标签
+            
+          </a>
+        </li>
+      
+        <li class="menu-item">
+          <a class="menu-item-link" href="/about">
+            
+            
+              关于
+            
+          </a>
+        </li>
+      
+    </ul>
+  
+</nav>
+
+      </header>
+
+      <main id="main" class="main">
+        <div class="content-wrapper">
+          <div id="content" class="content">
+            
+  
+  <article class="post">
+    <header class="post-header">
+      <h1 class="post-title">
+        
+          AVL树python实现
+        
+      </h1>
+
+      <div class="post-meta">
+        <span class="post-time">
+          2018-06-17
+        </span>
+        
+          <div class="post-category">
+            
+              <a href="/categories/算法/">算法</a>
+            
+          </div>
+        
+        
+      </div>
+    </header>
+
+    
+    
+  <div class="post-toc" id="post-toc">
+    <h2 class="post-toc-title">文章目录</h2>
+    <div class="post-toc-content">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#AVL树"><span class="toc-text">AVL树</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#节点"><span class="toc-text">节点</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#插入操作"><span class="toc-text">插入操作</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#旋转结点使树重新平衡"><span class="toc-text">旋转结点使树重新平衡</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#具体旋转操作："><span class="toc-text">具体旋转操作：</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#左旋"><span class="toc-text">左旋</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#ll"><span class="toc-text">ll</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#lr"><span class="toc-text">lr</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#右旋"><span class="toc-text">右旋</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#rr"><span class="toc-text">rr</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#rl"><span class="toc-text">rl</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#删除操作"><span class="toc-text">删除操作</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#参考"><span class="toc-text">参考</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#AVL树python实现的完整代码"><span class="toc-text">AVL树python实现的完整代码</span></a></li></ol>
+    </div>
+  </div>
+
+
+    <div class="post-content">
+      
+        <blockquote>
+<p>今宵は雪月花</p>
+</blockquote>
+<h2 id="AVL树"><a href="#AVL树" class="headerlink" title="AVL树"></a>AVL树</h2><p>将普通二叉树直接用于查找，平均情况下，仅需要查找一个分支，其时间复杂度为O(log n)。想要使查找时间尽可能短，就要使树的高度经可能短，使二叉树保持平衡状态。如果一个二叉树变得越来越不平衡，最后，其时间复杂度就变成了O(n)，相当于从头到尾遍历所有节点。</p>
+<p>AVL是最先发明的一种自平衡二叉查找树，像普通二叉树一样组织数据。所不同的是，AVL的每一个节点都附带了一个<code>平衡因子</code>，其值代表了左子树和右子树的高度之差。对于每一次改变其平衡性的操作，AVL树都通过执行一次<code>旋转</code>操作来使其重新平衡。每一次插入和删除操作最多可能有<code>log n</code>个节点被旋转。因此，AVL树的插入、删除、查找操作的时间复杂度都在O(log n)。</p>
+<p>下面使用python来实现AVL树。</p>
+<h2 id="节点"><a href="#节点" class="headerlink" title="节点"></a>节点</h2><p>由普通二叉树的节点继承而来：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">AvlNode</span><span class="params">(Node)</span>:</span></span><br><span class="line">    <span class="string">"""</span></span><br><span class="line"><span class="string">    The binary searching tree. Inherit from theo `Node` class.</span></span><br><span class="line"><span class="string">    """</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self, key)</span>:</span></span><br><span class="line">        super().__init__(key)</span><br><span class="line">        self.height = <span class="number">0</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__repr__</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="keyword">return</span> <span class="string">'AvlNode(key=&#123;key&#125;)'</span>.format(key=self.key)</span><br><span class="line"></span><br><span class="line"><span class="meta">    @property</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">max_child_height</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="string">"""</span></span><br><span class="line"><span class="string">        The leaf node's height is 0. So the null node's height is -1.</span></span><br><span class="line"><span class="string">        """</span></span><br><span class="line">        <span class="keyword">return</span> max(self.left.height <span class="keyword">if</span> self.left <span class="keyword">else</span> <span class="number">-1</span>,</span><br><span class="line">                   self.right.height <span class="keyword">if</span> self.right <span class="keyword">else</span> <span class="number">-1</span>)</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">adjust_height</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="string">"""</span></span><br><span class="line"><span class="string">        Search from this node to its ancestor node</span></span><br><span class="line"><span class="string">        until the height doesn't change.</span></span><br><span class="line"><span class="string">        """</span></span><br><span class="line">        old_height = self.height</span><br><span class="line">        self.height = self.max_child_height + <span class="number">1</span></span><br><span class="line">        <span class="keyword">if</span> self.height != old_height <span class="keyword">and</span> self.parent:</span><br><span class="line">            self.parent.adjust_height()</span><br><span class="line"></span><br><span class="line"><span class="meta">    @property</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">balance</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="string">"""</span></span><br><span class="line"><span class="string">        The null node's height is deemed as -1.</span></span><br><span class="line"><span class="string">        """</span></span><br><span class="line">        <span class="keyword">return</span> (self.left.height <span class="keyword">if</span> self.left <span class="keyword">else</span> <span class="number">-1</span>) \</span><br><span class="line">            - (self.right.height <span class="keyword">if</span> self.right <span class="keyword">else</span> <span class="number">-1</span>)</span><br></pre></td></tr></table></figure></p>
+<p>普通二叉树的节点：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Node</span>:</span></span><br><span class="line">    <span class="string">"""</span></span><br><span class="line"><span class="string">    Pure binary tree's node.</span></span><br><span class="line"><span class="string">    """</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self, key)</span>:</span></span><br><span class="line">        <span class="string">"""</span></span><br><span class="line"><span class="string">        Build the node instance.</span></span><br><span class="line"><span class="string">        @param key: The object that implements the __lt__ and __gt__ method.</span></span><br><span class="line"><span class="string">        """</span></span><br><span class="line">        self.key = key</span><br><span class="line">        self.count = <span class="number">1</span></span><br><span class="line">        self.left = <span class="keyword">None</span></span><br><span class="line">        self.right = <span class="keyword">None</span></span><br><span class="line">        self.parent = <span class="keyword">None</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__repr__</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="keyword">return</span> <span class="string">'Node(&#123;key&#125;)'</span>.format(key=self.key)</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">is_root</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="string">"""</span></span><br><span class="line"><span class="string">        Is this is the root node.(have not parent node)</span></span><br><span class="line"><span class="string">        """</span></span><br><span class="line">        <span class="keyword">return</span> bool(self.parent)</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">is_leaf</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="string">"""</span></span><br><span class="line"><span class="string">        Is this is a leaf node.(have not any left or right point)</span></span><br><span class="line"><span class="string">        """</span></span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">not</span> bool(self.left) <span class="keyword">and</span> <span class="keyword">not</span> bool(self.right)</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">is_branch</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="string">"""</span></span><br><span class="line"><span class="string">        Is this is a branch node.(have the left point or right point)</span></span><br><span class="line"><span class="string">        """</span></span><br><span class="line">        <span class="keyword">return</span> bool(self.left) ^ bool(self.right)</span><br></pre></td></tr></table></figure></p>
+<p>与普通二叉树节点不同，AVL树的节点附带了树的高度信息，以此来判断这个节点是否处于平衡状态。如果这个节点的左子树与右子树高度差的绝对值大于1，就视这个节点为不平衡的，应该在稍后执行旋转操作。</p>
+<p>并且AVL树的节点还又一个adjust_height方法，用于在进行一个会改变树高的操作后，重新计算这个节点所属的整个子树的高度，直到高度不再变化，代表调整完毕。</p>
+<h2 id="插入操作"><a href="#插入操作" class="headerlink" title="插入操作"></a>插入操作</h2><p>AVL树的插入操作和普通二叉树类似。只不过在每一次插入后，需要重新计算子树高度（调用插入节点的adjust_height方法）。如果这次插入操作改变了树的平衡性，就需要旋转节点以使树重新平衡。</p>
+<p>插入操作的关键代码如下：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">insert</span><span class="params">(self, key, node=None)</span>:</span></span><br><span class="line">        <span class="string">"""</span></span><br><span class="line"><span class="string">        Insert the key to the tree.</span></span><br><span class="line"><span class="string">        """</span></span><br><span class="line">        new_node = super().insert(key, node=node)</span><br><span class="line">        <span class="keyword">if</span> new_node:</span><br><span class="line">            parent = new_node.parent</span><br><span class="line">            <span class="keyword">while</span> parent:</span><br><span class="line">                <span class="comment"># It has no effect on the node itself</span></span><br><span class="line">                <span class="comment"># but may change its parents' blance.</span></span><br><span class="line">                <span class="keyword">assert</span>(<span class="keyword">not</span> parent.is_leaf())</span><br><span class="line">                parent.height = parent.max_child_height + <span class="number">1</span></span><br><span class="line">                <span class="keyword">if</span> parent.balance <span class="keyword">not</span> <span class="keyword">in</span> [<span class="number">-1</span>, <span class="number">0</span>, <span class="number">1</span>]:</span><br><span class="line">                    self.rebalance(parent)</span><br><span class="line">                    <span class="keyword">break</span></span><br><span class="line">                parent = parent.parent</span><br></pre></td></tr></table></figure>
+<p>这是AvlBiTree类的一个方法，用于为AVL数插入节点。它继承自代表普通二叉树的BiTree类。因此，这里的插入方法覆盖了BiTree的插入方法。在其中调用了父类的insert方法来普通插入节点。之后，再调整树的高度。并且逐一遍历其父节点查看平衡性是否受到破坏。如果平衡新被破坏，就调用rebalance方法旋转节点，使树重新平衡。</p>
+<p>如果进行了一次rebalance旋转操作，代表已经消除了这次插入操作的副作用使树重新平衡。那么，其上所有祖先节点的平衡性都不受这次插入操作的影响。因此，break结束对祖先节点的遍历。代表本次插入操作完成。</p>
+<h2 id="旋转结点使树重新平衡"><a href="#旋转结点使树重新平衡" class="headerlink" title="旋转结点使树重新平衡"></a>旋转结点使树重新平衡</h2><p>关键代表如下：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">rebalance</span><span class="params">(self, node)</span>:</span></span><br><span class="line">        <span class="string">"""</span></span><br><span class="line"><span class="string">        Rotate the appointed node if the balance had been breaked.</span></span><br><span class="line"><span class="string">        """</span></span><br><span class="line">        <span class="keyword">if</span> node.balance == <span class="number">2</span>:</span><br><span class="line">            <span class="keyword">if</span> node.left.balance == <span class="number">1</span>:</span><br><span class="line">                <span class="comment"># LL rotate</span></span><br><span class="line">                self.__ll_rotate(node)</span><br><span class="line">            <span class="keyword">else</span>:</span><br><span class="line">                <span class="keyword">assert</span>(node.left.balance == <span class="number">-1</span>)</span><br><span class="line">                <span class="comment"># LR rotate</span></span><br><span class="line">                self.__lr_rotate(node)</span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            <span class="keyword">assert</span>(node.balance == <span class="number">-2</span>)</span><br><span class="line">            <span class="keyword">if</span> node.right.balance == <span class="number">-1</span>:</span><br><span class="line">                <span class="comment"># RR rotate</span></span><br><span class="line">                self.__rr_rotate(node)</span><br><span class="line">            <span class="keyword">else</span>:</span><br><span class="line">                <span class="keyword">assert</span>(node.right.balance == <span class="number">1</span>)</span><br><span class="line">                <span class="comment"># RL rotate</span></span><br><span class="line">                self.__rl_rotate(node)</span><br></pre></td></tr></table></figure>
+<p>可见，这实际上接近于一个调度方法，根据平衡性的情况，执行不同的旋转操作。</p>
+<h2 id="具体旋转操作："><a href="#具体旋转操作：" class="headerlink" title="具体旋转操作："></a>具体旋转操作：</h2><a id="more"></a>
+<h3 id="左旋"><a href="#左旋" class="headerlink" title="左旋"></a>左旋</h3><h4 id="ll"><a href="#ll" class="headerlink" title="ll"></a>ll</h4><p>如果插入一个节点后使得父节点（平衡性受到破坏的节点）的左节点的平衡性为 1（左子树高度大于右子树），需要对左子树进行一次旋转操作。</p>
+<p>令父节点为A，左子节点为B，旋转步骤为：</p>
+<ol>
+<li>将A的左子树替换为B的右子树。</li>
+<li>将B的右子树替换为A。</li>
+<li>将指向A的节点执行B。</li>
+</ol>
+<p>代码如下：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">__ll_rotate</span><span class="params">(self, node)</span>:</span></span><br><span class="line">        <span class="string">"""</span></span><br><span class="line"><span class="string">        SHOULDN'T be directly invoked by user in any cases.</span></span><br><span class="line"><span class="string">        It will lead to the breakings of the balance if pass a error node</span></span><br><span class="line"><span class="string">        which shouldn't be rotated.</span></span><br><span class="line"><span class="string">        """</span></span><br><span class="line">        parent = node.parent</span><br><span class="line">        left = node.left</span><br><span class="line">        left_right = left.right</span><br><span class="line"></span><br><span class="line">        left.right = node</span><br><span class="line">        node.parent = left</span><br><span class="line"></span><br><span class="line">        node.left = left_right</span><br><span class="line">        <span class="keyword">if</span> left_right:</span><br><span class="line">            left_right.parent = node</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> <span class="keyword">not</span> parent:</span><br><span class="line">            self.root = left</span><br><span class="line">            left.parent = <span class="keyword">None</span></span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            <span class="keyword">if</span> parent.left == node:</span><br><span class="line">                parent.left = left</span><br><span class="line">            <span class="keyword">else</span>:</span><br><span class="line">                <span class="keyword">assert</span>(parent.right == node)</span><br><span class="line">                parent.right = left</span><br><span class="line">            left.parent = parent</span><br><span class="line"></span><br><span class="line">        node.adjust_height()</span><br><span class="line">        left.adjust_height()</span><br></pre></td></tr></table></figure></p>
+<h4 id="lr"><a href="#lr" class="headerlink" title="lr"></a>lr</h4><p>如果插入一个节点后，使得父节点的左子树的平衡性为-1，那么，在左旋一次后，树依然是不平衡的，需要再进行一次左旋操作。</p>
+<p>令父节点为A，A的左节点为B，B的右节点为C。<br>总体的步骤如下：</p>
+<ol>
+<li>将B的右节点替换为C的左节点。</li>
+<li>将A的左节点替换为C的右节点。</li>
+<li>将C的左节点替换为B。</li>
+<li>将C的右节点替换为A。</li>
+<li>将指向A的节点指向C。</li>
+</ol>
+<p>代码如下：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">__lr_rotate</span><span class="params">(self, node)</span>:</span></span><br><span class="line">        parent = node.parent</span><br><span class="line">        left = node.left</span><br><span class="line">        left_right = left.right</span><br><span class="line"></span><br><span class="line">        left.right = left_right.left</span><br><span class="line">        <span class="keyword">if</span> left_right.left:</span><br><span class="line">            left_right.left.parent = left</span><br><span class="line"></span><br><span class="line">        left_right.left = left</span><br><span class="line">        left.parent = left_right</span><br><span class="line"></span><br><span class="line">        node.left = left_right.right</span><br><span class="line">        <span class="keyword">if</span> left_right.right:</span><br><span class="line">            left_right.right.parent = node</span><br><span class="line"></span><br><span class="line">        left_right.right = node</span><br><span class="line">        node.parent = left_right</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> <span class="keyword">not</span> parent:</span><br><span class="line">            self.root = left_right</span><br><span class="line">            left_right.parent = <span class="keyword">None</span></span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            <span class="keyword">if</span> parent.left == node:</span><br><span class="line">                parent.left = left_right</span><br><span class="line">            <span class="keyword">else</span>:</span><br><span class="line">                <span class="keyword">assert</span>(parent.right == node)</span><br><span class="line">                parent.right = left_right</span><br><span class="line">            left_right.parent = parent</span><br><span class="line"></span><br><span class="line">        node.adjust_height()</span><br><span class="line">        left.adjust_height()</span><br></pre></td></tr></table></figure>
+<h3 id="右旋"><a href="#右旋" class="headerlink" title="右旋"></a>右旋</h3><h4 id="rr"><a href="#rr" class="headerlink" title="rr"></a>rr</h4><p>如左旋的ll，只不过方向相反。</p>
+<h4 id="rl"><a href="#rl" class="headerlink" title="rl"></a>rl</h4><p>如左旋的lr，只不过方向相反。</p>
+<h2 id="删除操作"><a href="#删除操作" class="headerlink" title="删除操作"></a>删除操作</h2><p>和普通的二叉树相比，AVL树的删除操作稍显复杂，因为涉及到调整平衡性的问题。</p>
+<p>不妨考虑以下四种情况</p>
+<ul>
+<li>如果删除的是叶子节点。<ul>
+<li>如果删除的是叶子节点（没有左右子节点），直接删除。这个节点（None)的平衡性不受影响。</li>
+</ul>
+</li>
+<li>如果删除的是分支节点。<ul>
+<li>如果删除的是分支上的节点（有左右子节点中的一个），将其替换为它的那个子节点。这个节点（子节点）的平衡性不受影响。</li>
+</ul>
+</li>
+<li>如果删除的节点有两个子节点<ul>
+<li>如果删除的节点有两个子节点。如果其左子树的高度大于右子树，取其左子树上最大的那个节点；如果其右子树的高度大于左子树，取其右子树上最小的那个节点。然后用取的节点替换当前节点。最后，再删除取的那个节点。这样，这个节点（取的节点）的平衡性不受影响。</li>
+</ul>
+</li>
+<li>如果要删除的不是本节点<ul>
+<li>如果要删除的节点不是本节点，而是本节点的子节点。那么，本节点的平衡性可能回受影响，在删除操作完毕后，需要对其进行重新平衡（旋转）操作。</li>
+</ul>
+</li>
+</ul>
+<p>可以看出，实际上，可以用类似递归的方法处理删除操作。关键代码如下：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">_remove</span><span class="params">(self, node)</span>:</span></span><br><span class="line">        <span class="string">"""</span></span><br><span class="line"><span class="string">        Directly remove the node no matter how many counts in the node.</span></span><br><span class="line"><span class="string">        @param node: the node in this tree which will be removed later.</span></span><br><span class="line"><span class="string">        """</span></span><br><span class="line">        parent = node.parent</span><br><span class="line">        <span class="keyword">if</span> node.is_leaf():</span><br><span class="line">            self.__remove_leaf(node)</span><br><span class="line">        <span class="keyword">elif</span> node.is_branch():</span><br><span class="line">            self.__remove_branch(node)</span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            <span class="keyword">assert</span>(node.left <span class="keyword">and</span> node.right)</span><br><span class="line">            self.__remove_node(node)</span><br><span class="line">            <span class="keyword">return</span> node</span><br><span class="line"></span><br><span class="line">        <span class="keyword">while</span> parent:</span><br><span class="line">                <span class="comment"># Remove the node will lead the breakings of</span></span><br><span class="line">                <span class="comment"># the balance on its parent node.</span></span><br><span class="line">                <span class="comment"># So reset the balance then remove it.</span></span><br><span class="line">            parent.height = parent.height - <span class="number">1</span></span><br><span class="line">            <span class="keyword">if</span> parent.balance <span class="keyword">not</span> <span class="keyword">in</span> [<span class="number">-1</span>, <span class="number">0</span>, <span class="number">1</span>]:</span><br><span class="line">                self.rebalance(parent)</span><br><span class="line">                <span class="keyword">break</span></span><br><span class="line">            parent = parent.parent</span><br><span class="line">        <span class="keyword">return</span> node</span><br></pre></td></tr></table></figure></p>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><p>《算法精解-C语言描述》</p>
+<p><a href="https://zh.wikipedia.org/wiki/AVL%E6%A0%91" target="_blank" rel="noopener">https://zh.wikipedia.org/wiki/AVL%E6%A0%91</a></p>
+<p><a href="http://www.cnblogs.com/linxiyue/p/3659448.html" target="_blank" rel="noopener">http://www.cnblogs.com/linxiyue/p/3659448.html</a></p>
+<p><a href="https://segmentfault.com/a/1190000007054898" target="_blank" rel="noopener">https://segmentfault.com/a/1190000007054898</a></p>
+<h2 id="AVL树python实现的完整代码"><a href="#AVL树python实现的完整代码" class="headerlink" title="AVL树python实现的完整代码"></a>AVL树python实现的完整代码</h2><p>放在了github gist里，可能需要vpn:</p>
+<p><a href="https://gist.github.com/Arianxx/5226596ee425a6ee0b1be074a7f85d13" target="_blank" rel="noopener">https://gist.github.com/Arianxx/5226596ee425a6ee0b1be074a7f85d13</a></p>
+<script src="https://gist.github.com/Arianxx/5226596ee425a6ee0b1be074a7f85d13.js"></script>
+      
+    </div>
+
+    
+      
+      
+
+  <div class="post-copyright">
+    <p class="copyright-item">
+      <span>原文作者: </span>
+      <a href="https://arianx.me">Arian</a>
+    </p>
+    <p class="copyright-item">
+      <span>原文链接: </span>
+      <a href="https://arianx.me/2018/06/17/python-avl-binary-tree/">https://arianx.me/2018/06/17/python-avl-binary-tree/</a>
+    </p>
+    <p class="copyright-item">
+      <span>许可协议: </span>
+      
+      本文采用<a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/" target="_blank">知识共享署名-非商业性使用 4.0 国际许可协议</a>
+    </p>
+  </div>
+
+
+
+      
+      
+    
+
+    
+      <footer class="post-footer">
+        
+          <div class="post-tags">
+            
+              <a href="/tags/python/">python</a>
+            
+              <a href="/tags/算法/">算法</a>
+            
+          </div>
+        
+        
+        
+  <nav class="post-nav">
+    
+    
+      <a class="next" href="/2018/06/07/The-usage-of-the-raise-from-in-python/">
+        <span class="next-text nav-default">python在异常捕获里抛出异常</span>
+        <span class="prev-text nav-mobile">下一篇</span>
+        <i class="iconfont icon-right"></i>
+      </a>
+    
+  </nav>
+
+      </footer>
+    
+
+  </article>
+
+
+          </div>
+          
+  <div class="comments" id="comments">
+    
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
+      </div>
+    
+  </div>
+
+
+        </div>
+      </main>
+
+      <footer id="footer" class="footer">
+
+  <div class="social-links">
+    
+      
+        
+          <a href="mailto:ysnyyhs@163.com" class="iconfont icon-email" title="email"></a>
+        
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+        
+          <a href="https://github.com/Arianxx" class="iconfont icon-github" title="github"></a>
+        
+      
+    
+      
+    
+      
+    
+      
+        
+          <a href="https://www.douban.com/people/131732783/" class="iconfont icon-douban" title="douban"></a>
+        
+      
+    
+      
+    
+      
+    
+      
+    
+    
+    
+      <a href="/atom.xml" class="iconfont icon-rss" title="rss"></a>
+    
+  </div>
+
+
+<div class="copyright">
+  <span class="power-by">
+    由 <a class="hexo-link" href="https://hexo.io/">Hexo</a> 强力驱动
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    主题 - 
+    <a class="theme-link" href="https://github.com/ahonn/hexo-theme-even">Even</a>
+  </span>
+
+  <span class="copyright-year">
+    
+    &copy; 
+     
+      2017 - 
+    
+    2018
+
+    <span class="heart">
+      <i class="iconfont icon-heart"></i>
+    </span>
+    <span class="author">Arian</span>
+  </span>
+</div>
+
+      </footer>
+
+      <div class="back-to-top" id="back-to-top">
+        <i class="iconfont icon-up"></i>
+      </div>
+    </div>
+
+    
+  
+  <script type="text/javascript">
+    var disqus_config = function () {
+        this.page.url = 'https://arianx.me/2018/06/17/python-avl-binary-tree/';
+        this.page.identifier = '2018/06/17/python-avl-binary-tree/';
+        this.page.title = 'AVL树python实现';
+    };
+    (function() {
+    var d = document, s = d.createElement('script');
+
+    s.src = '//arianx.disqus.com/embed.js';
+
+    s.setAttribute('data-timestamp', +new Date());
+    (d.head || d.body).appendChild(s);
+    })();  
+  </script>
+
+  
+
+  
+
+
+
+    
+
+
+
+
+  
+    <script type="text/javascript" src="/lib/jquery/jquery-3.1.1.min.js"></script>
+  
+
+  
+    <script type="text/javascript" src="/lib/slideout/slideout.js"></script>
+  
+
+  
+
+
+    <script type="text/javascript" src="/js/src/even.js?v=2.6.0"></script>
+<script type="text/javascript" src="/js/src/bootstrap.js?v=2.6.0"></script>
+
+  <script src="/live2dw/lib/L2Dwidget.min.js?0c58a1486de42ac6cc1c59c7d98ae887"></script><script>L2Dwidget.init({"model":{"scale":1,"hHeadPos":0.5,"vHeadPos":0.618,"jsonPath":"/live2dw/assets/model.model.json"},"display":{"superSample":2,"width":120,"height":240,"position":"left","hOffset":0,"vOffset":-165},"mobile":{"show":false,"scale":0.5},"react":{"opacityDefault":1,"opacityOnhover":1},"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/"});</script></body>
+</html>
