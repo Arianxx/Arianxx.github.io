@@ -1,0 +1,497 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+  <head>
+    
+<meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+
+  <meta name="description" content="十种常见的排序方法"/>
+
+
+
+
+  <meta name="keywords" content="python, Arian.X" />
+
+
+
+
+
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="Arian.X">
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=2.6.0" />
+
+
+
+<link rel="canonical" href="https://arianx.me/2018/06/22/Common-sort-algorithm/"/>
+
+
+<link rel="stylesheet" type="text/css" href="/css/style.css?v=2.6.0" />
+
+
+
+
+
+
+  
+  <script id="baidu_analytics">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?7da15ed69b10673f5e71fb736eca6373";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+  <script id="google_analytics">
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+        ga('create', 'UA-113448663-1', 'auto');
+        ga('send', 'pageview');
+  </script>
+
+
+  <script id="baidu_push">
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+
+
+
+
+
+
+
+    <title> 十种常见的排序方法 - Arian.X </title>
+  </head>
+
+  <body><div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/." class="logo">Arian.X</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    
+      <a href="/">
+        <li class="mobile-menu-item">
+          
+          
+            首页
+          
+        </li>
+      </a>
+    
+      <a href="/archives/">
+        <li class="mobile-menu-item">
+          
+          
+            归档
+          
+        </li>
+      </a>
+    
+      <a href="/tags">
+        <li class="mobile-menu-item">
+          
+          
+            标签
+          
+        </li>
+      </a>
+    
+      <a href="/about">
+        <li class="mobile-menu-item">
+          
+          
+            关于
+          
+        </li>
+      </a>
+    
+  </ul>
+</nav>
+
+    <div class="container" id="mobile-panel">
+      <header id="header" class="header"><div class="logo-wrapper">
+  <a href="/." class="logo">Arian.X</a>
+</div>
+
+<nav class="site-navbar">
+  
+    <ul id="menu" class="menu">
+      
+        <li class="menu-item">
+          <a class="menu-item-link" href="/">
+            
+            
+              首页
+            
+          </a>
+        </li>
+      
+        <li class="menu-item">
+          <a class="menu-item-link" href="/archives/">
+            
+            
+              归档
+            
+          </a>
+        </li>
+      
+        <li class="menu-item">
+          <a class="menu-item-link" href="/tags">
+            
+            
+              标签
+            
+          </a>
+        </li>
+      
+        <li class="menu-item">
+          <a class="menu-item-link" href="/about">
+            
+            
+              关于
+            
+          </a>
+        </li>
+      
+    </ul>
+  
+</nav>
+
+      </header>
+
+      <main id="main" class="main">
+        <div class="content-wrapper">
+          <div id="content" class="content">
+            
+  
+  <article class="post">
+    <header class="post-header">
+      <h1 class="post-title">
+        
+          十种常见的排序方法
+        
+      </h1>
+
+      <div class="post-meta">
+        <span class="post-time">
+          2018-06-22
+        </span>
+        
+          <div class="post-category">
+            
+              <a href="/categories/python/">python</a>
+            
+          </div>
+        
+        
+      </div>
+    </header>
+
+    
+    
+  <div class="post-toc" id="post-toc">
+    <h2 class="post-toc-title">文章目录</h2>
+    <div class="post-toc-content">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#简介"><span class="toc-text">简介</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#冒泡排序"><span class="toc-text">冒泡排序</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#选择排序"><span class="toc-text">选择排序</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#插入排序"><span class="toc-text">插入排序</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#希尔排序"><span class="toc-text">希尔排序</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#快速排序"><span class="toc-text">快速排序</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#归并排序"><span class="toc-text">归并排序</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#堆排序"><span class="toc-text">堆排序</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#计数排序"><span class="toc-text">计数排序</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#基数排序"><span class="toc-text">基数排序</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#桶排序"><span class="toc-text">桶排序</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#各个排序算法的运行时间比较"><span class="toc-text">各个排序算法的运行时间比较</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#并不真实的碎碎念"><span class="toc-text">并不真实的碎碎念</span></a></li></ol>
+    </div>
+  </div>
+
+
+    <div class="post-content">
+      
+        <h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>本文介绍了十种常见简单排序算法的python实现。</p>
+<p>将要介绍的这十种排序算法分别是——冒泡排序、选择排序、插入排序、希尔排序、快速排序、归并排序、堆排序、计数排序、基数排序、桶排序</p>
+<h2 id="冒泡排序"><a href="#冒泡排序" class="headerlink" title="冒泡排序"></a>冒泡排序</h2><p>一遍遍遍历元素，两两交换其中不符合顺序的元素，将最大（或最小的）那个元素提取到最边缘的位置，直到不再有需要交换的元素为止。冒泡排序时常是排序算法中比较简单，也比较低效的一种排序方式。其时间复杂度为<code>O(n^2)</code>，空间复杂度为<code>O(1)</code>。</p>
+<p>实现：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 冒泡排序</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">bubble_sort</span><span class="params">(data, compare=lambda x, y: x &lt;= y)</span>:</span></span><br><span class="line">    length = len(data)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(length):</span><br><span class="line">        <span class="keyword">for</span> j <span class="keyword">in</span> range(<span class="number">0</span>, length - i - <span class="number">1</span>):</span><br><span class="line">            <span class="keyword">if</span> <span class="keyword">not</span> compare(data[j], data[j + <span class="number">1</span>]):</span><br><span class="line">                data[j], data[j + <span class="number">1</span>] = data[j + <span class="number">1</span>], data[j]</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> data</span><br></pre></td></tr></table></figure></p>
+<h2 id="选择排序"><a href="#选择排序" class="headerlink" title="选择排序"></a>选择排序</h2><p>每一次遍历元素，都选择其余元素中最小或最大的那个元素，每一次都缩小遍历范围直到遍历完成。选择排序的时间复杂度仍然为<code>O(n^2)</code>，空间复杂度为<code>O(1)</code>。即使如此，选择排序的性能要略优于冒泡排序。</p>
+<p>实现<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 选择排序</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">selection_sort</span><span class="params">(data, compare=lambda x, y: x &lt;= y)</span>:</span></span><br><span class="line">    length = len(data)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(length):</span><br><span class="line">        index = i</span><br><span class="line">        <span class="keyword">for</span> j <span class="keyword">in</span> range(i + <span class="number">1</span>, length):</span><br><span class="line">            <span class="keyword">if</span> <span class="keyword">not</span> compare(data[index], data[j]):</span><br><span class="line">                index = j</span><br><span class="line">        data[index], data[i] = data[i], data[index]</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> data</span><br></pre></td></tr></table></figure></p>
+<h2 id="插入排序"><a href="#插入排序" class="headerlink" title="插入排序"></a>插入排序</h2><p>插入排序的基本思想是将一个数插入一个已经排好序的序列中，并且在插入后仍然保持有序。实现上将每个序列最开始的部分视为有序，然后依次将后面的元素插入前面的有序列表。直到遍历所有元素，即得到一个全部有序的列表。插入排序的时间复杂度仍为<code>O(n^2)</code>，空间复杂度为<code>O(1)</code>。然而在数据量或数据基本有序时，插入排序将会拥有比冒泡和选择排序稍优异的性能。因此，经常将插入排序用作某些复合排序方法中的一部分。</p>
+<p>实现<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 插入排序</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">ins_sort</span><span class="params">(data, compare=lambda x, y: x &lt;= y)</span>:</span></span><br><span class="line">    <span class="keyword">for</span> index, value <span class="keyword">in</span> enumerate(data):</span><br><span class="line">        <span class="keyword">while</span> index &gt; <span class="number">0</span>:</span><br><span class="line">            <span class="keyword">if</span> <span class="keyword">not</span> compare(data[index - <span class="number">1</span>], data[index]):</span><br><span class="line">                data[index], data[index - <span class="number">1</span>] = data[index - <span class="number">1</span>], data[index]</span><br><span class="line">            index -= <span class="number">1</span></span><br><span class="line">    <span class="keyword">return</span> data</span><br></pre></td></tr></table></figure></p>
+<h2 id="希尔排序"><a href="#希尔排序" class="headerlink" title="希尔排序"></a>希尔排序</h2><p>希尔排序基于插入排序。与插入排序每次比较交换最近的元素，依次向后遍历不同，希尔排序将序列分成几组，对这几组分别进行插入排序。然后缩小分组的间隔后再次分组，执行插入排序，直到分组间隔为1。可以看出，每一次分组，序列都将越来越有序，从而执行插入排序比较、交换的次数就会越来越少。因此，希尔排序的速度要优于O(n^2)，平均为O(nlog^2n)，最好为O(nlogn)。</p>
+<p>从另一个方面看，排序的实质实际上是消除序列中的逆序数。冒泡、选择、插入等一次交换仅消除一个逆序数，而希尔排序一次交换会消除多个逆序数。因此希尔排序比普通插入排序更快。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 希尔排序</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">shell_sort</span><span class="params">(data, compare=lambda x, y: x &lt;= y)</span>:</span></span><br><span class="line">    length = len(data)</span><br><span class="line">    gap = length // <span class="number">2</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">while</span> gap &gt; <span class="number">0</span>:</span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> range(gap, length, gap):</span><br><span class="line">            current = data[i]</span><br><span class="line"></span><br><span class="line">            <span class="keyword">while</span> i &gt;= gap <span class="keyword">and</span> <span class="keyword">not</span> compare(data[i - gap], current):</span><br><span class="line">                data[i] = data[i - gap]</span><br><span class="line">                i -= gap</span><br><span class="line"></span><br><span class="line">            data[i] = current</span><br><span class="line">        gap = gap // <span class="number">2</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> data</span><br></pre></td></tr></table></figure>
+<h2 id="快速排序"><a href="#快速排序" class="headerlink" title="快速排序"></a>快速排序</h2><p>快速排序是分治法的体现。每次排序都选择一个基准元素，将序列分成独立的两部分，一部分中的所有元素始终小于基准元素，另一部分中的所有元素始终大于基准元素。对这两部分序列分别进行快速排序，直到序列不可再分。此时序列即是有序的。快速排序的平均时间复杂度为<code>O(nlogn)</code>，最坏情况为<code>O(n^2)</code>，空间复杂度为<code>O(logn)</code>（递归）。</p>
+<p>两种实现<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 快速排序1</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">quick_sort1</span><span class="params">(data, begin=None, end=None, compare=lambda x, y: x &lt;= y)</span>:</span></span><br><span class="line">    <span class="keyword">from</span> random <span class="keyword">import</span> randint</span><br><span class="line"></span><br><span class="line">    begin = begin <span class="keyword">if</span> begin <span class="keyword">is</span> <span class="keyword">not</span> <span class="keyword">None</span> <span class="keyword">else</span> <span class="number">0</span></span><br><span class="line">    end = end <span class="keyword">if</span> end <span class="keyword">is</span> <span class="keyword">not</span> <span class="keyword">None</span> <span class="keyword">else</span> (len(data) - <span class="number">1</span>)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> begin &gt;= end:</span><br><span class="line">        <span class="keyword">return</span> data</span><br><span class="line"></span><br><span class="line">    key = randint(begin, end)</span><br><span class="line">    data[begin], data[key] = data[key], data[begin]</span><br><span class="line">    left = begin</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> index <span class="keyword">in</span> range(begin + <span class="number">1</span>, end + <span class="number">1</span>):</span><br><span class="line">        <span class="keyword">if</span> compare(data[index], data[begin]):</span><br><span class="line">            left += <span class="number">1</span></span><br><span class="line">            data[left], data[index] = data[index], data[left]</span><br><span class="line">    data[left], data[begin] = data[begin], data[left]</span><br><span class="line"></span><br><span class="line">    quick_sort1(data, begin, left - <span class="number">1</span>)</span><br><span class="line">    quick_sort1(data, left + <span class="number">1</span>, end)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> data</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># 快速排序2</span></span><br><span class="line">quick_sort2 = <span class="keyword">lambda</span> data, compare=<span class="keyword">lambda</span> x, y: x &lt; y: \</span><br><span class="line">    data <span class="keyword">if</span> len(data) &lt; <span class="number">2</span> <span class="keyword">else</span> \</span><br><span class="line">    quick_sort2([a <span class="keyword">for</span> a <span class="keyword">in</span> data <span class="keyword">if</span> compare(a, data[<span class="number">0</span>])]) + \</span><br><span class="line">    [data[<span class="number">0</span>] * data.count(data[<span class="number">0</span>])] + \</span><br><span class="line">    quick_sort2([b <span class="keyword">for</span> b <span class="keyword">in</span> data <span class="keyword">if</span> compare(data[<span class="number">0</span>], b)])</span><br></pre></td></tr></table></figure></p>
+<h2 id="归并排序"><a href="#归并排序" class="headerlink" title="归并排序"></a>归并排序</h2><p>归并排序同运用了分治法的思想。归并排序将数据分为两部分，对每部分序列一次运用归并排序，直到不可再分，然后将各部分有序序列组合起来。最终返回的即为有序序列。归并排序的时间复杂度是<code>O(nlogn)</code>。</p>
+<p>实现：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">merge</span><span class="params">(data, i, j, k, compare)</span>:</span></span><br><span class="line">    new_data = []</span><br><span class="line">    data1, data2 = data[i:j + <span class="number">1</span>], data[j + <span class="number">1</span>:k + <span class="number">1</span>]</span><br><span class="line">    a, b = <span class="number">0</span>, <span class="number">0</span></span><br><span class="line">    <span class="keyword">while</span> a &lt; len(data1) <span class="keyword">and</span> b &lt; len(data2):</span><br><span class="line">        <span class="keyword">if</span> compare(data1[a], data2[b]):</span><br><span class="line">            new_data.append(data1[a])</span><br><span class="line">            a += <span class="number">1</span></span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            new_data.append(data2[b])</span><br><span class="line">            b += <span class="number">1</span></span><br><span class="line">    new_data.extend(data1[a:])</span><br><span class="line">    new_data.extend(data2[b:])</span><br><span class="line">    data[i:k + <span class="number">1</span>] = new_data</span><br><span class="line">    <span class="keyword">return</span> data</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">merge_sort</span><span class="params">(data, begin=None, end=None, compare=lambda x, y: x &lt; y)</span>:</span></span><br><span class="line">    begin = begin <span class="keyword">if</span> begin <span class="keyword">is</span> <span class="keyword">not</span> <span class="keyword">None</span> <span class="keyword">else</span> <span class="number">0</span></span><br><span class="line">    end = end <span class="keyword">if</span> end <span class="keyword">is</span> <span class="keyword">not</span> <span class="keyword">None</span> <span class="keyword">else</span> (len(data) - <span class="number">1</span>)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> begin &lt; end:</span><br><span class="line">        mid = (begin + end) // <span class="number">2</span></span><br><span class="line"></span><br><span class="line">        merge_sort(data, begin, mid, compare)</span><br><span class="line"></span><br><span class="line">        merge_sort(data, mid + <span class="number">1</span>, end, compare)</span><br><span class="line"></span><br><span class="line">        merge(data, begin, mid, end, compare)</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> data</span><br></pre></td></tr></table></figure></p>
+<h2 id="堆排序"><a href="#堆排序" class="headerlink" title="堆排序"></a>堆排序</h2><p>参见上一篇文章</p>
+<h2 id="计数排序"><a href="#计数排序" class="headerlink" title="计数排序"></a>计数排序</h2><p>计数排序是一种非比较的，稳定的线性时间排序算法。它将序列中的元素与一个数组中的位置对应。这个数组的下标是元素的值，这个位置储存的值是元素在新序列里所处于的位置。由n个元素组成，最大值为k的序列，首先构建一个长度为k的数组，遍历序列将它映射到数组之中，最后根据数组生成新的有序序列。因此，计数排序的时间复杂度与空间复杂度均为<code>O(n + k)</code>。</p>
+<p>计数排序适用于容易将序列的值映射为整数，且跨度不太大的情况下。并且，序列排序经常被用于更复杂的排序（如基数排序）的基本排序方法。</p>
+<p>实现:<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 计数排序</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">counting_sort</span><span class="params">(data, max_value=None)</span>:</span></span><br><span class="line">    <span class="string">"""</span></span><br><span class="line"><span class="string">    @param data: 要排序的可迭代对象</span></span><br><span class="line"><span class="string">    @param max: data里的最大值</span></span><br><span class="line"><span class="string">    """</span></span><br><span class="line">    max_value = max_value <span class="keyword">if</span> max_value <span class="keyword">is</span> <span class="keyword">not</span> <span class="keyword">None</span> <span class="keyword">else</span> max(data)</span><br><span class="line"></span><br><span class="line">    result = [<span class="keyword">None</span> <span class="keyword">for</span> _ <span class="keyword">in</span> range(len(data))]</span><br><span class="line">    position = [<span class="number">0</span> <span class="keyword">for</span> _ <span class="keyword">in</span> range(max_value + <span class="number">1</span>)]</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> value <span class="keyword">in</span> data:</span><br><span class="line">        position[value] += <span class="number">1</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> index <span class="keyword">in</span> range(<span class="number">1</span>, max_value + <span class="number">1</span>):</span><br><span class="line">        position[index] += position[index - <span class="number">1</span>]</span><br><span class="line"></span><br><span class="line">    n = len(data) - <span class="number">1</span></span><br><span class="line">    <span class="keyword">while</span> n &gt;= <span class="number">0</span>:</span><br><span class="line">        value = data[n]</span><br><span class="line">        result[position[value] - <span class="number">1</span>] = value</span><br><span class="line">        position[value] -= <span class="number">1</span></span><br><span class="line">        n -= <span class="number">1</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> result</span><br></pre></td></tr></table></figure></p>
+<a id="more"></a>
+<h2 id="基数排序"><a href="#基数排序" class="headerlink" title="基数排序"></a>基数排序</h2><p>基数排序根据给定的基数，对序列元素的每一位依次进行计数排序。因为基数排序对p位元素的每一位都执行了计数排序，因此其时间复杂度为计数排序的p倍，即<code>O(p * (n + k))</code>。</p>
+<p>与计数排序不同，只要可以将元素分成整形数字组成的几部分（如：字符串），就可以使用基数排序。</p>
+<p>实现：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 基数排序</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">radix_sort</span><span class="params">(data, exp=<span class="number">10</span>, digit=<span class="number">5</span>)</span>:</span></span><br><span class="line">    <span class="keyword">from</span> math <span class="keyword">import</span> pow</span><br><span class="line">    <span class="string">"""</span></span><br><span class="line"><span class="string">    @param data: 待排序的可迭代对象</span></span><br><span class="line"><span class="string">    @param exp: 排序的基数</span></span><br><span class="line"><span class="string">    @param digit: 数据的最大位数</span></span><br><span class="line"><span class="string">    """</span></span><br><span class="line">    <span class="keyword">for</span> e <span class="keyword">in</span> range(digit):</span><br><span class="line">        result = [<span class="keyword">None</span> <span class="keyword">for</span> _ <span class="keyword">in</span> range(len(data))]</span><br><span class="line">        now_exp = pow(exp, e)</span><br><span class="line">        position = [<span class="number">0</span> <span class="keyword">for</span> _ <span class="keyword">in</span> range(exp)]</span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span> value <span class="keyword">in</span> data:</span><br><span class="line">            bit = int(value / now_exp) % exp</span><br><span class="line">            position[bit] += <span class="number">1</span></span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span> index <span class="keyword">in</span> range(<span class="number">1</span>, exp):</span><br><span class="line">            position[index] += position[index - <span class="number">1</span>]</span><br><span class="line"></span><br><span class="line">        n = len(data) - <span class="number">1</span></span><br><span class="line">        <span class="keyword">while</span> n &gt;= <span class="number">0</span>:</span><br><span class="line">            bit = int(data[n] / now_exp) % exp</span><br><span class="line">            result[position[bit] - <span class="number">1</span>] = data[n]</span><br><span class="line">            position[bit] -= <span class="number">1</span></span><br><span class="line">            n -= <span class="number">1</span></span><br><span class="line"></span><br><span class="line">        data = result</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> data</span><br></pre></td></tr></table></figure></p>
+<h2 id="桶排序"><a href="#桶排序" class="headerlink" title="桶排序"></a>桶排序</h2><p>桶排序将序列分到有限个数量的桶里，每个桶中的元素均处于某一个区间，对每个桶里的元素分别进行排序，最后再将每个桶组合起来。在序列中的值均匀分配的情况下，有n个元素，分到k个桶里，桶排序的时间复杂度为<code>O(n + k)</code>，空间复杂度为<code>O(n * k)</code>。</p>
+<p>实现：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 桶排序</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">bucket_sort</span><span class="params">(data, bucket_size=<span class="number">1</span>, compare=lambda x, y: x &lt;= y)</span>:</span></span><br><span class="line">    min_value, max_value = int(min(data)), int(max(data))</span><br><span class="line">    bucket_count = (max_value - min_value) // bucket_size + <span class="number">1</span></span><br><span class="line">    buckets = [[] <span class="keyword">for</span> _ <span class="keyword">in</span> range(bucket_count)]</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> value <span class="keyword">in</span> data:</span><br><span class="line">        buckets[(value - min_value) // bucket_size].append(value)</span><br><span class="line"></span><br><span class="line">    index = <span class="number">0</span></span><br><span class="line">    <span class="keyword">for</span> bucket <span class="keyword">in</span> buckets:</span><br><span class="line">        ins_sort(bucket, compare)</span><br><span class="line">        <span class="keyword">for</span> value <span class="keyword">in</span> bucket:</span><br><span class="line">            data[index] = value</span><br><span class="line">            index += <span class="number">1</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> data</span><br></pre></td></tr></table></figure></p>
+<h2 id="各个排序算法的运行时间比较"><a href="#各个排序算法的运行时间比较" class="headerlink" title="各个排序算法的运行时间比较"></a>各个排序算法的运行时间比较</h2><p>分别测试了2000个元素和20000个随机元素下，各排序算法花费的时间：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">compare</span><span class="params">(FAKE_COUNT=<span class="number">5000</span>, FAKE_RANGE=<span class="number">10000</span>)</span>:</span></span><br><span class="line">    <span class="keyword">import</span> time</span><br><span class="line">    <span class="keyword">import</span> random</span><br><span class="line"></span><br><span class="line">    fake_data = [random.randint(<span class="number">0</span>, FAKE_RANGE) <span class="keyword">for</span> _ <span class="keyword">in</span> range(FAKE_COUNT)]</span><br><span class="line">    times = &#123;&#125;</span><br><span class="line"></span><br><span class="line">    sort_methods = [bubble_sort, selection_sort, ins_sort, shell_sort,</span><br><span class="line">                    quick_sort1, quick_sort2, merge_sort, counting_sort,</span><br><span class="line">                    radix_sort, bucket_sort]</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> method <span class="keyword">in</span> sort_methods:</span><br><span class="line"></span><br><span class="line">        start = time.time()</span><br><span class="line">        method(list(fake_data))</span><br><span class="line">        end = time.time()</span><br><span class="line"></span><br><span class="line">        times[method.__name__] = end - start</span><br><span class="line"></span><br><span class="line">    sorted_time = sorted(times, key=<span class="keyword">lambda</span> x: times[x])</span><br><span class="line">    <span class="keyword">for</span> key <span class="keyword">in</span> sorted_time:</span><br><span class="line">        print(<span class="string">"&#123;key:&lt;15&#125;:&#123;time:&lt;20&#125;"</span>.format(key=key, time=times[key]))</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">'__main__'</span>:</span><br><span class="line">    print(<span class="string">'COUNT:2000\tSIZE:2000'</span>)</span><br><span class="line">    compare(<span class="number">2000</span>, <span class="number">2000</span>)</span><br><span class="line">    print(<span class="string">'COUNT:20000\tSIZE:20000'</span>)</span><br><span class="line">    compare(<span class="number">20000</span>, <span class="number">20000</span>)</span><br></pre></td></tr></table></figure></p>
+<p>结果为:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">COUNT:2000      SIZE:2000</span><br><span class="line">counting_sort  :0.002000093460083008</span><br><span class="line">bucket_sort    :0.0020058155059814453</span><br><span class="line">&lt;lambda&gt;       :0.009976387023925781</span><br><span class="line">radix_sort     :0.014000892639160156</span><br><span class="line">quick_sort1    :0.017019033432006836</span><br><span class="line">merge_sort     :0.026001930236816406</span><br><span class="line">shell_sort     :0.32696533203125</span><br><span class="line">selection_sort :0.45195460319519043</span><br><span class="line">ins_sort       :0.9020371437072754</span><br><span class="line">bubble_sort    :1.868042230606079</span><br><span class="line"></span><br><span class="line">COUNT:20000     SIZE:20000</span><br><span class="line">counting_sort  :0.01299905776977539</span><br><span class="line">bucket_sort    :0.025992870330810547</span><br><span class="line">radix_sort     :0.08400774002075195</span><br><span class="line">&lt;lambda&gt;       :0.12100505828857422</span><br><span class="line">quick_sort1    :0.13498902320861816</span><br><span class="line">merge_sort     :0.1459970474243164</span><br><span class="line">shell_sort     :25.587008714675903</span><br><span class="line">selection_sort :43.999064207077026</span><br><span class="line">ins_sort       :70.03945851325989</span><br><span class="line">bubble_sort    :84.87412595748901</span><br></pre></td></tr></table></figure></p>
+<h2 id="并不真实的碎碎念"><a href="#并不真实的碎碎念" class="headerlink" title="并不真实的碎碎念"></a>并不真实的碎碎念</h2><p>不知不觉间，大一就快要结束了呢</p>
+<p>~~&gt;_&lt;~~</p>
+<p>曾经许多彷徨的心情，迷茫的心境，</p>
+<p>流逝的许多时间，都被抛掷给灼热发白的夏日。</p>
+<p>暑假在略带焦躁的不安中来临的时候，</p>
+<p>甚至恍惚年岁将逝，如此迅疾，</p>
+<p>甚至来不及说一身再见。</p>
+<p>然而，夏日如此高远，</p>
+<p>清晨泛起的紫色霞光，</p>
+<p>消散在万里无云的晴空，如此高远。</p>
+<p>看见曾经走入的迷途（歧路），</p>
+<p>也曾想要逃避，然而——</p>
+<p>未来终究来临。</p>
+<p>想要抓住的岁月，流逝的岁月，</p>
+<p>曾经的自己。</p>
+<p>究竟被遗忘在时光的哪个角落里了呢？</p>
+<p>至少留下来那个孩子的气息啊</p>
+<p>然而</p>
+<p>曲折向前的道路，不知道我们将要前往的地方</p>
+<hr>
+<p>诶，六月炎炎近酷暑，吹着空调写代码╮（╯＿╰）╭</p>
+
+      
+    </div>
+
+    
+      
+      
+
+  <div class="post-copyright">
+    <p class="copyright-item">
+      <span>原文作者: </span>
+      <a href="https://arianx.me">Arian</a>
+    </p>
+    <p class="copyright-item">
+      <span>原文链接: </span>
+      <a href="https://arianx.me/2018/06/22/Common-sort-algorithm/">https://arianx.me/2018/06/22/Common-sort-algorithm/</a>
+    </p>
+    <p class="copyright-item">
+      <span>许可协议: </span>
+      
+      本文采用<a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/" target="_blank">知识共享署名-非商业性使用 4.0 国际许可协议</a>
+    </p>
+  </div>
+
+
+
+      
+      
+    
+
+    
+      <footer class="post-footer">
+        
+          <div class="post-tags">
+            
+              <a href="/tags/python/">python</a>
+            
+          </div>
+        
+        
+        
+  <nav class="post-nav">
+    
+    
+      <a class="next" href="/2018/06/17/Heap-in-python/">
+        <span class="next-text nav-default">堆排序python实现</span>
+        <span class="prev-text nav-mobile">下一篇</span>
+        <i class="iconfont icon-right"></i>
+      </a>
+    
+  </nav>
+
+      </footer>
+    
+
+  </article>
+
+
+          </div>
+          
+  <div class="comments" id="comments">
+    
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
+      </div>
+    
+  </div>
+
+
+        </div>
+      </main>
+
+      <footer id="footer" class="footer">
+
+  <div class="social-links">
+    
+      
+        
+          <a href="mailto:ysnyyhs@163.com" class="iconfont icon-email" title="email"></a>
+        
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+        
+          <a href="https://github.com/Arianxx" class="iconfont icon-github" title="github"></a>
+        
+      
+    
+      
+    
+      
+    
+      
+        
+          <a href="https://www.douban.com/people/131732783/" class="iconfont icon-douban" title="douban"></a>
+        
+      
+    
+      
+    
+      
+    
+      
+    
+    
+    
+      <a href="/atom.xml" class="iconfont icon-rss" title="rss"></a>
+    
+  </div>
+
+
+<div class="copyright">
+  <span class="power-by">
+    由 <a class="hexo-link" href="https://hexo.io/">Hexo</a> 强力驱动
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    主题 - 
+    <a class="theme-link" href="https://github.com/ahonn/hexo-theme-even">Even</a>
+  </span>
+
+  <span class="copyright-year">
+    
+    &copy; 
+     
+      2017 - 
+    
+    2018
+
+    <span class="heart">
+      <i class="iconfont icon-heart"></i>
+    </span>
+    <span class="author">Arian</span>
+  </span>
+</div>
+
+      </footer>
+
+      <div class="back-to-top" id="back-to-top">
+        <i class="iconfont icon-up"></i>
+      </div>
+    </div>
+
+    
+  
+  <script type="text/javascript">
+    var disqus_config = function () {
+        this.page.url = 'https://arianx.me/2018/06/22/Common-sort-algorithm/';
+        this.page.identifier = '2018/06/22/Common-sort-algorithm/';
+        this.page.title = '十种常见的排序方法';
+    };
+    (function() {
+    var d = document, s = d.createElement('script');
+
+    s.src = '//arianx.disqus.com/embed.js';
+
+    s.setAttribute('data-timestamp', +new Date());
+    (d.head || d.body).appendChild(s);
+    })();  
+  </script>
+
+  
+
+  
+
+
+
+    
+
+
+
+
+  
+    <script type="text/javascript" src="/lib/jquery/jquery-3.1.1.min.js"></script>
+  
+
+  
+    <script type="text/javascript" src="/lib/slideout/slideout.js"></script>
+  
+
+  
+
+
+    <script type="text/javascript" src="/js/src/even.js?v=2.6.0"></script>
+<script type="text/javascript" src="/js/src/bootstrap.js?v=2.6.0"></script>
+
+  <script src="/live2dw/lib/L2Dwidget.min.js?0c58a1486de42ac6cc1c59c7d98ae887"></script><script>L2Dwidget.init({"model":{"scale":1,"hHeadPos":0.5,"vHeadPos":0.618,"jsonPath":"/live2dw/assets/model.model.json"},"display":{"superSample":2,"width":120,"height":240,"position":"left","hOffset":0,"vOffset":-165},"mobile":{"show":false,"scale":0.5},"react":{"opacityDefault":1,"opacityOnhover":1},"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/"});</script></body>
+</html>
