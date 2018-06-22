@@ -3,15 +3,17 @@ title: about
 layout: page
 date: 2018-02-03 12:20:34
 ---
+><i style="font-size:18px !important">到了二月，你是从哪里来的<br /></i>
+><i style="font-size:18px !important">天上滚过春天的雷，你是从哪里来的<br /></i>
 
-## 关于我
+## About Me
++ ArianX
++ 信息安全专业
 
-动画与小说的爱好者，就读于某大学信息安全专业。
+## Hobby
++ 平时喜欢敲敲Python呀，Python啊，还有Python什么的（雾
++ 动画、轻小说什么的才没接触过呢
++ (\_　\_)。゜zｚＺ
 
-喜欢新奇的事物，希望接触到一个个新世界。
-
-## 关于本站
-希望能记录下生活与学习中的一些点滴。
-
-## 联系
-欢迎通过[ysnyyhs@163.com](ysnyyhs@163.com 我的邮箱)联系我。
+## Contact
+[ysnyyhs@163.com](ysnyyhs@163.com 我的邮箱)
