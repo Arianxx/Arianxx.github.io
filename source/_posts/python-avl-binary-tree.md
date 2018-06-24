@@ -3,7 +3,7 @@ title: AVL树python实现
 date: 2018-06-17 07:17:17
 tags: 
     - 算法
-    - python
+    - Python
 categories: 算法
 ---
 >今宵は雪月花

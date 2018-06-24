@@ -2,8 +2,8 @@
 title: python中type和object
 date: 2018-05-31 17:50:25
 tags: 
-    - python
-categories: python
+    - Python
+categories: Python
 ---
 >一生一代一双人
 

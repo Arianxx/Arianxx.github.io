@@ -2,7 +2,7 @@
 title: 堆排序python实现
 date: 2018-06-17 22:28:59
 tags:
-    - python
+    - Python
     - 算法
 categories: 算法
 ---

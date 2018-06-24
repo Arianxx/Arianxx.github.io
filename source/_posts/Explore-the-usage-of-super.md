@@ -2,9 +2,9 @@
 title: 浅析python中super用法，兼及继承机制
 date: 2018-05-14 22:05:27
 tags:
-    - python
+    - Python
     - 算法
-categories: python
+categories: Python
 ---
 >远在天边，我们一无所见，即使近在眼前，也仅仅是连续不断而变幻不定的表象。 
 
