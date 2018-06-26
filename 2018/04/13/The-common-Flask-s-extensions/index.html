@@ -248,6 +248,7 @@
       
         <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p><a href="http://flask.pocoo.org/" target="_blank" rel="noopener">Flask</a>是一个用python编写的、基于<a href="http://werkzeug.pocoo.org/" target="_blank" rel="noopener">Werkzeug WSGI</a>和<a href="http://jinja.pocoo.org/docs/2.10/" target="_blank" rel="noopener">Jinja2</a>的轻量级Web应用框架。因为其相比于django等框架来说简洁的功能与架构，常常被称为”microframework”。然而，称Flask为微框架并不意味着它相比起其它框架来说功能更少——Flask拥有强大的可扩展性以及活跃的社区。开发者可以根据自身的需求，自由的选择扩展包来增强其功能。</p>
 <p>合理的选择扩展包，将极大的减少开发时间，提高开发效率。下面，本文就将列举出Flask应用程序开发中的一些常用扩展，以便于参考和查询。</p>
+<a id="more"></a>
 <h2 id="Flask-WTF"><a href="#Flask-WTF" class="headerlink" title="Flask-WTF"></a>Flask-WTF</h2><p>Flask-WTF将Flask和<a href="https://wtforms.readthedocs.io/en/stable/" target="_blank" rel="noopener">WTForms</a>做了简单集成，包含<a href="https://en.wikipedia.org/wiki/Cross-site_request_forgery" target="_blank" rel="noopener">CSRF</a>，文件上传，验证码服务等。</p>
 <p>特点：</p>
 <ol>
@@ -293,7 +294,6 @@
 <h2 id="Flask-Bcrypt"><a href="#Flask-Bcrypt" class="headerlink" title="Flask-Bcrypt"></a>Flask-Bcrypt</h2><p>Flask-Bcrypt是一个为Flask应用程序提供了Bcrypt散列工具的Flask扩展。</p>
 <p>Bcrypt是一种比MD5或SHA1稍慢，但更加安全、不易碰撞的散列算法。</p>
 <p>文档：<a href="https://flask-bcrypt.readthedocs.io/en/latest/" target="_blank" rel="noopener">Flask-Bcrypt</a></p>
-<a id="more"></a>
 <h2 id="Flask-Cache"><a href="#Flask-Cache" class="headerlink" title="Flask-Cache"></a>Flask-Cache</h2><p>Flask-Cache用于缓存常用Web应用程序页面，从而在下一次请求时直接从缓存中返回而不用再查询、构建页面，从而极大的优化了Web应用程序的响应速度。</p>
 <p>值得注意的是，不是每个页面都适合使用Flask-Cache缓存——数据经常变化的页面不适于被缓存。</p>
 <p>文档：<a href="https://pythonhosted.org/Flask-Cache/" target="_blank" rel="noopener">Flask-Cache</a></p>

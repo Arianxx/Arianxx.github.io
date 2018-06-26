@@ -22,7 +22,7 @@
 
 
 
-  <meta name="keywords" content="算法, Python, Arian.X" />
+  <meta name="keywords" content="Python, 算法, Arian.X" />
 
 
 
@@ -250,7 +250,7 @@
 <p>远在天边，我们一无所见，即使近在眼前，也仅仅是连续不断而变幻不定的表象。 </p>
 </blockquote>
 <h2 id="开始之前"><a href="#开始之前" class="headerlink" title="开始之前"></a>开始之前</h2><p>在学习python的过程中，一直对super的用法感到稍许疑惑。虽然直到它的基本使用方法，却一直觉得模模糊糊。本文将根据实例简要探讨python3中super函数的行为，以加强对super函数的认知，兼及一些相关方面的内容。</p>
-<p>本文将简要谈谈我对对象和继承机制的理解，最终探讨super的用法。</p>
+<p>本文将简要谈谈我对对象和继承机制的理解，最终探讨super的用法。<br><a id="more"></a></p>
 <h2 id="Ⅰ-面向对象机制"><a href="#Ⅰ-面向对象机制" class="headerlink" title="Ⅰ.面向对象机制"></a>Ⅰ.面向对象机制</h2><p><code>面向对象(OOP, Object Oriented Programming）</code>是目前编程语言中一种主流的思想，python从设计初期就已经是一门面向对象的语言。python为面向对象编程提供了强大的语法支持。因此，在python中，使用面向对象的方式进行程序设计是十分自然并且容易的。</p>
 <p>理所当然，一旦提到面向对象的编程思想，那么便会自然而然想到面向对象思想中的一些重要概念。比如说：<code>类（Class)</code>。类是一种数据结构，简单来说，可以理解为对某些拥有共同属性，或行为的对象的抽象。它可以视作这些拥有相同属性或行为的对象的蓝图，封装了这些对象的共同属性或行为，使得程序设计更模块化，提高了代码的可复用性——一个<code>对象（Object）</code>是它的类的实例，它能够访问它的构造类中的所有属性或方法。</p>
 <p>可以将python中的类与对象类比到现实中。这样，对象就是现实世界中的客体，是一种具体的实体。现实世界中的所有事物都可以看作一个对象。例如，一个人。当我们谈到这个对象时，我们所想到的，是这个带有数量词的、具体的、实在的个体，是“这个人”而不是“那个人”。而现实世界里面存在许许多多的人。这些所有的人有某些共同的特征，我们将这些特征聚合起来，所形成的一个抽象的、宽泛的“人”的这个形式，就是所有作为人的对象的类。</p>
@@ -264,7 +264,7 @@
 <p>可见，实例可访问它的构造类以及之后的父类中的方法。</p>
 <p>同时，子类可以<code>覆盖</code>父类的方法。这样，访问实例中的这个方法时，就访问它的构造方法内重写的那个方法，而不向后追溯。</p>
 <p>如：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="class"><span class="keyword">class</span> <span class="title">Animal</span><span class="params">()</span>:</span></span><br><span class="line"><span class="meta">... </span>    <span class="function"><span class="keyword">def</span> <span class="title">kind</span><span class="params">(self)</span>:</span></span><br><span class="line"><span class="meta">... </span>        print(<span class="string">"I'm an animal."</span>)</span><br><span class="line">...</span><br><span class="line">&gt;&gt;&gt;</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="class"><span class="keyword">class</span> <span class="title">Bird</span><span class="params">(Animal)</span>:</span></span><br><span class="line"><span class="meta">... </span>    <span class="function"><span class="keyword">def</span> <span class="title">kind</span><span class="params">(self)</span>:</span></span><br><span class="line"><span class="meta">... </span>        print(<span class="string">"I'm a bird."</span>)</span><br><span class="line">...</span><br><span class="line">&gt;&gt;&gt;</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>bird = Bird()</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>bird.kind()</span><br><span class="line">I<span class="string">'m a bird.</span></span><br></pre></td></tr></table></figure></p>
-<a id="more"></a>
+<!--MORE-->
 <p>python还支持<code>多重继承</code>。一个子类，可以同时拥有多个父类，同时继承这些父类的属性或方法。可以通过访问子类的<code>__bases__</code>属性获得它的父类：<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="class"><span class="keyword">class</span> <span class="title">Food</span><span class="params">()</span>:</span></span><br><span class="line"><span class="meta">... </span>    eatable = <span class="keyword">True</span></span><br><span class="line">...</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="class"><span class="keyword">class</span> <span class="title">Ice</span><span class="params">()</span>:</span></span><br><span class="line"><span class="meta">... </span>    cold = <span class="keyword">True</span></span><br><span class="line">...</span><br><span class="line">&gt;&gt;&gt;</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="class"><span class="keyword">class</span> <span class="title">IceCream</span><span class="params">(Food, Ice)</span>:</span></span><br><span class="line"><span class="meta">... </span>    <span class="keyword">pass</span></span><br><span class="line">...</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>IceCream.__bases__</span><br><span class="line">(&lt;class '__main__.Food'&gt;, &lt;class '__main__.Ice'&gt;)</span><br></pre></td></tr></table></figure></p>
 <p>实例可以访问这些父类的方法：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>IceCream.eatable</span><br><span class="line"><span class="keyword">True</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>IceCream.cold</span><br><span class="line"><span class="keyword">True</span></span><br></pre></td></tr></table></figure></p>
 <p>但是，思考一下，如果子类继承了多个父类，同时这些父类拥有某些相同的属性或方法，实例该访问哪个方法呢？</p>
@@ -345,9 +345,9 @@
         
           <div class="post-tags">
             
-              <a href="/tags/算法/">算法</a>
-            
               <a href="/tags/Python/">Python</a>
+            
+              <a href="/tags/算法/">算法</a>
             
           </div>
         
