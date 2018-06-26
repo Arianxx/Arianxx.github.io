@@ -35,7 +35,7 @@ True
 >>> issubclass(type, object)
 True
 ```
-
+<!--MORE-->
 可以看到，在这里面，type和object互为实例和子类，只有一个例外。而平时，在我们编写程序的过程中，也时常会注意到我们自己的类会有一些属性指向type和object，如：
 ```python
 >>> class Foo:

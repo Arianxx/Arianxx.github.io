@@ -11,6 +11,8 @@ categories: 笔记
 
 合理的选择扩展包，将极大的减少开发时间，提高开发效率。下面，本文就将列举出Flask应用程序开发中的一些常用扩展，以便于参考和查询。
 
+<!--MORE-->
+
 ## Flask-WTF
 Flask-WTF将Flask和[WTForms](https://wtforms.readthedocs.io/en/stable/)做了简单集成，包含[CSRF](https://en.wikipedia.org/wiki/Cross-site_request_forgery)，文件上传，验证码服务等。
 
@@ -82,7 +84,6 @@ Bcrypt是一种比MD5或SHA1稍慢，但更加安全、不易碰撞的散列算�
 
 文档：[Flask-Bcrypt](https://flask-bcrypt.readthedocs.io/en/latest/)
 
-<!--MORE-->
 ## Flask-Cache
 Flask-Cache用于缓存常用Web应用程序页面，从而在下一次请求时直接从缓存中返回而不用再查询、构建页面，从而极大的优化了Web应用程序的响应速度。
 

@@ -27,6 +27,7 @@ ValueError: division by zero
 上面在捕获除零异常后，重新在处理语句里抛出了ValueError，并将除零异常的信息传给了ValueError。同时，可以发现抛出的信息还附带了追踪信息，可以看到异常的抛出顺序。
 
 然而，在python2里，从一个异常捕获中直接抛出另一个异常，并不会附带追踪信息：
+<!--MORE-->
 ```python
 >>> try:
 ...     print(1/0)
