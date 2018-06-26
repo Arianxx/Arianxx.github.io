@@ -1,0 +1,475 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+  <head>
+    
+<meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+
+  <meta name="description" content="LZ77编码简单实现"/>
+
+
+
+
+  <meta name="keywords" content="算法, Python, 编码, Arian.X" />
+
+
+
+
+
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="Arian.X">
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=2.6.0" />
+
+
+
+<link rel="canonical" href="https://arianx.me/2018/06/26/LZ77-coding/"/>
+
+
+<link rel="stylesheet" type="text/css" href="/css/style.css?v=2.6.0" />
+
+
+
+
+
+
+  
+  <script id="baidu_analytics">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?7da15ed69b10673f5e71fb736eca6373";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+  <script id="google_analytics">
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+        ga('create', 'UA-113448663-1', 'auto');
+        ga('send', 'pageview');
+  </script>
+
+
+  <script id="baidu_push">
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+
+
+
+
+
+
+
+    <title> LZ77编码简单实现 - Arian.X </title>
+  </head>
+
+  <body><div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/." class="logo">Arian.X</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    
+      <a href="/">
+        <li class="mobile-menu-item">
+          
+          
+            首页
+          
+        </li>
+      </a>
+    
+      <a href="/archives/">
+        <li class="mobile-menu-item">
+          
+          
+            归档
+          
+        </li>
+      </a>
+    
+      <a href="/tags">
+        <li class="mobile-menu-item">
+          
+          
+            标签
+          
+        </li>
+      </a>
+    
+      <a href="/about">
+        <li class="mobile-menu-item">
+          
+          
+            关于
+          
+        </li>
+      </a>
+    
+  </ul>
+</nav>
+
+    <div class="container" id="mobile-panel">
+      <header id="header" class="header"><div class="logo-wrapper">
+  <a href="/." class="logo">Arian.X</a>
+</div>
+
+<nav class="site-navbar">
+  
+    <ul id="menu" class="menu">
+      
+        <li class="menu-item">
+          <a class="menu-item-link" href="/">
+            
+            
+              首页
+            
+          </a>
+        </li>
+      
+        <li class="menu-item">
+          <a class="menu-item-link" href="/archives/">
+            
+            
+              归档
+            
+          </a>
+        </li>
+      
+        <li class="menu-item">
+          <a class="menu-item-link" href="/tags">
+            
+            
+              标签
+            
+          </a>
+        </li>
+      
+        <li class="menu-item">
+          <a class="menu-item-link" href="/about">
+            
+            
+              关于
+            
+          </a>
+        </li>
+      
+    </ul>
+  
+</nav>
+
+      </header>
+
+      <main id="main" class="main">
+        <div class="content-wrapper">
+          <div id="content" class="content">
+            
+  
+  <article class="post">
+    <header class="post-header">
+      <h1 class="post-title">
+        
+          LZ77编码简单实现
+        
+      </h1>
+
+      <div class="post-meta">
+        <span class="post-time">
+          2018-06-26
+        </span>
+        
+        
+      </div>
+    </header>
+
+    
+    
+  <div class="post-toc" id="post-toc">
+    <h2 class="post-toc-title">文章目录</h2>
+    <div class="post-toc-content">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#编码"><span class="toc-text">编码</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#解码"><span class="toc-text">解码</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#实现"><span class="toc-text">实现</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#参考"><span class="toc-text">参考</span></a></li></ol>
+    </div>
+  </div>
+
+
+    <div class="post-content">
+      
+        <p>LZ77是一个由Abraham Lempel于1977年发表的无损压缩算法，其思想与霍夫曼编码有很大差别。霍夫曼编码主要是用较短的编码代替出现频率较高的字符，用较长的编码代替出现频率较低的字符；LZ77编码的核心思想则是将重复出现的较长字符串（短语），使用较短的、指向前面第一次出现的字符串的标记来代替。标记与原序列之间是一种映射，因此，LZ77算法可以说成是基于字典的算法。<br><a id="more"></a></p>
+<p>由于Python之中的位操作比较难弄，本文只实现了LZ77的编码解码部分，没有实现将编码内容写入文，或者解码文件的部分。<del>日后用C实现一遍吧</del></p>
+<h2 id="编码"><a href="#编码" class="headerlink" title="编码"></a>编码</h2><p>LZ77算法的编码阶段将原序列分成几个部分。</p>
+<p>第一个部分是<code>前向缓冲区(look ahead buffer)</code>。它是一个固定大小的普通数组。在序列编码的过程中，会将缓冲区最前面与后面将要提到的<code>滑动窗口(sliding window)</code>里相同的子序列弹出，进入滑动窗口，输出相应的编码，从源序列中读入后继的内容填充数组直到源序列读尽。</p>
+<p>第二个部分是<code>滑动窗口(sliding window)</code>。也是一个固定大小的数组，不过其大小一般比前向缓冲区大很多。滑动窗口接受从前向缓冲区弹出的内容，并试图找到与缓冲区最前面的字串相同的<code>最长字串</code>。如果找到了，就会用指向窗口里子串的标记代替源来的字串。</p>
+<p>第三个部分是编码部分。它根据前向缓冲区和滑动窗口运行的结果来生成。</p>
+<p>LZ77编码的详细步骤如下。</p>
+<ol>
+<li>首先，将序列读入前向缓冲区。</li>
+<li>指针指向第一个字符，查看是否与前向缓冲区内的第一个字符匹配。如果匹配：<br><br>- 设滑动窗口中的这个字符位于D，从这个字符开始，一一对比接下来滑动窗口中的字符与前向缓冲区的字符是否匹配，直到出现不匹配的字符为止。设匹配的字串长度为L，此时前向缓冲区匹配子串的后一个字符是c。<br><br>- 指针指向第二个字符，重复搜索，直到窗口尽头。<br><br>- 取最终L最大的那次为最终结果。如果始终没有找到匹配，D、L为0，c为缓冲区第一个字符。</li>
+<li>返回（D, L, c)作为匹配序列的编码。然后从滑动窗口尾部删除L个字符，将前向缓冲区中的这L个匹配字符弹出，推入滑动窗口。</li>
+<li>从源序列读入数据填充前向缓冲区，重复2，直到读尽数据。</li>
+<li>将编码通过位操作的方式写入文件流。</li>
+</ol>
+<p>纯文字比较难以理解，看图可能更直观：</p>
+<p><img src="http://arian-blogs.oss-cn-beijing.aliyuncs.com/18-6-26/29889505.jpg" alt=""></p>
+<p>由于会不断在前向缓冲区中搜索匹配的字串，所有编码过程比霍夫曼算法慢</p>
+<h2 id="解码"><a href="#解码" class="headerlink" title="解码"></a>解码</h2><p>解码过程是编码过程的逆向：</p>
+<ol>
+<li>将数据读入缓冲区。</li>
+<li>如果缓冲区头部是普通字符，放入窗口；否则在窗口中搜寻对应字串后，将对应字串放入窗口。返回这个普通字符或字串作为一部分结果。</li>
+<li>从缓冲区移除相应标记。继续读入。重复第二部直到结束。</li>
+</ol>
+<h2 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h2><p><a href="https://gist.github.com/Arianxx/d7b4640fe53f4798a4ef1b954c9f28b9" target="_blank" rel="noopener">https://gist.github.com/Arianxx/d7b4640fe53f4798a4ef1b954c9f28b9</a><br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">LZ77Coding</span>:</span></span><br><span class="line">    SLIDING_WINDOW_SIZE = <span class="number">4096</span></span><br><span class="line">    LOOKHEAD_BUFFER_SIZE = <span class="number">32</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">search_longest_match</span><span class="params">(self, data, cursor)</span>:</span></span><br><span class="line">        best_position, best_length, next_char = <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span></span><br><span class="line">        search_index = max(cursor - self.SLIDING_WINDOW_SIZE, <span class="number">0</span>)</span><br><span class="line">        end_buffer_index = min(len(data) - <span class="number">1</span>,</span><br><span class="line">                               cursor + self.LOOKHEAD_BUFFER_SIZE - <span class="number">1</span>)</span><br><span class="line"></span><br><span class="line">        <span class="keyword">while</span> search_index &lt; cursor:</span><br><span class="line">            <span class="keyword">if</span> data[search_index] == data[cursor]:</span><br><span class="line">                length = <span class="number">0</span></span><br><span class="line">                <span class="keyword">while</span> (search_index + length) &lt; cursor \</span><br><span class="line">                        <span class="keyword">and</span> (cursor + length) &lt; end_buffer_index:</span><br><span class="line">                    <span class="keyword">if</span> data[search_index + length] == data[cursor + length]:</span><br><span class="line">                        length += <span class="number">1</span></span><br><span class="line">                    <span class="keyword">else</span>:</span><br><span class="line">                        <span class="keyword">break</span></span><br><span class="line"></span><br><span class="line">                <span class="keyword">if</span> length &gt; best_length:</span><br><span class="line">                    best_position = search_index</span><br><span class="line">                    best_length = length</span><br><span class="line">                    next_char = data[cursor + length]</span><br><span class="line"></span><br><span class="line">            search_index += <span class="number">1</span></span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> <span class="keyword">not</span> best_length:</span><br><span class="line">            next_char = data[cursor]</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> best_position, best_length, next_char</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">encoding</span><span class="params">(self, data)</span>:</span></span><br><span class="line">        result = []</span><br><span class="line"></span><br><span class="line">        cursor = <span class="number">0</span></span><br><span class="line">        <span class="keyword">while</span> cursor &lt; len(data):</span><br><span class="line">            match = self.search_longest_match(data, cursor)</span><br><span class="line">            result.append(match)</span><br><span class="line">            cursor += max(match[<span class="number">1</span>] + <span class="number">1</span>, <span class="number">1</span>)</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> result</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">decoding</span><span class="params">(self, data)</span>:</span></span><br><span class="line">        result = []</span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span> pair <span class="keyword">in</span> data:</span><br><span class="line">            <span class="keyword">if</span> <span class="keyword">not</span> pair[<span class="number">1</span>]:</span><br><span class="line">                result.append(pair[<span class="number">2</span>])</span><br><span class="line">            <span class="keyword">else</span>:</span><br><span class="line">                chars = result[pair[<span class="number">0</span>]:pair[<span class="number">0</span>] + pair[<span class="number">1</span>]]</span><br><span class="line">                result.extend(chars)</span><br><span class="line">                result.append(pair[<span class="number">2</span>])</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> <span class="string">''</span>.join(result)</span><br></pre></td></tr></table></figure></p>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><p><a href="https://en.wikipedia.org/wiki/LZ77_and_LZ78#LZ77" target="_blank" rel="noopener">维基百科</a></p>
+<p><a href="https://github.com/LLcoolNJ/LZ77/blob/master/src/lz77.py" target="_blank" rel="noopener">python2 bitarray实现</a></p>
+<p><a href="https://github.com/manassra/LZ77-Compressor/blob/master/src/" target="_blank" rel="noopener">另一个实现</a></p>
+<p><a href="http://www.stringology.org/DataCompression/lz77/index_en.html" target="_blank" rel="noopener">过程讲解</a></p>
+
+      
+    </div>
+
+    
+      
+      
+
+  <div class="post-copyright">
+    <p class="copyright-item">
+      <span>原文作者: </span>
+      <a href="https://arianx.me">Arian</a>
+    </p>
+    <p class="copyright-item">
+      <span>原文链接: </span>
+      <a href="https://arianx.me/2018/06/26/LZ77-coding/">https://arianx.me/2018/06/26/LZ77-coding/</a>
+    </p>
+    <p class="copyright-item">
+      <span>许可协议: </span>
+      
+      本文采用<a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/" target="_blank">知识共享署名-非商业性使用 4.0 国际许可协议</a>
+    </p>
+  </div>
+
+
+
+      
+      
+    
+
+    
+      <footer class="post-footer">
+        
+          <div class="post-tags">
+            
+              <a href="/tags/算法/">算法</a>
+            
+              <a href="/tags/Python/">Python</a>
+            
+              <a href="/tags/编码/">编码</a>
+            
+          </div>
+        
+        
+        
+  <nav class="post-nav">
+    
+    
+      <a class="next" href="/2018/06/24/Python-Huffman-Tree/">
+        <span class="next-text nav-default">实现霍夫曼编码</span>
+        <span class="prev-text nav-mobile">下一篇</span>
+        <i class="iconfont icon-right"></i>
+      </a>
+    
+  </nav>
+
+      </footer>
+    
+
+  </article>
+
+
+          </div>
+          
+  <div class="comments" id="comments">
+    
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
+      </div>
+    
+  </div>
+
+
+        </div>
+      </main>
+
+      <footer id="footer" class="footer">
+
+  <div class="social-links">
+    
+      
+        
+          <a href="mailto:ysnyyhs@163.com" class="iconfont icon-email" title="email"></a>
+        
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+        
+          <a href="https://github.com/Arianxx" class="iconfont icon-github" title="github"></a>
+        
+      
+    
+      
+    
+      
+    
+      
+        
+          <a href="https://www.douban.com/people/131732783/" class="iconfont icon-douban" title="douban"></a>
+        
+      
+    
+      
+    
+      
+    
+      
+    
+    
+    
+      <a href="/atom.xml" class="iconfont icon-rss" title="rss"></a>
+    
+  </div>
+
+
+<div class="copyright">
+  <span class="power-by">
+    由 <a class="hexo-link" href="https://hexo.io/">Hexo</a> 强力驱动
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    主题 - 
+    <a class="theme-link" href="https://github.com/ahonn/hexo-theme-even">Even</a>
+  </span>
+
+  <span class="copyright-year">
+    
+    &copy; 
+     
+      2017 - 
+    
+    2018
+
+    <span class="heart">
+      <i class="iconfont icon-heart"></i>
+    </span>
+    <span class="author">Arian</span>
+  </span>
+</div>
+
+      </footer>
+
+      <div class="back-to-top" id="back-to-top">
+        <i class="iconfont icon-up"></i>
+      </div>
+    </div>
+
+    
+  
+  <script type="text/javascript">
+    var disqus_config = function () {
+        this.page.url = 'https://arianx.me/2018/06/26/LZ77-coding/';
+        this.page.identifier = '2018/06/26/LZ77-coding/';
+        this.page.title = 'LZ77编码简单实现';
+    };
+    (function() {
+    var d = document, s = d.createElement('script');
+
+    s.src = '//arianx.disqus.com/embed.js';
+
+    s.setAttribute('data-timestamp', +new Date());
+    (d.head || d.body).appendChild(s);
+    })();  
+  </script>
+
+  
+
+  
+
+
+
+    
+
+
+
+
+  
+    <script type="text/javascript" src="/lib/jquery/jquery-3.1.1.min.js"></script>
+  
+
+  
+    <script type="text/javascript" src="/lib/slideout/slideout.js"></script>
+  
+
+  
+
+
+    <script type="text/javascript" src="/js/src/even.js?v=2.6.0"></script>
+<script type="text/javascript" src="/js/src/bootstrap.js?v=2.6.0"></script>
+
+  <script src="/live2dw/lib/L2Dwidget.min.js?0c58a1486de42ac6cc1c59c7d98ae887"></script><script>L2Dwidget.init({"model":{"scale":1,"hHeadPos":0.5,"vHeadPos":0.618,"jsonPath":"/live2dw/assets/model.model.json"},"display":{"superSample":2,"width":120,"height":240,"position":"left","hOffset":0,"vOffset":-165},"mobile":{"show":false,"scale":0.5},"react":{"opacityDefault":1,"opacityOnhover":1},"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/"});</script></body>
+</html>
