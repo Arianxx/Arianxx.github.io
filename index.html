@@ -215,6 +215,57 @@
     <header class="post-header">
       <h1 class="post-title">
         
+          <a class="post-link" href="/2018/06/27/Simple-time-event-loop-in-python/">在python中延迟执行函数</a>
+        
+      </h1>
+
+      <div class="post-meta">
+        <span class="post-time">
+          2018-06-27
+        </span>
+        
+          <div class="post-category">
+            
+              <a href="/categories/python/">python</a>
+            
+          </div>
+        
+        
+      </div>
+    </header>
+
+    
+    
+
+    <div class="post-content">
+      
+        
+        
+          
+        
+
+        
+          <p>js有一个常用的函数叫做setTimeout，可以延迟函数的执行而又不阻塞当前上下文。这是一个奇特的行为，因为js本身运行在单线程中。因此，在某些时候，可以发现，js上下文中的函数会影响setTimeout排定函数的运行。例如，如果此时有一个while true的函数阻塞，传递给setTimeout的函数也永远不会执行。</p>
+<p>在python中，也可以实现类似js 中setTimeout的行为。主要发现了以下几种方法：<br>
+          <div class="read-more">
+            <a href="/2018/06/27/Simple-time-event-loop-in-python/" class="read-more-link">阅读更多</a>
+          </div>
+        
+      
+    </div>
+
+    
+
+    
+
+  </article>
+
+    
+      
+  <article class="post">
+    <header class="post-header">
+      <h1 class="post-title">
+        
           <a class="post-link" href="/2018/06/26/LZ77-coding/">LZ77编码简单实现</a>
         
       </h1>
@@ -354,7 +405,7 @@
     <header class="post-header">
       <h1 class="post-title">
         
-          <a class="post-link" href="/2018/06/17/Heap-in-python/">堆排序python实现</a>
+          <a class="post-link" href="/2018/06/17/Heap-in-python/">堆排序简述</a>
         
       </h1>
 
@@ -405,7 +456,7 @@
     <header class="post-header">
       <h1 class="post-title">
         
-          <a class="post-link" href="/2018/06/17/python-avl-binary-tree/">AVL树python实现</a>
+          <a class="post-link" href="/2018/06/17/python-avl-binary-tree/">Python中的AVL树</a>
         
       </h1>
 
@@ -650,57 +701,6 @@
 <p>本文将简要谈谈我对对象和继承机制的理解，最终探讨super的用法。<br>
           <div class="read-more">
             <a href="/2018/05/14/Explore-the-usage-of-super/" class="read-more-link">阅读更多</a>
-          </div>
-        
-      
-    </div>
-
-    
-
-    
-
-  </article>
-
-    
-      
-  <article class="post">
-    <header class="post-header">
-      <h1 class="post-title">
-        
-          <a class="post-link" href="/2018/04/13/The-common-Flask-s-extensions/">Flask常见扩展总结</a>
-        
-      </h1>
-
-      <div class="post-meta">
-        <span class="post-time">
-          2018-04-13
-        </span>
-        
-          <div class="post-category">
-            
-              <a href="/categories/笔记/">笔记</a>
-            
-          </div>
-        
-        
-      </div>
-    </header>
-
-    
-    
-
-    <div class="post-content">
-      
-        
-        
-          
-        
-
-        
-          <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p><a href="http://flask.pocoo.org/" target="_blank" rel="noopener">Flask</a>是一个用python编写的、基于<a href="http://werkzeug.pocoo.org/" target="_blank" rel="noopener">Werkzeug WSGI</a>和<a href="http://jinja.pocoo.org/docs/2.10/" target="_blank" rel="noopener">Jinja2</a>的轻量级Web应用框架。因为其相比于django等框架来说简洁的功能与架构，常常被称为”microframework”。然而，称Flask为微框架并不意味着它相比起其它框架来说功能更少——Flask拥有强大的可扩展性以及活跃的社区。开发者可以根据自身的需求，自由的选择扩展包来增强其功能。</p>
-<p>合理的选择扩展包，将极大的减少开发时间，提高开发效率。下面，本文就将列举出Flask应用程序开发中的一些常用扩展，以便于参考和查询。</p>
-          <div class="read-more">
-            <a href="/2018/04/13/The-common-Flask-s-extensions/" class="read-more-link">阅读更多</a>
           </div>
         
       
