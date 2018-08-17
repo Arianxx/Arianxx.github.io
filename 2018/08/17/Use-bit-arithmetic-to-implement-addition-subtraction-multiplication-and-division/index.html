@@ -17,10 +17,12 @@
 
 
 
-  <meta name="description" content="记录自己的学习与生活"/>
+  <meta name="description" content="使用位运算实现加减乘除"/>
 
 
 
+
+  <meta name="keywords" content="位运算, Arian.X" />
 
 
 
@@ -40,7 +42,7 @@
 
 
 
-<link rel="canonical" href="https://arianx.me/"/>
+<link rel="canonical" href="https://arianx.me/2018/08/17/Use-bit-arithmetic-to-implement-addition-subtraction-multiplication-and-division/"/>
 
 
 <link rel="stylesheet" type="text/css" href="/css/style.css?v=2.6.0" />
@@ -97,7 +99,7 @@
 
 
 
-    <title> Arian.X </title>
+    <title> 使用位运算实现加减乘除 - Arian.X </title>
   </head>
 
   <body><div id="mobile-navbar" class="mobile-navbar">
@@ -208,14 +210,12 @@
         <div class="content-wrapper">
           <div id="content" class="content">
             
-  <section id="posts" class="posts">
-    
-      
+  
   <article class="post">
     <header class="post-header">
       <h1 class="post-title">
         
-          <a class="post-link" href="/2018/08/17/Use-bit-arithmetic-to-implement-addition-subtraction-multiplication-and-division/">使用位运算实现加减乘除</a>
+          使用位运算实现加减乘除
         
       </h1>
 
@@ -230,14 +230,17 @@
 
     
     
+  <div class="post-toc" id="post-toc">
+    <h2 class="post-toc-title">文章目录</h2>
+    <div class="post-toc-content">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#加法"><span class="toc-text">加法</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#减法"><span class="toc-text">减法</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#乘法"><span class="toc-text">乘法</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#除法"><span class="toc-text">除法</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#需要注意的地方"><span class="toc-text">需要注意的地方</span></a></li></ol>
+    </div>
+  </div>
+
 
     <div class="post-content">
       
-        
-        
-
-        
-          <h2 id="加法"><a href="#加法" class="headerlink" title="加法"></a>加法</h2><p>加法可以拆分成几个步骤，首先是每位上的数对应相加，将结果与对应的基数取模，设置为当前位，然后处理相加之后产生进位的位，给它们的上一个拥有更大权值的位加上一，如果又产生进位，就如此循环，直到没有进位为止。</p>
+        <h2 id="加法"><a href="#加法" class="headerlink" title="加法"></a>加法</h2><p>加法可以拆分成几个步骤，首先是每位上的数对应相加，将结果与对应的基数取模，设置为当前位，然后处理相加之后产生进位的位，给它们的上一个拥有更大权值的位加上一，如果又产生进位，就如此循环，直到没有进位为止。</p>
 <p>对于二进制来说，第一步相加取模是这样的：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">1 + 1 = 0</span><br><span class="line">1 + 0 = 1</span><br><span class="line">0 + 0 = 0</span><br></pre></td></tr></table></figure></p>
 <p>可以看到，只有两位数不一样的情况下，值才为1。这正和<code>异或运算</code>的结果相同。</p>
 <p>而在二进制中，只有1+1才有可能产生进位，也就是说，我们需要找出两个数中都为1的位，这一点可以使用<code>与运算</code>实现。然后，将与运算的结果左移一位，与第一步的结果相加，就能得到最终的结果。</p>
@@ -254,482 +257,76 @@
 <p>这样做除法，得到的不是精确结果，而是将真正值进行向下舍入的结果。这是因为，对于 p/q，我们的运算会产生一个结果a，和直到最后都没能减尽的b。p除以q等于a余b，即p=q*a+b，p/q=a+b/q，b &lt; q。即为a加一个小数，我们丢掉了这个小数，即向下舍入。（对于，负数结果来说，就成了向上舍入）。</p>
 <h2 id="需要注意的地方"><a href="#需要注意的地方" class="headerlink" title="需要注意的地方"></a>需要注意的地方</h2><p>需要注意的是，减法只适用于数是用定长方法表示时的情况。因为求逆元用到了两个数相加后溢出截断的原理。因此，对于不定长表示的数，例如Python中的整数表示，无法得到正确的结果。</p>
 
-        
       
     </div>
 
     
-
-    
-
-  </article>
-
-    
       
-  <article class="post">
-    <header class="post-header">
-      <h1 class="post-title">
-        
-          <a class="post-link" href="/2018/06/27/Simple-time-event-loop-in-python/">在python中延迟执行函数</a>
-        
-      </h1>
+      
 
-      <div class="post-meta">
-        <span class="post-time">
-          2018-06-27
-        </span>
+  <div class="post-copyright">
+    <p class="copyright-item">
+      <span>原文作者: </span>
+      <a href="https://arianx.me">Arian</a>
+    </p>
+    <p class="copyright-item">
+      <span>原文链接: </span>
+      <a href="https://arianx.me/2018/08/17/Use-bit-arithmetic-to-implement-addition-subtraction-multiplication-and-division/">https://arianx.me/2018/08/17/Use-bit-arithmetic-to-implement-addition-subtraction-multiplication-and-division/</a>
+    </p>
+    <p class="copyright-item">
+      <span>许可协议: </span>
+      
+      本文采用<a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/" target="_blank">知识共享署名-非商业性使用 4.0 国际许可协议</a>
+    </p>
+  </div>
+
+
+
+      
+      
+    
+
+    
+      <footer class="post-footer">
         
-          <div class="post-category">
+          <div class="post-tags">
             
-              <a href="/categories/python/">python</a>
-            
-          </div>
-        
-        
-      </div>
-    </header>
-
-    
-    
-
-    <div class="post-content">
-      
-        
-        
-          
-        
-
-        
-          <p>js有一个常用的函数叫做setTimeout，可以延迟函数的执行而又不阻塞当前上下文。这是一个奇特的行为，因为js本身运行在单线程中。因此，在某些时候，可以发现，js上下文中的函数会影响setTimeout排定函数的运行。例如，如果此时有一个while true的函数阻塞，传递给setTimeout的函数也永远不会执行。</p>
-<p>在python中，也可以实现类似js 中setTimeout的行为。主要发现了以下几种方法：<br>
-          <div class="read-more">
-            <a href="/2018/06/27/Simple-time-event-loop-in-python/" class="read-more-link">阅读更多</a>
-          </div>
-        
-      
-    </div>
-
-    
-
-    
-
-  </article>
-
-    
-      
-  <article class="post">
-    <header class="post-header">
-      <h1 class="post-title">
-        
-          <a class="post-link" href="/2018/06/26/LZ77-coding/">LZ77编码简介</a>
-        
-      </h1>
-
-      <div class="post-meta">
-        <span class="post-time">
-          2018-06-26
-        </span>
-        
-        
-      </div>
-    </header>
-
-    
-    
-
-    <div class="post-content">
-      
-        
-        
-          
-        
-
-        
-          <p>LZ77是一个由Abraham Lempel于1977年发表的无损压缩算法，其思想与霍夫曼编码有很大差别。霍夫曼编码主要是用较短的编码代替出现频率较高的字符，用较长的编码代替出现频率较低的字符；LZ77编码的核心思想则是将重复出现的较长字符串（短语），使用较短的、指向前面第一次出现的字符串的标记来代替。标记与原序列之间是一种映射，因此，LZ77算法可以说成是基于字典的算法。<br>
-          <div class="read-more">
-            <a href="/2018/06/26/LZ77-coding/" class="read-more-link">阅读更多</a>
-          </div>
-        
-      
-    </div>
-
-    
-
-    
-
-  </article>
-
-    
-      
-  <article class="post">
-    <header class="post-header">
-      <h1 class="post-title">
-        
-          <a class="post-link" href="/2018/06/24/Python-Huffman-Tree/">实现霍夫曼编码</a>
-        
-      </h1>
-
-      <div class="post-meta">
-        <span class="post-time">
-          2018-06-24
-        </span>
-        
-        
-      </div>
-    </header>
-
-    
-    
-
-    <div class="post-content">
-      
-        
-        
-          
-        
-
-        
-          <p>霍夫曼编码是一种使用变长编码表编码源符号的无损压缩算法。它的核心思想是计算各个符号的权重，出现次数较多的符号拥有较大的权重，出现次数较少的符号拥有较小的权重。然后对符号进行前缀编码，用较短的编码表示拥有较长权重的符号，用较长的编码表示拥有较短权重的符号。这样，总体来说，对于符号出现次数不均衡的序列，霍夫曼编码就能够拥有较好的表现。</p>
-          <div class="read-more">
-            <a href="/2018/06/24/Python-Huffman-Tree/" class="read-more-link">阅读更多</a>
-          </div>
-        
-      
-    </div>
-
-    
-
-    
-
-  </article>
-
-    
-      
-  <article class="post">
-    <header class="post-header">
-      <h1 class="post-title">
-        
-          <a class="post-link" href="/2018/06/22/Common-sort-algorithm/">十种常见的排序方法</a>
-        
-      </h1>
-
-      <div class="post-meta">
-        <span class="post-time">
-          2018-06-22
-        </span>
-        
-          <div class="post-category">
-            
-              <a href="/categories/Python/">Python</a>
+              <a href="/tags/位运算/">位运算</a>
             
           </div>
         
         
-      </div>
-    </header>
-
+        
+  <nav class="post-nav">
     
     
-
-    <div class="post-content">
-      
-        
-        
-          
-        
-
-        
-          <h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>本文介绍了十种常见简单排序算法的python实现。</p>
-<p>将要介绍的这十种排序算法分别是——冒泡排序、选择排序、插入排序、希尔排序、快速排序、归并排序、堆排序、计数排序、基数排序、桶排序<br>
-          <div class="read-more">
-            <a href="/2018/06/22/Common-sort-algorithm/" class="read-more-link">阅读更多</a>
-          </div>
-        
-      
-    </div>
-
-    
-
-    
-
-  </article>
-
-    
-      
-  <article class="post">
-    <header class="post-header">
-      <h1 class="post-title">
-        
-          <a class="post-link" href="/2018/06/17/Heap-in-python/">堆排序简述</a>
-        
-      </h1>
-
-      <div class="post-meta">
-        <span class="post-time">
-          2018-06-17
-        </span>
-        
-          <div class="post-category">
-            
-              <a href="/categories/算法/">算法</a>
-            
-          </div>
-        
-        
-      </div>
-    </header>
-
-    
-    
-
-    <div class="post-content">
-      
-        
-        
-          
-        
-
-        
-          <h2 id="堆"><a href="#堆" class="headerlink" title="堆"></a>堆</h2><p>堆是一种基于树的数据结构，其父节点总是大于（最大堆）或小于（最小堆）其子节点，并且其根节点总是树中最小（或最大）的那个节点。</p>
-<p>堆排序常被用来实现<code>优先队列</code>，用于按给定的因子排定元素的优先级。而其本身最常采用的实现方式是扁平储存的二叉树。在二叉树实现的堆中，一个节点的兄弟节点并无特定的关系。唯一的关系存在于父节点和子结点中。<br>
-          <div class="read-more">
-            <a href="/2018/06/17/Heap-in-python/" class="read-more-link">阅读更多</a>
-          </div>
-        
-      
-    </div>
-
-    
-
-    
-
-  </article>
-
-    
-      
-  <article class="post">
-    <header class="post-header">
-      <h1 class="post-title">
-        
-          <a class="post-link" href="/2018/06/17/python-avl-binary-tree/">Python中的AVL树</a>
-        
-      </h1>
-
-      <div class="post-meta">
-        <span class="post-time">
-          2018-06-17
-        </span>
-        
-          <div class="post-category">
-            
-              <a href="/categories/算法/">算法</a>
-            
-          </div>
-        
-        
-      </div>
-    </header>
-
-    
-    
-
-    <div class="post-content">
-      
-        
-        
-          
-        
-
-        
-          <blockquote>
-<p>今宵は雪月花</p>
-</blockquote>
-<h2 id="AVL树"><a href="#AVL树" class="headerlink" title="AVL树"></a>AVL树</h2><p>将普通二叉树直接用于查找，平均情况下，仅需要查找一个分支，其时间复杂度为O(log n)。想要使查找时间尽可能短，就要使树的高度经可能短，使二叉树保持平衡状态。如果一个二叉树变得越来越不平衡，最后，其时间复杂度就变成了O(n)，相当于从头到尾遍历所有节点。<br>
-          <div class="read-more">
-            <a href="/2018/06/17/python-avl-binary-tree/" class="read-more-link">阅读更多</a>
-          </div>
-        
-      
-    </div>
-
-    
-
-    
-
-  </article>
-
-    
-      
-  <article class="post">
-    <header class="post-header">
-      <h1 class="post-title">
-        
-          <a class="post-link" href="/2018/06/07/The-usage-of-the-raise-from-in-python/">python在异常捕获里抛出异常</a>
-        
-      </h1>
-
-      <div class="post-meta">
-        <span class="post-time">
-          2018-06-07
-        </span>
-        
-          <div class="post-category">
-            
-              <a href="/categories/Python/">Python</a>
-            
-          </div>
-        
-        
-      </div>
-    </header>
-
-    
-    
-
-    <div class="post-content">
-      
-        
-        
-          
-        
-
-        
-          <h2 id="python2异常对象"><a href="#python2异常对象" class="headerlink" title="python2异常对象"></a>python2异常对象</h2><p>有时，我们需要在捕获一个异常之后，在捕获的语句里面抛出另外一个异常。例如：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">try</span>:</span><br><span class="line"><span class="meta">... </span>    print(<span class="number">1</span>/<span class="number">0</span>)</span><br><span class="line"><span class="meta">... </span><span class="keyword">except</span> ZeroDivisionError <span class="keyword">as</span> e:</span><br><span class="line"><span class="meta">... </span>    <span class="keyword">raise</span> ValueError(e)</span><br><span class="line">...</span><br><span class="line">Traceback (most recent call last):</span><br><span class="line">  File <span class="string">"&lt;stdin&gt;"</span>, line <span class="number">2</span>, <span class="keyword">in</span> &lt;module&gt;</span><br><span class="line">ZeroDivisionError: division by zero</span><br><span class="line"></span><br><span class="line">During handling of the above exception, another exception occurred:</span><br><span class="line"></span><br><span class="line">Traceback (most recent call last):</span><br><span class="line">  File <span class="string">"&lt;stdin&gt;"</span>, line <span class="number">4</span>, <span class="keyword">in</span> &lt;module&gt;</span><br><span class="line">ValueError: division by zero</span><br></pre></td></tr></table></figure></p>
-<p>上面在捕获除零异常后，重新在处理语句里抛出了ValueError，并将除零异常的信息传给了ValueError。同时，可以发现抛出的信息还附带了追踪信息，可以看到异常的抛出顺序。</p>
-<p>然而，在python2里，从一个异常捕获中直接抛出另一个异常，并不会附带追踪信息：<br>
-          <div class="read-more">
-            <a href="/2018/06/07/The-usage-of-the-raise-from-in-python/" class="read-more-link">阅读更多</a>
-          </div>
-        
-      
-    </div>
-
-    
-
-    
-
-  </article>
-
-    
-      
-  <article class="post">
-    <header class="post-header">
-      <h1 class="post-title">
-        
-          <a class="post-link" href="/2018/05/31/meta-programming-explore/">内省python元类执行流程</a>
-        
-      </h1>
-
-      <div class="post-meta">
-        <span class="post-time">
-          2018-05-31
-        </span>
-        
-          <div class="post-category">
-            
-              <a href="/categories/Python/">Python</a>
-            
-          </div>
-        
-        
-      </div>
-    </header>
-
-    
-    
-
-    <div class="post-content">
-      
-        
-        
-          
-        
-
-        
-          <h2 id="引言"><a href="#引言" class="headerlink" title="引言"></a>引言</h2><p>上一篇文章里面曾简短提到了在python中使用type类可以实现元编程。实际上，在python，存在几种类型的元编程，包括使用装饰器动态修改类或函数的功能、使用魔术方法重写python内置操作符的行为等，还有使用元类在运行时动态的创建和修改类。本文主要探讨python中使用元类进行元编程时，其中类方法的调用顺序和流程的问题。我想理解了这一点就会对使用元类有更深一点的认知。<br>
-          <div class="read-more">
-            <a href="/2018/05/31/meta-programming-explore/" class="read-more-link">阅读更多</a>
-          </div>
-        
-      
-    </div>
-
-    
-
-    
-
-  </article>
-
-    
-      
-  <article class="post">
-    <header class="post-header">
-      <h1 class="post-title">
-        
-          <a class="post-link" href="/2018/05/31/type-and-object-explore/">python中type和object</a>
-        
-      </h1>
-
-      <div class="post-meta">
-        <span class="post-time">
-          2018-05-31
-        </span>
-        
-          <div class="post-category">
-            
-              <a href="/categories/Python/">Python</a>
-            
-          </div>
-        
-        
-      </div>
-    </header>
-
-    
-    
-
-    <div class="post-content">
-      
-        
-        
-          
-        
-
-        
-          <blockquote>
-<p>一生一代一双人</p>
-</blockquote>
-<h2 id="type和object"><a href="#type和object" class="headerlink" title="type和object"></a>type和object</h2><p>python中内置了两个类，type和object，用isinstance和issubclass测试这两个类会发现一些奇怪的特性，如下：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># object是自身的实例</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>isinstance(object, object)</span><br><span class="line"><span class="keyword">True</span></span><br><span class="line"><span class="comment"># object也是type的实例</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>isinstance(object, type)</span><br><span class="line"><span class="keyword">True</span></span><br><span class="line"><span class="comment"># type是自身的实例</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>isinstance(type, type)</span><br><span class="line"><span class="keyword">True</span></span><br><span class="line"><span class="comment"># type是object的实例</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>isinstance(type, object)</span><br><span class="line"><span class="keyword">True</span></span><br><span class="line"><span class="comment"># object是自身的子类</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>issubclass(object, object)</span><br><span class="line"><span class="keyword">True</span></span><br><span class="line"><span class="comment"># object不是type的子类</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>issubclass(object, type)</span><br><span class="line"><span class="keyword">False</span></span><br><span class="line"><span class="comment"># type是自身的子类</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>issubclass(type, type)</span><br><span class="line"><span class="keyword">True</span></span><br><span class="line"><span class="comment"># type也是object的子类</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>issubclass(type, object)</span><br><span class="line"><span class="keyword">True</span></span><br></pre></td></tr></table></figure></p>
-          <div class="read-more">
-            <a href="/2018/05/31/type-and-object-explore/" class="read-more-link">阅读更多</a>
-          </div>
-        
-      
-    </div>
-
-    
-
-    
-
-  </article>
-
-    
-  </section>
-
-  
-  <nav class="pagination">
-    
-    
-      <a class="next" href="/page/2/">
-        <span class="next-text">下一页</span>
+      <a class="next" href="/2018/06/27/Simple-time-event-loop-in-python/">
+        <span class="next-text nav-default">在python中延迟执行函数</span>
+        <span class="prev-text nav-mobile">下一篇</span>
         <i class="iconfont icon-right"></i>
       </a>
     
   </nav>
 
+      </footer>
+    
+
+  </article>
+
 
           </div>
           
+  <div class="comments" id="comments">
+    
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
+      </div>
+    
+  </div>
+
 
         </div>
       </main>
@@ -816,6 +413,27 @@
     </div>
 
     
+  
+  <script type="text/javascript">
+    var disqus_config = function () {
+        this.page.url = 'https://arianx.me/2018/08/17/Use-bit-arithmetic-to-implement-addition-subtraction-multiplication-and-division/';
+        this.page.identifier = '2018/08/17/Use-bit-arithmetic-to-implement-addition-subtraction-multiplication-and-division/';
+        this.page.title = '使用位运算实现加减乘除';
+    };
+    (function() {
+    var d = document, s = d.createElement('script');
+
+    s.src = '//arianx.disqus.com/embed.js';
+
+    s.setAttribute('data-timestamp', +new Date());
+    (d.head || d.body).appendChild(s);
+    })();  
+  </script>
+
+  
+
+  
+
 
 
     
