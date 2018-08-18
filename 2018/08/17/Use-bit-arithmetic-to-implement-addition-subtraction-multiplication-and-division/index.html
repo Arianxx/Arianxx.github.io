@@ -240,7 +240,7 @@
 
     <div class="post-content">
       
-        <h2 id="加法"><a href="#加法" class="headerlink" title="加法"></a>加法</h2><p>加法可以拆分成几个步骤，首先是每位上的数对应相加，将结果与对应的基数取模，设置为当前位，然后处理相加之后产生进位的位，给它们的上一个拥有更大权值的位加上一，如果又产生进位，就如此循环，直到没有进位为止。</p>
+        <h2 id="加法"><a href="#加法" class="headerlink" title="加法"></a>加法</h2><p>加法可以拆分成几个步骤，首先是每位上的数对应相加，将结果与对应的基数取模，设置为当前位，然后处理相加之后产生进位的位，给它们的上一个拥有更大权值的位加上一，如果又产生进位，就如此循环，直到没有进位为止。<br><a id="more"></a></p>
 <p>对于二进制来说，第一步相加取模是这样的：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">1 + 1 = 0</span><br><span class="line">1 + 0 = 1</span><br><span class="line">0 + 0 = 0</span><br></pre></td></tr></table></figure></p>
 <p>可以看到，只有两位数不一样的情况下，值才为1。这正和<code>异或运算</code>的结果相同。</p>
 <p>而在二进制中，只有1+1才有可能产生进位，也就是说，我们需要找出两个数中都为1的位，这一点可以使用<code>与运算</code>实现。然后，将与运算的结果左移一位，与第一步的结果相加，就能得到最终的结果。</p>
