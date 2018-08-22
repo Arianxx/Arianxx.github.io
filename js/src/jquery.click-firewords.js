@@ -1,147 +1,124 @@
-(function ($) {
-    $.fn.clickFireworks = function (params) {
-        params = $.extend({
-            id: 'fireworks',
-            zIndex: 1000,
-            appendTo: 'body',
-        }, params);
-
-        $(this).css({
-            'position': 'relative',
-            'z-index': params.zIndex + 1
-        });
-
-        return this.on('click', function (e) {
-            // html
-            {
-                let s = `<canvas
-                        id="${params.id}"
-                        style="position: fixed;
-                        width: 100%;
-                        height: 100%;
-                        left: 0;
-                        top: 0;
-                        z-index: ${params.zIndex};
-                        background-color: transparent;">
-                     </canvas>`;
-                $(params.appendTo).append(s);
-            }
-
-            let canvasEl = $(`#${params.id}`).get(0);
-            let ctx = canvasEl.getContext('2d');
-            let numberOfParticles = 30;
-            let colors = ['#FF1461', '#18FF92', '#5A87FF', '#FBF38C'];
-
-            let setParticleDirection = function (p) {
-                let angle = anime.random(0, 360) * Math.PI / 180;
-                let value = anime.random(50, 180);
-                let radius = [-1, 1][anime.random(0, 1)] * value;
-                return {
-                    x: p.x + radius * Math.cos(angle),
-                    y: p.y + radius * Math.sin(angle)
-                }
-            };
-            let createParticle = function (x, y) {
-                let p = {};
-                p.x = x;
-                p.y = y;
-                p.color = colors[anime.random(0, colors.length - 1)];
-                p.radius = anime.random(16, 32);
-                p.endPos = setParticleDirection(p);
-                p.draw = function () {
-                    ctx.beginPath();
-                    ctx.arc(p.x, p.y, p.radius, 0, 2 * Math.PI);
-                    ctx.fillStyle = p.color;
-                    ctx.fill();
-                };
-                return p;
-            };
-            let createCircle = function (x, y) {
-                let p = {};
-                p.x = x;
-                p.y = y;
-                p.color = '#FFF';
-                p.radius = 0.1;
-                p.alpha = .5;
-                p.lineWidth = 6;
-                p.draw = function () {
-                    ctx.globalAlpha = p.alpha;
-                    ctx.beginPath();
-                    ctx.arc(p.x, p.y, p.radius, 0, 2 * Math.PI, true);
-                    ctx.lineWidth = p.lineWidth;
-                    ctx.strokeStyle = p.color;
-                    ctx.stroke();
-                    ctx.globalAlpha = 1;
-                };
-                return p;
-            };
-            let renderParticle = function (anim) {
-                for (let i = 0; i < anim.animatables.length; i++) {
-                    anim.animatables[i].target.draw();
-                }
-            };
-            let animateParticles = function (x, y) {
-                let circle = createCircle(x, y);
-                let particles = [];
-                for (let i = 0; i < numberOfParticles; i++) {
-                    particles.push(createParticle(x, y));
-                }
-                anime.timeline().add({
-                    targets: particles,
-                    x: function (p) {
-                        return p.endPos.x;
-                    },
-                    y: function (p) {
-                        return p.endPos.y;
-                    },
-                    radius: 0.1,
-                    duration: anime.random(1200, 1800),
-                    easing: 'easeOutExpo',
-                    update: renderParticle
-                })
-                    .add({
-                        targets: circle,
-                        radius: anime.random(80, 160),
-                        lineWidth: 0,
-                        alpha: {
-                            value: 0,
-                            easing: 'linear',
-                            duration: anime.random(600, 800),
-                        },
-                        duration: anime.random(1200, 1800),
-                        easing: 'easeOutExpo',
-                        update: renderParticle,
-                        offset: 0
-                    });
-            };
-
-            let render = anime({
-                duration: 500,
-                update: function () {
-                    // clear canvas on every frame
-                    ctx.clearRect(0, 0, canvasEl.width, canvasEl.height);
-                },
-                complete: function () {
-                    canvasEl.remove();
-                }
-            });
-
-            render.play();
-            animateParticles(e.clientX, e.clientY);
-
-            // canvas size
-            {
-                function setCanvasSize() {
-                    canvasEl.width = window.innerWidth * 2;
-                    canvasEl.height = window.innerHeight * 2;
-                    canvasEl.style.width = window.innerWidth + 'px';
-                    canvasEl.style.height = window.innerHeight + 'px';
-                    canvasEl.getContext('2d').scale(2, 2);
-                }
-
-                setCanvasSize();
-                window.addEventListener('resize', setCanvasSize);
-            }
-        });
+function updateCoords(e) {
+    pointerX = (e.clientX || e.touches[0].clientX) - canvasEl.getBoundingClientRect().left,
+    pointerY = e.clientY || e.touches[0].clientY - canvasEl.getBoundingClientRect().top
+}
+function setParticuleDirection(e) {
+    var t = anime.random(0, 360) * Math.PI / 180
+      , a = anime.random(50, 180)
+      , n = [-1, 1][anime.random(0, 1)] * a;
+    return {
+        x: e.x + n * Math.cos(t),
+        y: e.y + n * Math.sin(t)
     }
-}(jQuery));
+}
+function createParticule(e, t) {
+    var a = {};
+    return a.x = e,
+    a.y = t,
+    a.color = colors[anime.random(0, colors.length - 1)],
+    a.radius = anime.random(16, 32),
+    a.endPos = setParticuleDirection(a),
+    a.draw = function() {
+        ctx.beginPath(),
+        ctx.arc(a.x, a.y, a.radius, 0, 2 * Math.PI, !0),
+        ctx.fillStyle = a.color,
+        ctx.fill()
+    }
+    ,
+    a
+}
+function createCircle(e, t) {
+    var a = {};
+    return a.x = e,
+    a.y = t,
+    a.color = "#F00",
+    a.radius = .1,
+    a.alpha = .5,
+    a.lineWidth = 6,
+    a.draw = function() {
+        ctx.globalAlpha = a.alpha,
+        ctx.beginPath(),
+        ctx.arc(a.x, a.y, a.radius, 0, 2 * Math.PI, !0),
+        ctx.lineWidth = a.lineWidth,
+        ctx.strokeStyle = a.color,
+        ctx.stroke(),
+        ctx.globalAlpha = 1
+    }
+    ,
+    a
+}
+function render_animeParticule(e) {
+    for (var t = 0; t < e.animatables.length; t++)
+        e.animatables[t].target.draw()
+}
+function animateParticules(e, t) {
+    for (var a = createCircle(e, t), n = [], i = 0; i < numberOfParticules; i++)
+        n.push(createParticule(e, t));
+    anime.timeline().add({
+        targets: n,
+        x: function(e) {
+            return e.endPos.x
+        },
+        y: function(e) {
+            return e.endPos.y
+        },
+        radius: .1,
+        duration: anime.random(1200, 1800),
+        easing: "easeOutExpo",
+        update: render_animeParticule
+    }).add({
+        targets: a,
+        radius: anime.random(80, 160),
+        lineWidth: 0,
+        alpha: {
+            value: 0,
+            easing: "linear",
+            duration: anime.random(600, 800)
+        },
+        duration: anime.random(1200, 1800),
+        easing: "easeOutExpo",
+        update: render_animeParticule,
+        offset: 0
+    })
+}
+function debounce(fn, delay) {
+  var timer
+  return function () {
+    var context = this
+    var args = arguments
+    clearTimeout(timer)
+    timer = setTimeout(function () {
+      fn.apply(context, args)
+    }, delay)
+  }
+}
+
+var canvasEl = document.querySelector(".fireworks");
+if (canvasEl) {
+    var ctx = canvasEl.getContext("2d")
+      , numberOfParticules = 30
+      , pointerX = 0
+      , pointerY = 0
+      , tap = "mousedown"
+      , colors = ["#FF1461", "#18FF92", "#5A87FF", "#FBF38C"]
+      , setCanvasSize = debounce(function() {
+        canvasEl.width = 2 * window.innerWidth,
+        canvasEl.height = 2 * window.innerHeight,
+        canvasEl.style.width = window.innerWidth + "px",
+        canvasEl.style.height = window.innerHeight + "px",
+        canvasEl.getContext("2d").scale(2, 2)
+    },500)
+      , render_anime = anime({
+        duration: 1 / 0,
+        update: function() {
+            ctx.clearRect(0, 0, canvasEl.width, canvasEl.height)
+        }
+    });
+    document.addEventListener(tap, function(e) {
+        "sidebar" !== e.target.id && "toggle-sidebar" !== e.target.id && "A" !== e.target.nodeName && "IMG" !== e.target.nodeName && (render_anime.play(),
+        updateCoords(e),
+        animateParticules(pointerX, pointerY))
+    }, !1),
+    setCanvasSize(),
+    window.addEventListener("resize", setCanvasSize, !1)
+}

@@ -63,16 +63,6 @@
 
 
 
-  <script id="google_analytics">
-    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-        })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
-
-        ga('create', 'UA-113448663-1', 'auto');
-        ga('send', 'pageview');
-  </script>
-
 
   <script id="baidu_push">
 (function(){
@@ -205,6 +195,11 @@
     </ul>
   
 </nav>
+
+<div class="waifu">
+    <div class="waifu-tips"></div>
+    <canvas id="live2d" width="240" height="220" class="live2d"></canvas>
+</div>
 
       </header>
 
@@ -369,17 +364,13 @@
     <script type="text/javascript" src="/js/src/even.js?v=2.6.0"></script>
 <script type="text/javascript" src="/js/src/bootstrap.js?v=2.6.0"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/2.2.0/anime.min.js" integrity="sha384-BnFYVbw3PHhz5qWXTCSL12MjPc3KxjdKPx7R4R5JjIzxFmYX267NDyJ9B/nZANdg" crossorigin="anonymous"></script>
-<script type="text/javascript" src="/js/src/jquery.click-firewords.js"></script>
 
-<script>
-$(function(){
-	$('body').clickFireworks({
-	id: 'fireworkds',
-	appendTo: 'body',
-	zIndex: 1000
-	});
-});
+<script async src="/js/src/message.js"></script>
+<script src="/js/src/live2d.js"></script>
+<script type="text/javascript">
+    loadlive2d("live2d", "/model/Pio/model.json");
+    $('.waifu').after("<canvas class='fireworks' style='position:fixed;left:0;top:0;pointer-events:none'></canvas>")
 </script>
-
-  <script src="/live2dw/lib/L2Dwidget.min.js?0c58a1486de42ac6cc1c59c7d98ae887"></script><script>L2Dwidget.init({"model":{"scale":1,"hHeadPos":0.5,"vHeadPos":0.618,"jsonPath":"/live2dw/assets/model.model.json"},"display":{"superSample":2,"width":120,"height":240,"position":"left","hOffset":0,"vOffset":-165},"mobile":{"show":false,"scale":0.5},"react":{"opacityDefault":1,"opacityOnhover":1},"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/"});</script></body>
+<script type="text/javascript" src="/js/src/jquery.click-firewords.js"></script>
+  </body>
 </html>
