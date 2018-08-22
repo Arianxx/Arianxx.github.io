@@ -2,6 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://arianx.me/about/index.html</loc>
+    
+    <lastmod>2018-08-22T08:08:24.951Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>https://arianx.me/2018/08/17/Use-bit-arithmetic-to-implement-addition-subtraction-multiplication-and-division/</loc>
     
     <lastmod>2018-08-18T13:57:40.503Z</lastmod>
@@ -103,13 +110,6 @@
     <loc>https://arianx.me/2018/06/24/Python-Huffman-Tree/</loc>
     
     <lastmod>2018-06-26T12:59:57.951Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://arianx.me/about/index.html</loc>
-    
-    <lastmod>2018-06-24T09:56:54.973Z</lastmod>
     
   </url>
   
