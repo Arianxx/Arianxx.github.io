@@ -8,7 +8,7 @@ date: 2018-02-03 12:20:34
 
 ## About Me
 + ArianX
-+ 信息安全专业
++ 后端开发
 
 ## Hobby
 + 平时喜欢敲敲Python呀，Python啊，还有Python什么的（雾
@@ -16,4 +16,4 @@ date: 2018-02-03 12:20:34
 + (\_　\_)。゜zｚＺ
 
 ## Contact
-[ysnyyhs@163.com](ysnyyhs@163.com 我的邮箱)
+邮箱：eXNueXloc0AxNjMuY29t

@@ -98,25 +98,3 @@ feed:
 type: atom
 path: atom.xml
 limit: 20
-
-live2d:
-  enable: true
-  scriptFrom: local
-  model:
-    use: model
-    scale: 1
-    hHeadPos: 0.5
-    vHeadPos: 0.618
-  display:
-    superSample: 2
-    width: 120
-    height: 240
-    position: left
-    hOffset: 0
-    vOffset: -165
-  mobile:
-    show: false
-    scale: 0.5
-  react:
-    opacityDefault: 1
-    opacityOnhover: 1
