@@ -3,7 +3,7 @@ title: Python中的AVL树
 date: 2018-06-17 07:17:17
 tags: 
     - 算法
-    - Python
+    - python
 categories: 算法
 ---
 >今宵は雪月花

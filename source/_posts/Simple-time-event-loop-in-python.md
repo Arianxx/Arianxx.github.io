@@ -2,7 +2,7 @@
 title: 在python中延迟执行函数
 date: 2018-06-27 07:10:21
 tags:
-    - Python
+    - python
 categories: python
 ---
 js有一个常用的函数叫做setTimeout，可以延迟函数的执行而又不阻塞当前上下文。这是一个奇特的行为，因为js本身运行在单线程中。因此，在某些时候，可以发现，js上下文中的函数会影响setTimeout排定函数的运行。例如，如果此时有一个while true的函数阻塞，传递给setTimeout的函数也永远不会执行。

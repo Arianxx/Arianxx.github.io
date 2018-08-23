@@ -2,7 +2,7 @@
 title: 堆排序简述
 date: 2018-06-17 22:28:59
 tags:
-    - Python
+    - python
     - 算法
 categories: 算法
 ---

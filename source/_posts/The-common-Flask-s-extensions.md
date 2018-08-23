@@ -2,7 +2,7 @@
 title: Flask常见扩展总结
 date: 2018-04-13 13:01:43
 tags: 
-    - Python
+    - python
     - Flask
 categories: 笔记
 ---

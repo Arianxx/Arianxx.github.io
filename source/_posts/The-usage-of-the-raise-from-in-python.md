@@ -2,8 +2,8 @@
 title: python在异常捕获里抛出异常
 date: 2018-06-07 22:50:17
 tags:
-    - Python
-categories: Python
+    - python
+categories: python
 ---
 ## python2异常对象
 有时，我们需要在捕获一个异常之后，在捕获的语句里面抛出另外一个异常。例如：

@@ -2,9 +2,9 @@
 title: 十种常见的排序方法
 date: 2018-06-22 19:48:09
 tags:
-    - Python
+    - python
     - 算法
-categories: Python
+categories: python
 ---
 ## 简介
 本文介绍了十种常见简单排序算法的python实现。
