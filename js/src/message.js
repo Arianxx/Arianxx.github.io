@@ -73,31 +73,35 @@ $.ajax({
 
 (function (){
     var text;
-    if(document.referrer !== ''){
-        var referrer = document.createElement('a');
-        referrer.href = document.referrer;
-        text = 'Hello! 来自 <span style="color:#0099cc;">' + referrer.hostname + '</span> 的朋友';
-        var domain = referrer.hostname.split('.')[1];
-        if (domain == 'baidu') {
-            text = 'Hello! 来自 百度搜索 的朋友<br>你是搜索 <span style="color:#0099cc;">' + referrer.search.split('&wd=')[1].split('&')[0] + '</span> 找到的我吗？';
-        }else if (domain == 'so') {
-            text = 'Hello! 来自 360搜索 的朋友<br>你是搜索 <span style="color:#0099cc;">' + referrer.search.split('&q=')[1].split('&')[0] + '</span> 找到的我吗？';
-        }else if (domain == 'google') {
-            text = 'Hello! 来自 谷歌搜索 的朋友<br>欢迎阅读<span style="color:#0099cc;">『' + document.title.split(' - ')[0] + '』</span>';
-        }
-    }else {
-        if (window.location.href == 'https://arianx.me' || window.location.href == 'http://127.0.0.1') { //如果是主页
+    if (location.origin + '/' === location.href){
+        var flag = Boolean(Math.floor(Math.random() * 3));
+        console.log(flag)
+        if (flag && document.referrer !== '') {
+            var referrer = document.createElement('a');
+            referrer.href = document.referrer;
+            text = 'Hello! 来自 <span style="color:#0099cc;">' + referrer.hostname + '</span> 的朋友';
+            var domain = referrer.hostname.split('.')[1];
+            if (domain == 'baidu') {
+                text = 'Hello! 来自 百度搜索 的朋友<br>你是搜索 <span style="color:#0099cc;">' + referrer.search.split('&wd=')[1].split('&')[0] + '</span> 找到的我吗？';
+            }else if (domain == 'so') {
+                text = 'Hello! 来自 360搜索 的朋友<br>你是搜索 <span style="color:#0099cc;">' + referrer.search.split('&q=')[1].split('&')[0] + '</span> 找到的我吗？';
+            }else if (domain == 'google') {
+                text = 'Hello! 来自 谷歌搜索 的朋友<br>欢迎阅读<span style="color:#0099cc;">『' + document.title.split(' - ')[0] + '』</span>';
+            }
+        } else {
             var now = (new Date()).getHours();
-            if (now > 23 || now <= 5) {
+            if (now <= 5) {
                 text = '你是夜猫子呀？这么晚还不睡觉，明天起的来嘛';
             } else if (now > 5 && now <= 7) {
                 text = '早上好！一日之计在于晨，美好的一天就要开始了';
             } else if (now > 7 && now <= 11) {
                 text = '上午好！工作顺利嘛，不要久坐，多起来走动走动哦！';
-            } else if (now > 11 && now <= 14) {
+            } else if (now > 11 && now <= 12) {
                 text = '中午了，工作了一个上午，现在是午餐时间！';
-            } else if (now > 14 && now <= 17) {
+            } else if (now > 14 && now <= 16) {
                 text = '午后很容易犯困呢，今天的运动目标完成了吗？';
+            } else if (now > 16 && now <= 17) {
+                text = '嗨~ 快来逗我玩吧！';
             } else if (now > 17 && now <= 19) {
                 text = '傍晚了！窗外夕阳的景色很美丽呢，最美不过夕阳红~';
             } else if (now > 19 && now <= 21) {
@@ -107,9 +111,9 @@ $.ajax({
             } else {
                 text = '嗨~ 快来逗我玩吧！';
             }
-        }else {
-            text = '欢迎阅读<span style="color:#0099cc;">『' + document.title.split(' - ')[0] + '』</span>';
         }
+    } else {
+        text = '欢迎阅读<span style="color:#0099cc;">『' + document.title.split(' - ')[0] + '』</span>';
     }
     showMessage(text, 6000);
 })();
@@ -118,6 +122,10 @@ window.setInterval(showHitokoto,30000);
 
 function showHitokoto(){
     $.getJSON('https://v1.hitokoto.cn/?charset=utf-8&length=28&encode=json',function(result){
+        if (result.hitokoto.length > 60){
+            showHitokoto()
+            return
+        }
         showMessage(result.hitokoto, 5000);
     });
 }

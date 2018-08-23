@@ -205,7 +205,7 @@
             
   <div class="categories">
     <div class="categories-title">
-      目前共计 6 个分类
+      目前共计 5 个分类
     </div>
     <div class="categories-tags">
       <a class="category-link" href="/categories/ctf/">ctf<span class="category-count">1</span></a> <a class="category-link" href="/categories/python/">python<span class="category-count">6</span></a> <a class="category-link" href="/categories/笔记/">笔记<span class="category-count">1</span></a> <a class="category-link" href="/categories/算法/">算法<span class="category-count">3</span></a> <a class="category-link" href="/categories/随笔/">随笔<span class="category-count">1</span></a>
@@ -353,13 +353,21 @@
     <script type="text/javascript" src="/js/src/even.js?v=2.6.0"></script>
 <script type="text/javascript" src="/js/src/bootstrap.js?v=2.6.0"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/2.2.0/anime.min.js" integrity="sha384-BnFYVbw3PHhz5qWXTCSL12MjPc3KxjdKPx7R4R5JjIzxFmYX267NDyJ9B/nZANdg" crossorigin="anonymous"></script>
+<script src="/js/src/transition.min.js"></script>
 
 <script async src="/js/src/message.js"></script>
 <script src="/js/src/live2d.js"></script>
+
 <script type="text/javascript">
-    loadlive2d("live2d", "/model/Pio/model.json");
+	modelNames = ["default-costume.json", "pajamas-costume.json", "school-costume.json"]
+	modelNum = modelNames.length
+	randomName = modelNames[Math.floor(Math.random() * modelNum)]
+
+    loadlive2d("live2d", "/model/Pio/" + randomName);
     $('.waifu').after("<canvas class='fireworks' style='position:fixed;left:0;top:0;pointer-events:none'></canvas>")
 </script>
-<script type="text/javascript" src="/js/src/jquery.click-firewords.js"></script>
+
+<script async type="text/javascript" src="/js/src/jquery.click-firewords.js"></script>
+
   </body>
 </html>

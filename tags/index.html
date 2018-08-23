@@ -205,10 +205,10 @@
             
   <div class="tag-cloud">
     <div class="tag-cloud-title">
-      目前共计 11 个标签
+      目前共计 10 个标签
     </div>
     <div class="tag-cloud-tags">
-      <a href="/tags/writeup/" style="font-size: 16px;">writeup</a> <a href="/tags/编码/" style="font-size: 20px;">编码</a> <a href="/tags/位运算/" style="font-size: 16px;">位运算</a> <a href="/tags/ctf/" style="font-size: 16px;">ctf</a> <a href="/tags/算法/" style="font-size: 24px;">算法</a> <a href="/tags/密码学/" style="font-size: 16px;">密码学</a> <a href="/tags/Flask/" style="font-size: 16px;">Flask</a> <a href="/tags/生活/" style="font-size: 16px;">生活</a> <a href="/tags/随笔/" style="font-size: 16px;">随笔</a> <a href="/tags/python/" style="font-size: 28px;">python</a>
+      <a href="/tags/python/" style="font-size: 28px;">python</a> <a href="/tags/算法/" style="font-size: 24px;">算法</a> <a href="/tags/编码/" style="font-size: 20px;">编码</a> <a href="/tags/位运算/" style="font-size: 16px;">位运算</a> <a href="/tags/Flask/" style="font-size: 16px;">Flask</a> <a href="/tags/ctf/" style="font-size: 16px;">ctf</a> <a href="/tags/writeup/" style="font-size: 16px;">writeup</a> <a href="/tags/密码学/" style="font-size: 16px;">密码学</a> <a href="/tags/生活/" style="font-size: 16px;">生活</a> <a href="/tags/随笔/" style="font-size: 16px;">随笔</a>
     </div>
   </div>
 
@@ -342,13 +342,21 @@
     <script type="text/javascript" src="/js/src/even.js?v=2.6.0"></script>
 <script type="text/javascript" src="/js/src/bootstrap.js?v=2.6.0"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/2.2.0/anime.min.js" integrity="sha384-BnFYVbw3PHhz5qWXTCSL12MjPc3KxjdKPx7R4R5JjIzxFmYX267NDyJ9B/nZANdg" crossorigin="anonymous"></script>
+<script src="/js/src/transition.min.js"></script>
 
 <script async src="/js/src/message.js"></script>
 <script src="/js/src/live2d.js"></script>
+
 <script type="text/javascript">
-    loadlive2d("live2d", "/model/Pio/model.json");
+	modelNames = ["default-costume.json", "pajamas-costume.json", "school-costume.json"]
+	modelNum = modelNames.length
+	randomName = modelNames[Math.floor(Math.random() * modelNum)]
+
+    loadlive2d("live2d", "/model/Pio/" + randomName);
     $('.waifu').after("<canvas class='fireworks' style='position:fixed;left:0;top:0;pointer-events:none'></canvas>")
 </script>
-<script type="text/javascript" src="/js/src/jquery.click-firewords.js"></script>
+
+<script async type="text/javascript" src="/js/src/jquery.click-firewords.js"></script>
+
   </body>
 </html>
