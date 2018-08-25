@@ -31,7 +31,7 @@
 
 
 
-  <link rel="alternate" href="/atom.xml" title="Arian.X">
+  <link rel="alternate" href="/atom.xml" title="Arian's Blog">
 
 
 
@@ -87,12 +87,12 @@
 
 
 
-    <title> Arian.X </title>
+    <title> Arian's Blog </title>
   </head>
 
   <body><div id="mobile-navbar" class="mobile-navbar">
   <div class="mobile-header-logo">
-    <a href="/." class="logo">Arian.X</a>
+    <a href="/." class="logo">Arian's Blog</a>
   </div>
   <div class="mobile-navbar-icon">
     <span></span>
@@ -145,7 +145,7 @@
 
     <div class="container" id="mobile-panel">
       <header id="header" class="header"><div class="logo-wrapper">
-  <a href="/." class="logo">Arian.X</a>
+  <a href="/." class="logo">Arian's Blog</a>
 </div>
 
 <nav class="site-navbar">
@@ -204,6 +204,59 @@
           <div id="content" class="content">
             
   <section id="posts" class="posts">
+    
+      
+  <article class="post">
+    <header class="post-header">
+      <h1 class="post-title">
+        
+          <a class="post-link" href="/2018/05/31/type-and-object-explore/">python中type和object</a>
+        
+      </h1>
+
+      <div class="post-meta">
+        <span class="post-time">
+          2018-05-31
+        </span>
+        
+          <div class="post-category">
+            
+              <a href="/categories/python/">python</a>
+            
+          </div>
+        
+        
+      </div>
+    </header>
+
+    
+    
+
+    <div class="post-content">
+      
+        
+        
+          
+        
+
+        
+          <blockquote>
+<p>一生一代一双人</p>
+</blockquote>
+<h2 id="type和object"><a href="#type和object" class="headerlink" title="type和object"></a>type和object</h2><p>python中内置了两个类，type和object，用isinstance和issubclass测试这两个类会发现一些奇怪的特性，如下：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># object是自身的实例</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>isinstance(object, object)</span><br><span class="line"><span class="keyword">True</span></span><br><span class="line"><span class="comment"># object也是type的实例</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>isinstance(object, type)</span><br><span class="line"><span class="keyword">True</span></span><br><span class="line"><span class="comment"># type是自身的实例</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>isinstance(type, type)</span><br><span class="line"><span class="keyword">True</span></span><br><span class="line"><span class="comment"># type是object的实例</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>isinstance(type, object)</span><br><span class="line"><span class="keyword">True</span></span><br><span class="line"><span class="comment"># object是自身的子类</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>issubclass(object, object)</span><br><span class="line"><span class="keyword">True</span></span><br><span class="line"><span class="comment"># object不是type的子类</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>issubclass(object, type)</span><br><span class="line"><span class="keyword">False</span></span><br><span class="line"><span class="comment"># type是自身的子类</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>issubclass(type, type)</span><br><span class="line"><span class="keyword">True</span></span><br><span class="line"><span class="comment"># type也是object的子类</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>issubclass(type, object)</span><br><span class="line"><span class="keyword">True</span></span><br></pre></td></tr></table></figure></p>
+          <div class="read-more">
+            <a href="/2018/05/31/type-and-object-explore/" class="read-more-link">阅读更多</a>
+          </div>
+        
+      
+    </div>
+
+    
+
+    
+
+  </article>
+
     
       
   <article class="post">
