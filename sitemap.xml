@@ -2,6 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://arianx.me/about/index.html</loc>
+    
+    <lastmod>2018-09-07T12:39:15.269Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>https://arianx.me/2018/08/24/python-3-7-new-character/</loc>
     
     <lastmod>2018-08-25T03:20:27.252Z</lastmod>
@@ -89,13 +96,6 @@
     <loc>https://arianx.me/2018/06/22/Common-sort-algorithm/</loc>
     
     <lastmod>2018-08-22T16:14:03.943Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://arianx.me/about/index.html</loc>
-    
-    <lastmod>2018-08-22T08:08:24.951Z</lastmod>
     
   </url>
   
