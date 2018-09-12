@@ -8,7 +8,6 @@ date: 2018-02-03 12:20:34
 
 ## About Me
 + ArianX
-+ 后端开发
 
 ## Hobby
 + 平时喜欢敲敲Python呀，Python啊，还有Python什么的（雾
