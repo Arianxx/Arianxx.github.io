@@ -22,7 +22,7 @@
 
 
 
-  <meta name="keywords" content="python, 算法, Arian's Blog" />
+  <meta name="keywords" content="算法, python, Arian's Blog" />
 
 
 
@@ -252,7 +252,7 @@
 <p>每个具体的对象都有其独特的<code>标识</code>。例如，在现实中，每个人都会有一个名字。一般来说，在某个给定范围的命名空间中，这个标识是唯一的。我们可以说，某个具有独特标识符的对象属于什么类。例如，张三是人，就是说”张三”属于”人”这个类。这样，可以发现，一般情况下，凡是可以说成“某个东西是什么”这种句法的，都可以抽象出类与对象的关系。</p>
 <p>类比到现实中，类与对象是一种所属关系，对象是一种客观存在的实体。而放到具体的程序设计中来说，类可以视作对某些具有共同特征或行为的数据的<code>抽象</code>。</p>
 <h2 id="Ⅱ-类的继承机制"><a href="#Ⅱ-类的继承机制" class="headerlink" title="Ⅱ.类的继承机制"></a>Ⅱ.类的继承机制</h2><p>一个对象可以说成是某个类的实例，一般情况，就可以说成”对象是类”这种形式。然而，在许多情况下，在这样抽象之后，我们仍然可以发现，类也有其自身的所属。例如说，泰迪是一只熊，在这里，”泰迪”是具体的对象，”熊”是”泰迪”的类，而“熊”这个类，又由“哺乳动物”这个类细分而来。我们可以这样说，熊继承自哺乳动物，而泰迪既是一只熊，也是一只哺乳动物。这样，父类就可以理解为对类的基本属性的抽象，子类是对于父类的补充。</p>
-<p><img src="http://arian-blogs.oss-cn-beijing.aliyuncs.com/18-5-15/85242660.jpg" alt="补充"></p>
+<p><img src="https://arian-blogs.oss-cn-beijing.aliyuncs.com/18-5-15/85242660.jpg" alt="补充"></p>
 <p>简单来说，对象之于类，是“某个东西是什么”，而子类之于父类，是子类补充了父类。</p>
 <p>在python中，如果一个子类继承了父类，就称这个父类为子类的<code>base class</code>，并且，这个子类的所有base class，都可以在<code>__bases__</code>属性中访问。这个子类的实例，也可以同时访问子类所有父类、以及后续的父类内的属性或方法（此处不考虑带前置双下划线的私有方法）。</p>
 <p>如：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="class"><span class="keyword">class</span> <span class="title">Animal</span><span class="params">()</span>:</span></span><br><span class="line"><span class="meta">... </span>    <span class="function"><span class="keyword">def</span> <span class="title">kind</span><span class="params">(self)</span>:</span></span><br><span class="line"><span class="meta">... </span>        print(<span class="string">"I'm an animal."</span>)</span><br><span class="line">...</span><br><span class="line">&gt;&gt;&gt;</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="class"><span class="keyword">class</span> <span class="title">Bird</span><span class="params">(Animal)</span>:</span></span><br><span class="line"><span class="meta">... </span>    <span class="function"><span class="keyword">def</span> <span class="title">skill</span><span class="params">(self)</span>:</span></span><br><span class="line"><span class="meta">... </span>        print(<span class="string">"I can fly."</span>)</span><br><span class="line">...</span><br><span class="line">&gt;&gt;&gt;</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>bird = Bird()</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>bird.skill()</span><br><span class="line">I can fly.</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>bird.kind()</span><br><span class="line">I<span class="string">'m an animal.</span></span><br></pre></td></tr></table></figure></p>
@@ -267,7 +267,7 @@
 <h2 id="Ⅲ-MRO"><a href="#Ⅲ-MRO" class="headerlink" title="Ⅲ.MRO"></a>Ⅲ.MRO</h2><p>python利用MRO来决定多重继承中属性或方法的搜索顺序。如果一个类不止具有一个基类，那么，可以访问这个类的<code>__mro__</code>属性以获取其MRO链。在python3中，<a href="https://en.wikipedia.org/wiki/C3_linearization" target="_blank" rel="noopener">C3算法</a>是唯一支持的MRO算法。</p>
 <p>一般将C3算法理解为类似于广度优先搜索，但实际上它又与广度优先搜索有一定差别。</p>
 <p>考虑下面的继承关系：</p>
-<p><img src="http://arian-blogs.oss-cn-beijing.aliyuncs.com/18-5-15/7957065.jpg" alt="继承"></p>
+<p><img src="https://arian-blogs.oss-cn-beijing.aliyuncs.com/18-5-15/7957065.jpg" alt="继承"></p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="class"><span class="keyword">class</span> <span class="title">A</span><span class="params">()</span>:</span></span><br><span class="line"><span class="meta">... </span>    id = <span class="number">1</span></span><br><span class="line">...</span><br><span class="line">&gt;&gt;&gt;</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="class"><span class="keyword">class</span> <span class="title">B</span><span class="params">(A)</span>:</span></span><br><span class="line"><span class="meta">... </span>    id = <span class="number">2</span></span><br><span class="line">...</span><br><span class="line">&gt;&gt;&gt;</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="class"><span class="keyword">class</span> <span class="title">C</span><span class="params">(A)</span>:</span></span><br><span class="line"><span class="meta">... </span>    id = <span class="number">3</span></span><br><span class="line">...</span><br><span class="line">&gt;&gt;&gt;</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="class"><span class="keyword">class</span> <span class="title">D</span><span class="params">(B)</span>:</span></span><br><span class="line"><span class="meta">... </span>    <span class="keyword">pass</span></span><br><span class="line">...</span><br><span class="line">&gt;&gt;&gt;</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="class"><span class="keyword">class</span> <span class="title">E</span><span class="params">(C)</span>:</span></span><br><span class="line"><span class="meta">... </span>    <span class="keyword">pass</span></span><br><span class="line">...</span><br><span class="line">&gt;&gt;&gt;</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="class"><span class="keyword">class</span> <span class="title">F</span><span class="params">(D, E)</span>:</span></span><br><span class="line"><span class="meta">... </span>    <span class="keyword">pass</span></span><br><span class="line">...</span><br><span class="line">&gt;&gt;&gt;</span><br></pre></td></tr></table></figure>
 <p>在这里，类F同时继承了类D和类E，而类D、E又分别继承了B、C，最终继承自类A。如果实例化一个类F，查看其id属性，最终结果会是哪一个？</p>
 <p>实际为：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>f=F()</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>f.id</span><br><span class="line"><span class="number">2</span></span><br></pre></td></tr></table></figure></p>
@@ -340,9 +340,9 @@
         
           <div class="post-tags">
             
-              <a href="/tags/python/">python</a>
-            
               <a href="/tags/算法/">算法</a>
+            
+              <a href="/tags/python/">python</a>
             
           </div>
         
