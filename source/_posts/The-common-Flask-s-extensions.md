@@ -159,5 +159,5 @@ Flask-KVSessin重写了Flask基于客户端的session机制。不再客户端储
 文档：[Flask-Session](https://pythonhosted.org/Flask-KVSession/)
 
 ## 待续...
-![youya](http://arian-blogs.oss-cn-beijing.aliyuncs.com/18-4-13/54750302.jpg)
+![youya](https://arian-blogs.oss-cn-beijing.aliyuncs.com/18-4-13/54750302.jpg)
 ╮(╯-╰)╭
