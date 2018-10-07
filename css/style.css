@@ -1283,8 +1283,8 @@ h6 {
 @font-face {
   font-family: 'myiconfont';
   /* project id 861587 */
-  src: url("//at.alicdn.com/t/font_861587_n7527n6ib1.eot");
-  src: url("//at.alicdn.com/t/font_861587_n7527n6ib1.eot?#iefix") format("embedded-opentype"), url("//at.alicdn.com/t/font_861587_n7527n6ib1.woff") format("woff"), url("//at.alicdn.com/t/font_861587_n7527n6ib1.ttf") format("truetype"), url("//at.alicdn.com/t/font_861587_n7527n6ib1.svg#iconfont") format("svg"); }
+  src: url("//at.alicdn.com/t/font_861587_tt9zrrmv4n.eot");
+  src: url("//at.alicdn.com/t/font_861587_tt9zrrmv4n.eot?#iefix") format("embedded-opentype"), url("//at.alicdn.com/t/font_861587_tt9zrrmv4n.woff") format("woff"), url("//at.alicdn.com/t/font_861587_tt9zrrmv4n.ttf") format("truetype"), url("//at.alicdn.com/t/font_861587_tt9zrrmv4n.svg#iconfont") format("svg"); }
 
 .myiconfont {
   font-family: "myiconfont" !important;
@@ -1303,6 +1303,11 @@ h6 {
   content: "\e602";
   position: relative;
   top: -3px; }
+
+.icon-bilibili:before {
+  content: "\e625";
+  position: relative;
+  left: -3px; }
 
 .iconfont {
   font-family: "iconfont" !important;
