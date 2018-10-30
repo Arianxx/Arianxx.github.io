@@ -210,6 +210,59 @@
     <header class="post-header">
       <h1 class="post-title">
         
+          <a class="post-link" href="/2018/10/30/bobo-source-code-reading-note/">深具传统的bobo微框架源代码之阅读</a>
+        
+      </h1>
+
+      <div class="post-meta">
+        <span class="post-time">
+          2018-10-30
+        </span>
+        
+          <div class="post-category">
+            
+              <a href="/categories/python/">python</a>
+            
+          </div>
+        
+        
+      </div>
+    </header>
+
+    
+    
+
+    <div class="post-content">
+      
+        
+        
+          
+        
+
+        
+          <blockquote>
+<p>不做也行的事情就不做，非做不可的事情一切从简。</p>
+</blockquote>
+<p><a href="https://github.com/zopefoundation/bobo" target="_blank" rel="noopener">bobo</a> 是一个诞生于上世纪的，直到近两年仍然在更新的 python web 微框架。可以说深具传统，从侧面上见证了这么多年来 python 在 web 开发领域的种种发展。据说，正是这个框架将 fluend python 的作者 Luciano Ramalho 带入了 python 编程的生涯。</p>
+          <div class="read-more">
+            <a href="/2018/10/30/bobo-source-code-reading-note/" class="read-more-link">阅读更多</a>
+          </div>
+        
+      
+    </div>
+
+    
+
+    
+
+  </article>
+
+    
+      
+  <article class="post">
+    <header class="post-header">
+      <h1 class="post-title">
+        
           <a class="post-link" href="/2018/10/20/translate-HTTP-Caching/">翻译：HTTP 缓存</a>
         
       </h1>
@@ -629,58 +682,6 @@
 <h2 id="AVL树"><a href="#AVL树" class="headerlink" title="AVL树"></a>AVL树</h2><p>将普通二叉树直接用于查找，平均情况下，仅需要查找一个分支，其时间复杂度为O(log n)。想要使查找时间尽可能短，就要使树的高度经可能短，使二叉树保持平衡状态。如果一个二叉树变得越来越不平衡，最后，其时间复杂度就变成了O(n)，相当于从头到尾遍历所有节点。<br>
           <div class="read-more">
             <a href="/2018/06/17/python-avl-binary-tree/" class="read-more-link">阅读更多</a>
-          </div>
-        
-      
-    </div>
-
-    
-
-    
-
-  </article>
-
-    
-      
-  <article class="post">
-    <header class="post-header">
-      <h1 class="post-title">
-        
-          <a class="post-link" href="/2018/06/07/The-usage-of-the-raise-from-in-python/">python在异常捕获里抛出异常</a>
-        
-      </h1>
-
-      <div class="post-meta">
-        <span class="post-time">
-          2018-06-07
-        </span>
-        
-          <div class="post-category">
-            
-              <a href="/categories/python/">python</a>
-            
-          </div>
-        
-        
-      </div>
-    </header>
-
-    
-    
-
-    <div class="post-content">
-      
-        
-        
-          
-        
-
-        
-          <h2 id="python2异常对象"><a href="#python2异常对象" class="headerlink" title="python2异常对象"></a>python2异常对象</h2><p>有时，我们需要在捕获一个异常之后，在捕获的语句里面抛出另外一个异常。例如：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">try</span>:</span><br><span class="line"><span class="meta">... </span>    print(<span class="number">1</span>/<span class="number">0</span>)</span><br><span class="line"><span class="meta">... </span><span class="keyword">except</span> ZeroDivisionError <span class="keyword">as</span> e:</span><br><span class="line"><span class="meta">... </span>    <span class="keyword">raise</span> ValueError(e)</span><br><span class="line">...</span><br><span class="line">Traceback (most recent call last):</span><br><span class="line">  File <span class="string">"&lt;stdin&gt;"</span>, line <span class="number">2</span>, <span class="keyword">in</span> &lt;module&gt;</span><br><span class="line">ZeroDivisionError: division by zero</span><br><span class="line"></span><br><span class="line">During handling of the above exception, another exception occurred:</span><br><span class="line"></span><br><span class="line">Traceback (most recent call last):</span><br><span class="line">  File <span class="string">"&lt;stdin&gt;"</span>, line <span class="number">4</span>, <span class="keyword">in</span> &lt;module&gt;</span><br><span class="line">ValueError: division by zero</span><br></pre></td></tr></table></figure></p>
-<p>上面在捕获除零异常后，重新在处理语句里抛出了ValueError，并将除零异常的信息传给了ValueError。同时，可以发现抛出的信息还附带了追踪信息，可以看到异常的抛出顺序。</p>
-<p>然而，在python2里，从一个异常捕获中直接抛出另一个异常，并不会附带追踪信息：<br>
-          <div class="read-more">
-            <a href="/2018/06/07/The-usage-of-the-raise-from-in-python/" class="read-more-link">阅读更多</a>
           </div>
         
       
