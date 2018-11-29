@@ -4,12 +4,12 @@
 
     
   <url>
-    <loc>https://arianx.me/2018/10/30/bobo-source-code-reading-note/</loc>
-    <lastmod>2018-11-28T11:29:17.170Z</lastmod>
+    <loc>https://arianx.me/2018/11/27/bottle-source-code-analysis/</loc>
+    <lastmod>2018-11-29T04:30:26.737Z</lastmod>
     <data>
         <display>
-        <title>深具传统的 bobo 微框架源代码之阅读</title>
-        <pubTime>2018-10-30T01:27:19.000Z</pubTime>
+        <title>值得夸耀的 bottle 微框架源代码之剖析</title>
+        <pubTime>2018-11-27T12:54:21.000Z</pubTime>
         
         <tag>python</tag>
          
@@ -26,12 +26,12 @@
 
     
   <url>
-    <loc>https://arianx.me/2018/11/27/bottle-source-code-analysis/</loc>
-    <lastmod>2018-11-28T11:23:45.275Z</lastmod>
+    <loc>https://arianx.me/2018/10/30/bobo-source-code-reading-note/</loc>
+    <lastmod>2018-11-28T11:29:17.170Z</lastmod>
     <data>
         <display>
-        <title>值得夸耀的 bottle 微框架源代码之阅读</title>
-        <pubTime>2018-11-27T12:54:21.000Z</pubTime>
+        <title>深具传统的 bobo 微框架源代码之阅读</title>
+        <pubTime>2018-10-30T01:27:19.000Z</pubTime>
         
         <tag>python</tag>
          
