@@ -210,6 +210,65 @@
     <header class="post-header">
       <h1 class="post-title">
         
+          <a class="post-link" href="/2018/12/30/walkthrough-cpython3.7-dict-source-code/">cpython3.7 dict 对象的内在原理</a>
+        
+      </h1>
+
+      <div class="post-meta">
+        <span class="post-time">
+          2018-12-30
+        </span>
+        
+          <div class="post-category">
+            
+              <a href="/categories/python/">python</a>
+            
+          </div>
+        
+        
+      </div>
+    </header>
+
+    
+    
+
+    <div class="post-content">
+      
+        
+        
+          
+        
+
+        
+          <p>众所周知，python 中有一个应用得极其广泛内建对象——dict(字典)。cpython 解释器本身，以及大量的 python 程序，都依赖于 dict 对象。因此，dict 对象在 python 中设计得极其高效，其插入、删除、查询等操作的时间复杂度都是O(1)。</p>
+<p>dict 对象可以这样使用:<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>scores = &#123;<span class="string">'Mike'</span>: <span class="number">90</span>, <span class="string">'Jack'</span>: <span class="number">100</span>&#125;</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>scores[<span class="string">'Ariana'</span>] = <span class="number">0</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>scores[<span class="string">'Jack'</span>]</span><br><span class="line"><span class="number">100</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>scores[<span class="string">'Tim'</span>]</span><br><span class="line">Traceback (most recent call last):</span><br><span class="line">  File <span class="string">"&lt;stdin&gt;"</span>, line <span class="number">1</span>, <span class="keyword">in</span> &lt;module&gt;</span><br><span class="line">KeyError: <span class="string">'Tim'</span></span><br></pre></td></tr></table></figure></p>
+<p>本文将从 cpython3.7 源码的角度出发，探讨 dict 对象的内部原理。主要将探讨以下几个内容：</p>
+<ul>
+<li>dict 对象的结构、组成</li>
+<li>dict 解决哈希冲突的方式</li>
+<li>cpython 对 dict 的内部优化，如缓冲池、split table</li>
+<li>遍历 dict 保持插入顺序的原理</li>
+</ul>
+<p>本文的剖析基于 <a href="https://github.com/python/cpython/blob/bb86bf4c4eaa30b1f5192dab9f389ce0bb61114d/Objects/dictobject.c" target="_blank" rel="noopener">https://github.com/python/cpython/blob/bb86bf4c4eaa30b1f5192dab9f389ce0bb61114d/Objects/dictobject.c</a> 这份源码。<br>
+          <div class="read-more">
+            <a href="/2018/12/30/walkthrough-cpython3.7-dict-source-code/" class="read-more-link">阅读更多</a>
+          </div>
+        
+      
+    </div>
+
+    
+
+    
+
+  </article>
+
+    
+      
+  <article class="post">
+    <header class="post-header">
+      <h1 class="post-title">
+        
           <a class="post-link" href="/2018/11/27/bottle-source-code-analysis/">值得夸耀的 bottle 微框架源代码之剖析</a>
         
       </h1>
@@ -640,57 +699,6 @@
 <p>将要介绍的这十种排序算法分别是——冒泡排序、选择排序、插入排序、希尔排序、快速排序、归并排序、堆排序、计数排序、基数排序、桶排序<br>
           <div class="read-more">
             <a href="/2018/06/22/Common-sort-algorithm/" class="read-more-link">阅读更多</a>
-          </div>
-        
-      
-    </div>
-
-    
-
-    
-
-  </article>
-
-    
-      
-  <article class="post">
-    <header class="post-header">
-      <h1 class="post-title">
-        
-          <a class="post-link" href="/2018/06/17/Heap-in-python/">堆排序简述</a>
-        
-      </h1>
-
-      <div class="post-meta">
-        <span class="post-time">
-          2018-06-17
-        </span>
-        
-          <div class="post-category">
-            
-              <a href="/categories/算法/">算法</a>
-            
-          </div>
-        
-        
-      </div>
-    </header>
-
-    
-    
-
-    <div class="post-content">
-      
-        
-        
-          
-        
-
-        
-          <h2 id="堆"><a href="#堆" class="headerlink" title="堆"></a>堆</h2><p>堆是一种基于树的数据结构，其父节点总是大于（最大堆）或小于（最小堆）其子节点，并且其根节点总是树中最小（或最大）的那个节点。</p>
-<p>堆排序常被用来实现<code>优先队列</code>，用于按给定的因子排定元素的优先级。而其本身最常采用的实现方式是扁平储存的二叉树。在二叉树实现的堆中，一个节点的兄弟节点并无特定的关系。唯一的关系存在于父节点和子结点中。<br>
-          <div class="read-more">
-            <a href="/2018/06/17/Heap-in-python/" class="read-more-link">阅读更多</a>
           </div>
         
       
