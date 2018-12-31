@@ -38,17 +38,24 @@
 
 
 
-  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=2.6.0" />
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=2.10.2" />
 
 
 
 <link rel="canonical" href="https://arianx.me/2018/06/17/python-avl-binary-tree/"/>
 
 
-<link rel="stylesheet" type="text/css" href="/css/style.css?v=2.6.0" />
+
+  <link rel="stylesheet" type="text/css" href="/lib/fancybox/jquery.fancybox.css" />
 
 
 
+
+  <link rel="stylesheet" type="text/css" href="/lib/nprogress/nprogress.min.css" />
+
+
+
+<link rel="stylesheet" type="text/css" href="/css/style.css?v=2.10.2" />
 
 
 
@@ -88,6 +95,10 @@
 
 
 
+
+<script>
+  window.config = {"leancloud":{"app_id":null,"app_key":null},"toc":true,"fancybox":true,"pjax":true};
+</script>
 
     <title> Python中的AVL树 - Arian's Blog </title>
   </head>
@@ -219,11 +230,11 @@
           2018-06-17
         </span>
         
-          <div class="post-category">
+          <span class="post-category">
             
               <a href="/categories/算法/">算法</a>
             
-          </div>
+          </span>
         
         
       </div>
@@ -237,6 +248,7 @@
       <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#AVL树"><span class="toc-text">AVL树</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#节点"><span class="toc-text">节点</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#插入操作"><span class="toc-text">插入操作</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#旋转结点使树重新平衡"><span class="toc-text">旋转结点使树重新平衡</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#具体旋转操作："><span class="toc-text">具体旋转操作：</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#左旋"><span class="toc-text">左旋</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#ll"><span class="toc-text">ll</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#lr"><span class="toc-text">lr</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#右旋"><span class="toc-text">右旋</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#rr"><span class="toc-text">rr</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#rl"><span class="toc-text">rl</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#删除操作"><span class="toc-text">删除操作</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#参考"><span class="toc-text">参考</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#AVL树python实现的完整代码"><span class="toc-text">AVL树python实现的完整代码</span></a></li></ol>
     </div>
   </div>
+
 
 
     <div class="post-content">
@@ -368,6 +380,7 @@
     
   </nav>
 
+
       </footer>
     
 
@@ -448,6 +461,7 @@
   </div>
 
 
+
 <div class="copyright">
   <span class="power-by">
     由 <a class="hexo-link" href="https://hexo.io/">Hexo</a> 强力驱动
@@ -505,12 +519,19 @@
 
 
     
+  
+
+
+
+  
+  
+
 
 
 
 
   
-    <script type="text/javascript" src="/lib/jquery/jquery-3.1.1.min.js"></script>
+    <script type="text/javascript" src="/lib/jquery/jquery.min.js"></script>
   
 
   
@@ -518,10 +539,20 @@
   
 
   
+    <script type="text/javascript" src="/lib/fancybox/jquery.fancybox.pack.js"></script>
+  
+
+  
+    <script type="text/javascript" src="/lib/pjax/jquery.pjax.min.js"></script>
+  
+
+  
+    <script type="text/javascript" src="/lib/nprogress/nprogress.min.js"></script>
+  
 
 
-    <script type="text/javascript" src="/js/src/even.js?v=2.6.0"></script>
-<script type="text/javascript" src="/js/src/bootstrap.js?v=2.6.0"></script>
+    <script type="text/javascript" src="/js/src/even.js?v=2.10.2"></script>
+<script type="text/javascript" src="/js/src/bootstrap.js?v=2.10.2"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/2.2.0/anime.min.js" integrity="sha384-BnFYVbw3PHhz5qWXTCSL12MjPc3KxjdKPx7R4R5JjIzxFmYX267NDyJ9B/nZANdg" crossorigin="anonymous"></script>
 <script src="/js/src/transition.min.js"></script>
 

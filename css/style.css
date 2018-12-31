@@ -380,6 +380,8 @@ body {
   background: #fefefe;
   scroll-behavior: smooth;
   border-top: 3px solid #c05b4d; }
+  body.hide-top {
+    border-top: 3px solid transparent; }
 
 @media screen and (max-width: 800px) {
   body {
@@ -653,8 +655,7 @@ h6 {
     text-align: center; } }
 
 .posts {
-  margin-bottom: 20px;
-  border-bottom: 1px solid #e6e6e6; }
+  margin-bottom: 20px; }
 
 .post {
   padding: 1.5em 0; }
@@ -701,6 +702,10 @@ h6 {
         content: '·'; }
       .post .post-header .post-meta .post-category a {
         color: inherit; }
+        .post .post-header .post-meta .post-category a + a::before {
+          content: '/';
+          margin-right: 3px;
+          color: #8a8a8a !important; }
         .post .post-header .post-meta .post-category a:hover {
           color: #c05b4d; }
     .post .post-header .post-meta .post-visits {
@@ -760,11 +765,6 @@ h6 {
     font-family: Athelas, STHeiti, Microsoft Yahei, serif; }
   .post .post-content .headerlink:hover {
     border-bottom: 0; }
-  .post .post-content .headerlink::before {
-    content: "";
-    margin-right: 5px;
-    font-size: 1.1em;
-    color: #c05b4d; }
   .post .post-content a {
     color: #c05b4d;
     word-break: break-all; }
@@ -772,6 +772,11 @@ h6 {
       border-bottom: 1px solid #c05b4d; }
     .post .post-content a.fancybox {
       border: 0; }
+  .post .post-content ul {
+    padding-left: 0;
+    list-style: inside; }
+    .post .post-content ul li input[type="checkbox"] {
+      margin-right: 5px; }
   .post .post-content blockquote {
     margin: 2em 0;
     padding: 10px 20px;
@@ -785,14 +790,19 @@ h6 {
   .post .post-content img {
     display: inline-block;
     max-width: 100%; }
-  .post .post-content > table {
+  .post .post-content .table-responsive {
+    width: 100%;
+    margin-bottom: 20px;
+    overflow: auto;
+    border: 3px double #f4efe1; }
+  .post .post-content table {
+    width: 100%;
     max-width: 100%;
-    margin: 10px 0;
     border-spacing: 0;
     box-shadow: 2px 2px 3px rgba(0, 0, 0, 0.125); }
-    .post .post-content > table thead {
+    .post .post-content table thead {
       background: #f8f5ec; }
-    .post .post-content > table th, .post .post-content > table td {
+    .post .post-content table th, .post .post-content table td {
       padding: 5px 15px;
       border: 1px double #f4efe1; }
   .post .post-content code, .post .post-content pre {
@@ -811,7 +821,8 @@ h6 {
     box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.125);
     position: relative; }
     .post .post-content .highlight table {
-      position: relative; }
+      position: relative;
+      max-width: none; }
       .post .post-content .highlight table::after {
         position: absolute;
         top: 0;
@@ -1560,3 +1571,14 @@ h6 {
 @media screen and (max-width: 800px) {
   .back-to-top {
     display: none !important; } }
+
+#nprogress .bar {
+  background: #c05b4d;
+  height: 3px; }
+
+#nprogress .peg {
+  box-shadow: 0 0 10px #c05b4d, 0 0 5px #c05b4d; }
+
+#nprogress .spinner-icon {
+  border-top-color: #c05b4d;
+  border-left-color: #c05b4d; }

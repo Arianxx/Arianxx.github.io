@@ -38,17 +38,24 @@
 
 
 
-  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=2.6.0" />
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=2.10.2" />
 
 
 
 <link rel="canonical" href="https://arianx.me/2018/06/26/LZ77-coding/"/>
 
 
-<link rel="stylesheet" type="text/css" href="/css/style.css?v=2.6.0" />
+
+  <link rel="stylesheet" type="text/css" href="/lib/fancybox/jquery.fancybox.css" />
 
 
 
+
+  <link rel="stylesheet" type="text/css" href="/lib/nprogress/nprogress.min.css" />
+
+
+
+<link rel="stylesheet" type="text/css" href="/css/style.css?v=2.10.2" />
 
 
 
@@ -88,6 +95,10 @@
 
 
 
+
+<script>
+  window.config = {"leancloud":{"app_id":null,"app_key":null},"toc":true,"fancybox":true,"pjax":true};
+</script>
 
     <title> LZ77编码简介 - Arian's Blog </title>
   </head>
@@ -233,6 +244,7 @@
   </div>
 
 
+
     <div class="post-content">
       
         <p>LZ77是一个由Abraham Lempel于1977年发表的无损压缩算法，其思想与霍夫曼编码有很大差别。霍夫曼编码主要是用较短的编码代替出现频率较高的字符，用较长的编码代替出现频率较低的字符；LZ77编码的核心思想则是将重复出现的较长字符串（短语），使用较短的、指向前面第一次出现的字符串的标记来代替。标记与原序列之间是一种映射，因此，LZ77算法可以说成是基于字典的算法。<br><a id="more"></a></p>
@@ -327,6 +339,7 @@
     
   </nav>
 
+
       </footer>
     
 
@@ -407,6 +420,7 @@
   </div>
 
 
+
 <div class="copyright">
   <span class="power-by">
     由 <a class="hexo-link" href="https://hexo.io/">Hexo</a> 强力驱动
@@ -464,12 +478,19 @@
 
 
     
+  
+
+
+
+  
+  
+
 
 
 
 
   
-    <script type="text/javascript" src="/lib/jquery/jquery-3.1.1.min.js"></script>
+    <script type="text/javascript" src="/lib/jquery/jquery.min.js"></script>
   
 
   
@@ -477,10 +498,20 @@
   
 
   
+    <script type="text/javascript" src="/lib/fancybox/jquery.fancybox.pack.js"></script>
+  
+
+  
+    <script type="text/javascript" src="/lib/pjax/jquery.pjax.min.js"></script>
+  
+
+  
+    <script type="text/javascript" src="/lib/nprogress/nprogress.min.js"></script>
+  
 
 
-    <script type="text/javascript" src="/js/src/even.js?v=2.6.0"></script>
-<script type="text/javascript" src="/js/src/bootstrap.js?v=2.6.0"></script>
+    <script type="text/javascript" src="/js/src/even.js?v=2.10.2"></script>
+<script type="text/javascript" src="/js/src/bootstrap.js?v=2.10.2"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/2.2.0/anime.min.js" integrity="sha384-BnFYVbw3PHhz5qWXTCSL12MjPc3KxjdKPx7R4R5JjIzxFmYX267NDyJ9B/nZANdg" crossorigin="anonymous"></script>
 <script src="/js/src/transition.min.js"></script>
 

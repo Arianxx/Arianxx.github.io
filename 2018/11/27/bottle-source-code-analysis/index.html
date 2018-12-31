@@ -38,17 +38,24 @@
 
 
 
-  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=2.6.0" />
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=2.10.2" />
 
 
 
 <link rel="canonical" href="https://arianx.me/2018/11/27/bottle-source-code-analysis/"/>
 
 
-<link rel="stylesheet" type="text/css" href="/css/style.css?v=2.6.0" />
+
+  <link rel="stylesheet" type="text/css" href="/lib/fancybox/jquery.fancybox.css" />
 
 
 
+
+  <link rel="stylesheet" type="text/css" href="/lib/nprogress/nprogress.min.css" />
+
+
+
+<link rel="stylesheet" type="text/css" href="/css/style.css?v=2.10.2" />
 
 
 
@@ -88,6 +95,10 @@
 
 
 
+
+<script>
+  window.config = {"leancloud":{"app_id":null,"app_key":null},"toc":true,"fancybox":true,"pjax":true};
+</script>
 
     <title> 值得夸耀的 bottle 微框架源代码之剖析 - Arian's Blog </title>
   </head>
@@ -219,11 +230,11 @@
           2018-11-27
         </span>
         
-          <div class="post-category">
+          <span class="post-category">
             
               <a href="/categories/python/">python</a>
             
-          </div>
+          </span>
         
         
       </div>
@@ -237,6 +248,7 @@
       <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#路由"><span class="toc-text">路由</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#WSGI"><span class="toc-text">WSGI</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#请求和响应对象"><span class="toc-text">请求和响应对象</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#其它"><span class="toc-text">其它</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#DEBUG-模式下的自动重启机制"><span class="toc-text">DEBUG 模式下的自动重启机制</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#默认-app"><span class="toc-text">默认 app</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#结束"><span class="toc-text">结束</span></a></li></ol>
     </div>
   </div>
+
 
 
     <div class="post-content">
@@ -358,6 +370,7 @@
     
   </nav>
 
+
       </footer>
     
 
@@ -438,6 +451,7 @@
   </div>
 
 
+
 <div class="copyright">
   <span class="power-by">
     由 <a class="hexo-link" href="https://hexo.io/">Hexo</a> 强力驱动
@@ -495,12 +509,19 @@
 
 
     
+  
+
+
+
+  
+  
+
 
 
 
 
   
-    <script type="text/javascript" src="/lib/jquery/jquery-3.1.1.min.js"></script>
+    <script type="text/javascript" src="/lib/jquery/jquery.min.js"></script>
   
 
   
@@ -508,10 +529,20 @@
   
 
   
+    <script type="text/javascript" src="/lib/fancybox/jquery.fancybox.pack.js"></script>
+  
+
+  
+    <script type="text/javascript" src="/lib/pjax/jquery.pjax.min.js"></script>
+  
+
+  
+    <script type="text/javascript" src="/lib/nprogress/nprogress.min.js"></script>
+  
 
 
-    <script type="text/javascript" src="/js/src/even.js?v=2.6.0"></script>
-<script type="text/javascript" src="/js/src/bootstrap.js?v=2.6.0"></script>
+    <script type="text/javascript" src="/js/src/even.js?v=2.10.2"></script>
+<script type="text/javascript" src="/js/src/bootstrap.js?v=2.10.2"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/2.2.0/anime.min.js" integrity="sha384-BnFYVbw3PHhz5qWXTCSL12MjPc3KxjdKPx7R4R5JjIzxFmYX267NDyJ9B/nZANdg" crossorigin="anonymous"></script>
 <script src="/js/src/transition.min.js"></script>
 

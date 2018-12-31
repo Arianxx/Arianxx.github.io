@@ -38,17 +38,24 @@
 
 
 
-  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=2.6.0" />
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=2.10.2" />
 
 
 
 <link rel="canonical" href="https://arianx.me/2018/08/17/Use-bit-arithmetic-to-implement-addition-subtraction-multiplication-and-division/"/>
 
 
-<link rel="stylesheet" type="text/css" href="/css/style.css?v=2.6.0" />
+
+  <link rel="stylesheet" type="text/css" href="/lib/fancybox/jquery.fancybox.css" />
 
 
 
+
+  <link rel="stylesheet" type="text/css" href="/lib/nprogress/nprogress.min.css" />
+
+
+
+<link rel="stylesheet" type="text/css" href="/css/style.css?v=2.10.2" />
 
 
 
@@ -88,6 +95,10 @@
 
 
 
+
+<script>
+  window.config = {"leancloud":{"app_id":null,"app_key":null},"toc":true,"fancybox":true,"pjax":true};
+</script>
 
     <title> 使用位运算实现加减乘除 - Arian's Blog </title>
   </head>
@@ -233,6 +244,7 @@
   </div>
 
 
+
     <div class="post-content">
       
         <h2 id="加法"><a href="#加法" class="headerlink" title="加法"></a>加法</h2><p>加法可以拆分成几个步骤，首先是每位上的数对应相加，将结果与对应的基数取模，设置为当前位，然后处理相加之后产生进位的位，给它们的上一个拥有更大权值的位加上一，如果又产生进位，就如此循环，直到没有进位为止。<br><a id="more"></a></p>
@@ -308,6 +320,7 @@
       </a>
     
   </nav>
+
 
       </footer>
     
@@ -389,6 +402,7 @@
   </div>
 
 
+
 <div class="copyright">
   <span class="power-by">
     由 <a class="hexo-link" href="https://hexo.io/">Hexo</a> 强力驱动
@@ -446,12 +460,19 @@
 
 
     
+  
+
+
+
+  
+  
+
 
 
 
 
   
-    <script type="text/javascript" src="/lib/jquery/jquery-3.1.1.min.js"></script>
+    <script type="text/javascript" src="/lib/jquery/jquery.min.js"></script>
   
 
   
@@ -459,10 +480,20 @@
   
 
   
+    <script type="text/javascript" src="/lib/fancybox/jquery.fancybox.pack.js"></script>
+  
+
+  
+    <script type="text/javascript" src="/lib/pjax/jquery.pjax.min.js"></script>
+  
+
+  
+    <script type="text/javascript" src="/lib/nprogress/nprogress.min.js"></script>
+  
 
 
-    <script type="text/javascript" src="/js/src/even.js?v=2.6.0"></script>
-<script type="text/javascript" src="/js/src/bootstrap.js?v=2.6.0"></script>
+    <script type="text/javascript" src="/js/src/even.js?v=2.10.2"></script>
+<script type="text/javascript" src="/js/src/bootstrap.js?v=2.10.2"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/2.2.0/anime.min.js" integrity="sha384-BnFYVbw3PHhz5qWXTCSL12MjPc3KxjdKPx7R4R5JjIzxFmYX267NDyJ9B/nZANdg" crossorigin="anonymous"></script>
 <script src="/js/src/transition.min.js"></script>
 
