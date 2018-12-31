@@ -330,7 +330,7 @@
 <p>可以用 lookdict_split 函数从 split table 中查询值。它的逻辑大体和 lookdict_unicode_nodummy 相同，只是在读取值是从 ma_values 里面读取：<br><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (ep-&gt;me_key == key ||</span><br><span class="line">    (ep-&gt;me_hash == hash &amp;&amp; unicode_eq(ep-&gt;me_key, key))) &#123;</span><br><span class="line">    *value_addr = mp-&gt;ma_values[ix];</span><br><span class="line">    <span class="keyword">return</span> ix;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
 <p>除此之外，有一个帮助我们判断一个 dict 是否是 split table 的宏：<br><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">define</span> _PyDict_HasSplitTable(d) ((d)-&gt;ma_values != NULL)</span></span><br></pre></td></tr></table></figure></p>
 <h2 id="结束"><a href="#结束" class="headerlink" title="结束"></a>结束</h2><p>就这样吧，之后再看看 OrderedDict</p>
-<p><img src="http://arian-blogs.oss-cn-beijing.aliyuncs.com/18-12-31/50518040.jpg" alt="girl"></p>
+<p><img src="https://arian-blogs.oss-cn-beijing.aliyuncs.com/18-12-31/50518040.jpg" alt="girl"></p>
 
       
     </div>
@@ -570,7 +570,7 @@
 	randomName = modelNames[Math.floor(Math.random() * modelNum)]
 
     loadlive2d("live2d", "/model/Pio/" + randomName);
-    $('.waifu').after("<canvas class='fireworks' style='position:fixed;left:0;top:0;pointer-events:none'></canvas>")
+    $('.container').after("<canvas class='fireworks' style='position:fixed;left:0;top:0;pointer-events:none;z-index:9999'></canvas>")
 </script>
 
 <script async type="text/javascript" src="/js/src/jquery.click-firewords.js"></script>

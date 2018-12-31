@@ -536,7 +536,7 @@
 	randomName = modelNames[Math.floor(Math.random() * modelNum)]
 
     loadlive2d("live2d", "/model/Pio/" + randomName);
-    $('.waifu').after("<canvas class='fireworks' style='position:fixed;left:0;top:0;pointer-events:none'></canvas>")
+    $('.container').after("<canvas class='fireworks' style='position:fixed;left:0;top:0;pointer-events:none;z-index:9999'></canvas>")
 </script>
 
 <script async type="text/javascript" src="/js/src/jquery.click-firewords.js"></script>
