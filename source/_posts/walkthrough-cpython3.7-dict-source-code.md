@@ -75,7 +75,7 @@ typedef Py_ssize_t Py_hash_t;
 PyDictKeysObject 是 dict 中储存哈希表的结构，它的定义如下:
 ```c
 struct _dictkeysobject {
-    // 对这个结构体的引用
+    // 对这个 PyDictKeysObject 的引用
     // 对于 split table，引用必须为1
     Py_ssize_t dk_refcnt;
 
@@ -142,8 +142,8 @@ dk_indices 和 dk_entries 都是可变大小的，而 c 结构体中变长的数
         1 : DK_SIZE(dk) <= 0xffff ?            \
             2 : sizeof(int32_t))
 
-// 将 dk_indices 指针专函为int8_t，每个元素一字节。这样 DK_SIZE(dk) * DK_IXSIZE(dk) 
-// 就恰是 dk_entreis 相对于 dk_indices 的偏离地址
+// 将 dk_indices 指针转换为int8_t，每个元素一字节。这样 DK_SIZE(dk) * DK_IXSIZE(dk) 
+// 就恰是 dk_entreis 相对于 dk_indices 的偏移地址
 #define DK_ENTRIES(dk) \
     ((PyDictKeyEntry*)(&((int8_t*)((dk)->dk_indices))[DK_SIZE(dk) * DK_IXSIZE(dk)]))
 ```
@@ -798,3 +798,7 @@ if (ep->me_key == key ||
 ```c
 #define _PyDict_HasSplitTable(d) ((d)->ma_values != NULL)
 ```
+## 结束
+就这样吧，之后再看看 OrderedDict
+
+![girl](http://arian-blogs.oss-cn-beijing.aliyuncs.com/18-12-31/50518040.jpg)
