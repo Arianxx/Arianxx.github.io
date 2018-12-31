@@ -84,7 +84,7 @@ struct _dictkeysobject {
 
     /* typedef Py_ssize_t (*dict_lookup_func)
         (PyDictObject *mp, PyObject *key, Py_hash_t hash, PyObject **value_addr);
-    /*
+    */
     // Function to lookup in the hash table (dk_indices)
     dict_lookup_func dk_lookup;
 
@@ -258,12 +258,13 @@ top:
                 int cmp = PyObject_RichCompareBool(startkey, key, Py_EQ);
                 Py_DECREF(startkey);
                 if (cmp < 0) {
-                    // 返回 0 表示比较过程中出错
+                    // 如果 cmp 小于0，表示比较过程中发生错误
                     *value_addr = NULL;
                     return DKIX_ERROR;
                 }
                 if (dk == mp->ma_keys && ep->me_key == startkey) {
-                    // python 的比较会调用特殊方法，监测字典是否在特殊方法中被更改
+                    // PyObject_RichCompareBool 可能会调用用户定义的特殊方法（__lt__ 之类的），这些方法可能会改变字典
+                    // 这里通过检查 key 来判断要操作的元素是否在比较过程中被改变
                     if (cmp > 0) {
                         *value_addr = ep->me_value;
                         return ix;
@@ -290,7 +291,7 @@ lookdict 是实际查找哈希表的函数，使用这个函数，需要先计�
 
 当新建一个 dict 时，cpython 会将默认的查询函数设置为 lookdict_unicode，当插入一个非 unicode object 的键时，就会使查询函数退化为 lookdict。
 
-除此之外，cpython 还提供了 lookdict_unicode_nodummy 函数，逻辑与 lookdict_unicode 一样，只是添加了 ix 不为 dummy 的 assert。当重新调用 dictresize 时，会删除 dict 中的 dummy，并将查找函数设置为它。之后当插入非 unicode object 时，就会退化为 lookdict。
+除此之外，cpython 还提供了 lookdict_unicode_nodummy 函数，逻辑与 lookdict_unicode 一样，只是添加了 ix 不为 dummy 的 assert。当调用 dictresize 时，会删除 dict 中的 dummy，并将查找函数设置为它。之后当插入非 unicode object 时，就会退化为 lookdict。
 
 #### 插入哈希表
 直接插入哈希表的源码如下：
