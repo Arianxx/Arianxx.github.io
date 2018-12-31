@@ -1,5 +1,5 @@
 ---
-title: 值得夸耀的 bottle 微框架源代码之阅读
+title: 值得夸耀的 bottle 微框架源代码之剖析
 date: 2018-11-27 20:54:21
 tags: 
     - python
@@ -134,7 +134,7 @@ def _compile(self, method):
     combined = (flatpat for (_, flatpat, _, _) in all_rules)
     combined = '|'.join('(^%s$)' % flatpat for flatpat in combined)
     combined = re.compile(combined).match
-    rules = [(target, getargs) for (_, _, target, getargs) in some]
+    rules = [(target, getargs) for (_, _, target, getargs) in all_rules]
     comborules.append((combined, rules))
 ```
 

@@ -1,5 +1,5 @@
 ---
-title: 深具传统的bobo微框架源代码之阅读
+title: 深具传统的 bobo 微框架源代码之阅读
 date: 2018-10-30 09:27:19
 tags:
     - python
