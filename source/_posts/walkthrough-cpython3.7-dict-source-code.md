@@ -800,6 +800,6 @@ if (ep->me_key == key ||
 #define _PyDict_HasSplitTable(d) ((d)->ma_values != NULL)
 ```
 ## 结束
-就这样吧，之后再看看 OrderedDict
+先就这样吧
 
-![girl](http://arian-blogs.oss-cn-beijing.aliyuncs.com/18-12-31/50518040.jpg)
+![girl](https://arian-blogs.oss-cn-beijing.aliyuncs.com/18-12-31/50518040.jpg)
