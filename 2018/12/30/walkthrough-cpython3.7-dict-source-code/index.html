@@ -205,9 +205,9 @@
   
 </nav>
 
-<div class="waifu">
-    <div class="waifu-tips"></div>
-    <canvas id="live2d" width="240" height="220" class="live2d"></canvas>
+<div class="waifu" style="z-index:9999">
+    <div class="waifu-tips" style="z-index:9999"></div>
+    <canvas id="live2d" width="240" height="220" class="live2d" style="z-index:9999"></canvas>
 </div>
 
       </header>
@@ -329,7 +329,7 @@
 <p>当我们拥有一个 split table dict 对象之后，就可以用 new_dict_with_shared_keys 函数建立另一个共享了这个对象 keys 对象的 dict 对象：<br><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// new_dict 使用给定的 keys 对象新建一个 dict 对象，并且将 ma_values 设置为 values</span></span><br><span class="line"><span class="keyword">static</span> PyObject *</span><br><span class="line">new_dict(PyDictKeysObject *keys, PyObject **values)</span><br><span class="line">&#123;</span><br><span class="line">    PyDictObject *mp;</span><br><span class="line">    assert(keys != <span class="literal">NULL</span>);</span><br><span class="line">    <span class="keyword">if</span> (numfree) &#123;</span><br><span class="line">        <span class="comment">// 直接从缓存池从拿一个对象</span></span><br><span class="line">        mp = free_list[--numfree];</span><br><span class="line">        assert (mp != <span class="literal">NULL</span>);</span><br><span class="line">        assert (Py_TYPE(mp) == &amp;PyDict_Type);</span><br><span class="line">        _Py_NewReference((PyObject *)mp);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span> &#123;</span><br><span class="line">        mp = PyObject_GC_New(PyDictObject, &amp;PyDict_Type);</span><br><span class="line">        <span class="keyword">if</span> (mp == <span class="literal">NULL</span>) &#123;</span><br><span class="line">            DK_DECREF(keys);</span><br><span class="line">            free_values(values);</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">NULL</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    mp-&gt;ma_keys = keys;</span><br><span class="line">    mp-&gt;ma_values = values;</span><br><span class="line">    mp-&gt;ma_used = <span class="number">0</span>;</span><br><span class="line">    mp-&gt;ma_version_tag = DICT_NEXT_VERSION();</span><br><span class="line">    assert(_PyDict_CheckConsistency(mp));</span><br><span class="line">    <span class="keyword">return</span> (PyObject *)mp;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/* Consumes a reference to the keys object */</span></span><br><span class="line"><span class="keyword">static</span> PyObject *</span><br><span class="line">new_dict_with_shared_keys(PyDictKeysObject *keys)</span><br><span class="line">&#123;</span><br><span class="line">    PyObject **values;</span><br><span class="line">    Py_ssize_t i, size;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 获得新 dict 的最小大小</span></span><br><span class="line">    size = USABLE_FRACTION(DK_SIZE(keys));</span><br><span class="line">    values = new_values(size);</span><br><span class="line">    <span class="keyword">if</span> (values == <span class="literal">NULL</span>) &#123;</span><br><span class="line">        DK_DECREF(keys);</span><br><span class="line">        <span class="keyword">return</span> PyErr_NoMemory();</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span> (i = <span class="number">0</span>; i &lt; size; i++) &#123;</span><br><span class="line">        <span class="comment">// 初始化指针为 NULL</span></span><br><span class="line">        values[i] = <span class="literal">NULL</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> new_dict(keys, values);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
 <p>可以用 lookdict_split 函数从 split table 中查询值。它的逻辑大体和 lookdict_unicode_nodummy 相同，只是在读取值是从 ma_values 里面读取：<br><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (ep-&gt;me_key == key ||</span><br><span class="line">    (ep-&gt;me_hash == hash &amp;&amp; unicode_eq(ep-&gt;me_key, key))) &#123;</span><br><span class="line">    *value_addr = mp-&gt;ma_values[ix];</span><br><span class="line">    <span class="keyword">return</span> ix;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
 <p>除此之外，有一个帮助我们判断一个 dict 是否是 split table 的宏：<br><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">define</span> _PyDict_HasSplitTable(d) ((d)-&gt;ma_values != NULL)</span></span><br></pre></td></tr></table></figure></p>
-<h2 id="结束"><a href="#结束" class="headerlink" title="结束"></a>结束</h2><p>就这样吧，之后再看看 OrderedDict</p>
+<h2 id="结束"><a href="#结束" class="headerlink" title="结束"></a>结束</h2><p>先就这样吧</p>
 <p><img src="https://arian-blogs.oss-cn-beijing.aliyuncs.com/18-12-31/50518040.jpg" alt="girl"></p>
 
       
@@ -375,6 +375,12 @@
         
         
   <nav class="post-nav">
+    
+      <a class="prev" href="/2019/01/25/flask-source-code-read/">
+        <i class="iconfont icon-left"></i>
+        <span class="prev-text nav-default">Flask 源码的二三事</span>
+        <span class="prev-text nav-mobile">上一篇</span>
+      </a>
     
     
       <a class="next" href="/2018/11/27/bottle-source-code-analysis/">
@@ -483,7 +489,7 @@
      
       2017 - 
     
-    2018
+    2019
 
     <span class="heart">
       <i class="iconfont icon-heart"></i>
@@ -570,7 +576,7 @@
 	randomName = modelNames[Math.floor(Math.random() * modelNum)]
 
     loadlive2d("live2d", "/model/Pio/" + randomName);
-    $('.container').after("<canvas class='fireworks' style='position:fixed;left:0;top:0;pointer-events:none;z-index:9999'></canvas>")
+    $('.container').after("<canvas class='fireworks' style='position:fixed;left:0;top:0;pointer-events:none;z-index:999'></canvas>")
 </script>
 
 <script async type="text/javascript" src="/js/src/jquery.click-firewords.js"></script>

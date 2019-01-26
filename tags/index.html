@@ -203,9 +203,9 @@
   
 </nav>
 
-<div class="waifu">
-    <div class="waifu-tips"></div>
-    <canvas id="live2d" width="240" height="220" class="live2d"></canvas>
+<div class="waifu" style="z-index:9999">
+    <div class="waifu-tips" style="z-index:9999"></div>
+    <canvas id="live2d" width="240" height="220" class="live2d" style="z-index:9999"></canvas>
 </div>
 
       </header>
@@ -219,7 +219,7 @@
       目前共计 13 个标签
     </div>
     <div class="tag-cloud-tags">
-      <a href="/tags/ctf/" style="font-size: 16px;">ctf</a> <a href="/tags/算法/" style="font-size: 25px;">算法</a> <a href="/tags/编码/" style="font-size: 19px;">编码</a> <a href="/tags/源码/" style="font-size: 22px;">源码</a> <a href="/tags/翻译/" style="font-size: 16px;">翻译</a> <a href="/tags/缓存/" style="font-size: 16px;">缓存</a> <a href="/tags/python/" style="font-size: 28px;">python</a> <a href="/tags/writeup/" style="font-size: 16px;">writeup</a> <a href="/tags/密码学/" style="font-size: 16px;">密码学</a> <a href="/tags/生活/" style="font-size: 16px;">生活</a> <a href="/tags/随笔/" style="font-size: 16px;">随笔</a> <a href="/tags/Flask/" style="font-size: 16px;">Flask</a> <a href="/tags/位运算/" style="font-size: 16px;">位运算</a>
+      <a href="/tags/翻译/" style="font-size: 16px;">翻译</a> <a href="/tags/python/" style="font-size: 28px;">python</a> <a href="/tags/编码/" style="font-size: 19px;">编码</a> <a href="/tags/Flask/" style="font-size: 16px;">Flask</a> <a href="/tags/源码/" style="font-size: 22px;">源码</a> <a href="/tags/位运算/" style="font-size: 16px;">位运算</a> <a href="/tags/算法/" style="font-size: 25px;">算法</a> <a href="/tags/缓存/" style="font-size: 16px;">缓存</a> <a href="/tags/ctf/" style="font-size: 16px;">ctf</a> <a href="/tags/writeup/" style="font-size: 16px;">writeup</a> <a href="/tags/密码学/" style="font-size: 16px;">密码学</a> <a href="/tags/生活/" style="font-size: 16px;">生活</a> <a href="/tags/随笔/" style="font-size: 16px;">随笔</a>
     </div>
   </div>
 
@@ -303,7 +303,7 @@
      
       2017 - 
     
-    2018
+    2019
 
     <span class="heart">
       <i class="iconfont icon-heart"></i>
@@ -390,7 +390,7 @@
 	randomName = modelNames[Math.floor(Math.random() * modelNum)]
 
     loadlive2d("live2d", "/model/Pio/" + randomName);
-    $('.container').after("<canvas class='fireworks' style='position:fixed;left:0;top:0;pointer-events:none;z-index:9999'></canvas>")
+    $('.container').after("<canvas class='fireworks' style='position:fixed;left:0;top:0;pointer-events:none;z-index:999'></canvas>")
 </script>
 
 <script async type="text/javascript" src="/js/src/jquery.click-firewords.js"></script>

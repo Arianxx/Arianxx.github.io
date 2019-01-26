@@ -207,9 +207,9 @@
   
 </nav>
 
-<div class="waifu">
-    <div class="waifu-tips"></div>
-    <canvas id="live2d" width="240" height="220" class="live2d"></canvas>
+<div class="waifu" style="z-index:9999">
+    <div class="waifu-tips" style="z-index:9999"></div>
+    <canvas id="live2d" width="240" height="220" class="live2d" style="z-index:9999"></canvas>
 </div>
 
       </header>
@@ -231,6 +231,21 @@
       
     
 
+    
+      
+
+      <div class="archive-post">
+        <span class="archive-post-time">
+          
+            2019-01-25
+          
+        </span>
+        <span class="archive-post-title">
+          <a href="/2019/01/25/flask-source-code-read/" class="archive-post-link">
+            Flask 源码的二三事
+          </a>
+        </span>
+      </div>
     
       
 
@@ -367,26 +382,16 @@
         </span>
       </div>
     
-      
-
-      <div class="archive-post">
-        <span class="archive-post-time">
-          
-            2018-05-14
-          
-        </span>
-        <span class="archive-post-title">
-          <a href="/2018/05/14/Explore-the-usage-of-super/" class="archive-post-link">
-            浅析python中super用法，兼及继承机制
-          </a>
-        </span>
-      </div>
-    
   </section>
 
   
   <nav class="pagination">
     
+    
+      <a class="next" href="/categories/python/page/2/">
+        <span class="next-text">下一页</span>
+        <i class="iconfont icon-right"></i>
+      </a>
     
   </nav>
 
@@ -473,7 +478,7 @@
      
       2017 - 
     
-    2018
+    2019
 
     <span class="heart">
       <i class="iconfont icon-heart"></i>
@@ -560,7 +565,7 @@
 	randomName = modelNames[Math.floor(Math.random() * modelNum)]
 
     loadlive2d("live2d", "/model/Pio/" + randomName);
-    $('.container').after("<canvas class='fireworks' style='position:fixed;left:0;top:0;pointer-events:none;z-index:9999'></canvas>")
+    $('.container').after("<canvas class='fireworks' style='position:fixed;left:0;top:0;pointer-events:none;z-index:999'></canvas>")
 </script>
 
 <script async type="text/javascript" src="/js/src/jquery.click-firewords.js"></script>

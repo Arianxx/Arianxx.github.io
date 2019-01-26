@@ -203,9 +203,9 @@
   
 </nav>
 
-<div class="waifu">
-    <div class="waifu-tips"></div>
-    <canvas id="live2d" width="240" height="220" class="live2d"></canvas>
+<div class="waifu" style="z-index:9999">
+    <div class="waifu-tips" style="z-index:9999"></div>
+    <canvas id="live2d" width="240" height="220" class="live2d" style="z-index:9999"></canvas>
 </div>
 
       </header>
@@ -217,6 +217,58 @@
   
   <section id="posts" class="posts">
     
+      
+        
+  <article class="post">
+    <header class="post-header">
+      <h1 class="post-title">
+        
+          <a class="post-link" href="/2018/06/22/Common-sort-algorithm/">十种常见的排序方法</a>
+        
+      </h1>
+
+      <div class="post-meta">
+        <span class="post-time">
+          2018-06-22
+        </span>
+        
+          <span class="post-category">
+            
+              <a href="/categories/python/">python</a>
+            
+          </span>
+        
+        
+      </div>
+    </header>
+
+    
+    
+
+
+    <div class="post-content">
+      
+        
+        
+          
+        
+
+        
+          <h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>本文介绍了十种常见简单排序算法的python实现。</p>
+<p>将要介绍的这十种排序算法分别是——冒泡排序、选择排序、插入排序、希尔排序、快速排序、归并排序、堆排序、计数排序、基数排序、桶排序<br>
+          <div class="read-more">
+            <a href="/2018/06/22/Common-sort-algorithm/" class="read-more-link">阅读更多</a>
+          </div>
+        
+      
+    </div>
+
+    
+
+    
+
+  </article>
+
       
         
   <article class="post">
@@ -695,64 +747,6 @@
   </article>
 
       
-        
-  <article class="post">
-    <header class="post-header">
-      <h1 class="post-title">
-        
-          <a class="post-link" href="/2018/02/04/南邮ctf训练平台Vigenere writeup/">南邮ctf训练平台Vigenere writeup</a>
-        
-      </h1>
-
-      <div class="post-meta">
-        <span class="post-time">
-          2018-02-04
-        </span>
-        
-          <span class="post-category">
-            
-              <a href="/categories/ctf/">ctf</a>
-            
-          </span>
-        
-        
-      </div>
-    </header>
-
-    
-    
-
-
-    <div class="post-content">
-      
-        
-        
-          
-        
-
-        
-          <blockquote>
-<p>原题链接：<a href="">http://ctf.nuptsast.com/challenges#Vigenere</a></p>
-</blockquote>
-<h2 id="题目分析"><a href="#题目分析" class="headerlink" title="题目分析"></a>题目分析</h2><p>题目原文：</p>
-<blockquote>
-<p>It is said that Vigenere cipher does not achieve the perfect secrecy actually :-)<br>Tips:<br>1.The encode pragram is given;<br>2.Do u no index of coincidence ？<br>3.The key is last 6 words of the plain text(with “nctf{}” when submitted, also without any interpunction)</p>
-</blockquote>
-<p>加密代码：<br><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"> <span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"> <span class="meta">#<span class="meta-keyword">define</span> KEY_LENGTH 2 <span class="comment">// Can be anything from 1 to 13</span></span></span><br><span class="line"></span><br><span class="line">main()&#123;</span><br><span class="line">  <span class="keyword">unsigned</span> <span class="keyword">char</span> ch;</span><br><span class="line">  FILE *fpIn, *fpOut;</span><br><span class="line">  <span class="keyword">int</span> i;</span><br><span class="line">  <span class="keyword">unsigned</span> <span class="keyword">char</span> key[KEY_LENGTH] = &#123;<span class="number">0x00</span>, <span class="number">0x00</span>&#125;;</span><br><span class="line">  <span class="comment">/* of course, I did not use the all-0s key to encrypt */</span></span><br><span class="line"></span><br><span class="line">  fpIn = fopen(<span class="string">"ptext.txt"</span>, <span class="string">"r"</span>);</span><br><span class="line">  fpOut = fopen(<span class="string">"ctext.txt"</span>, <span class="string">"w"</span>);</span><br><span class="line"></span><br><span class="line">  i=<span class="number">0</span>;</span><br><span class="line">  <span class="keyword">while</span> (<span class="built_in">fscanf</span>(fpIn, <span class="string">"%c"</span>, &amp;ch) != EOF) &#123;</span><br><span class="line">    <span class="comment">/* avoid encrypting newline characters */</span>  </span><br><span class="line">    <span class="comment">/* In a "real-world" implementation of the Vigenere cipher, </span></span><br><span class="line"><span class="comment">       every ASCII character in the plaintext would be encrypted.</span></span><br><span class="line"><span class="comment">       However, I want to avoid encrypting newlines here because </span></span><br><span class="line"><span class="comment">       it makes recovering the plaintext slightly more difficult... */</span></span><br><span class="line">    <span class="comment">/* ...and my goal is not to create "production-quality" code =) */</span></span><br><span class="line">    <span class="keyword">if</span> (ch!=<span class="string">'\n'</span>) &#123;</span><br><span class="line">      <span class="built_in">fprintf</span>(fpOut, <span class="string">"%02X"</span>, ch ^ key[i % KEY_LENGTH]); <span class="comment">// ^ is logical XOR    </span></span><br><span class="line">      i++;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line"> </span><br><span class="line">  fclose(fpIn);</span><br><span class="line">  fclose(fpOut);</span><br><span class="line">  <span class="keyword">return</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-          <div class="read-more">
-            <a href="/2018/02/04/南邮ctf训练平台Vigenere writeup/" class="read-more-link">阅读更多</a>
-          </div>
-        
-      
-    </div>
-
-    
-
-    
-
-  </article>
-
-      
       
   <nav class="pagination">
     
@@ -761,6 +755,11 @@
         <span class="prev-text">上一页</span>
       </a>
     
+    
+      <a class="next" href="/page/3/">
+        <span class="next-text">下一页</span>
+        <i class="iconfont icon-right"></i>
+      </a>
     
   </nav>
 
@@ -848,7 +847,7 @@
      
       2017 - 
     
-    2018
+    2019
 
     <span class="heart">
       <i class="iconfont icon-heart"></i>
@@ -914,7 +913,7 @@
 	randomName = modelNames[Math.floor(Math.random() * modelNum)]
 
     loadlive2d("live2d", "/model/Pio/" + randomName);
-    $('.container').after("<canvas class='fireworks' style='position:fixed;left:0;top:0;pointer-events:none;z-index:9999'></canvas>")
+    $('.container').after("<canvas class='fireworks' style='position:fixed;left:0;top:0;pointer-events:none;z-index:999'></canvas>")
 </script>
 
 <script async type="text/javascript" src="/js/src/jquery.click-firewords.js"></script>

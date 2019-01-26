@@ -4,8 +4,30 @@
 
     
   <url>
+    <loc>https://arianx.me/2019/01/25/flask-source-code-read/</loc>
+    <lastmod>2019-01-26T02:16:49.761Z</lastmod>
+    <data>
+        <display>
+        <title>Flask 源码的二三事</title>
+        <pubTime>2019-01-25T07:03:18.000Z</pubTime>
+        
+        <tag>python</tag>
+         
+        <tag>源码</tag>
+         
+         
+           
+             
+              <breadCrumb title="python" url="https://arianx.me/categories/python/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
     <loc>https://arianx.me/2018/12/30/walkthrough-cpython3.7-dict-source-code/</loc>
-    <lastmod>2018-12-31T12:44:38.833Z</lastmod>
+    <lastmod>2019-01-25T08:12:49.413Z</lastmod>
     <data>
         <display>
         <title>cpython3.7 dict 对象的内在原理</title>
@@ -96,9 +118,9 @@
         <title>浅析python中super用法，兼及继承机制</title>
         <pubTime>2018-05-14T14:05:27.000Z</pubTime>
         
-        <tag>算法</tag>
-         
         <tag>python</tag>
+         
+        <tag>算法</tag>
          
          
            
@@ -203,9 +225,9 @@
         <title>实现霍夫曼编码</title>
         <pubTime>2018-06-24T07:44:23.000Z</pubTime>
         
-        <tag>算法</tag>
-         
         <tag>python</tag>
+         
+        <tag>算法</tag>
          
         <tag>编码</tag>
          
@@ -310,9 +332,9 @@
         <title>堆排序简述</title>
         <pubTime>2018-06-17T14:28:59.000Z</pubTime>
         
-        <tag>算法</tag>
-         
         <tag>python</tag>
+         
+        <tag>算法</tag>
          
          
            
@@ -332,9 +354,9 @@
         <title>Python中的AVL树</title>
         <pubTime>2018-06-16T23:17:17.000Z</pubTime>
         
-        <tag>算法</tag>
-         
         <tag>python</tag>
+         
+        <tag>算法</tag>
          
          
            
@@ -354,9 +376,9 @@
         <title>LZ77编码简介</title>
         <pubTime>2018-06-26T07:56:46.000Z</pubTime>
         
-        <tag>算法</tag>
-         
         <tag>python</tag>
+         
+        <tag>算法</tag>
          
         <tag>编码</tag>
          
@@ -395,9 +417,9 @@
         <title>十种常见的排序方法</title>
         <pubTime>2018-06-22T11:48:09.000Z</pubTime>
         
-        <tag>算法</tag>
-         
         <tag>python</tag>
+         
+        <tag>算法</tag>
          
          
            

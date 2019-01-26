@@ -203,9 +203,9 @@
   
 </nav>
 
-<div class="waifu">
-    <div class="waifu-tips"></div>
-    <canvas id="live2d" width="240" height="220" class="live2d"></canvas>
+<div class="waifu" style="z-index:9999">
+    <div class="waifu-tips" style="z-index:9999"></div>
+    <canvas id="live2d" width="240" height="220" class="live2d" style="z-index:9999"></canvas>
 </div>
 
       </header>
@@ -217,6 +217,57 @@
   
   <section id="posts" class="posts">
     
+      
+        
+  <article class="post">
+    <header class="post-header">
+      <h1 class="post-title">
+        
+          <a class="post-link" href="/2019/01/25/flask-source-code-read/">Flask 源码的二三事</a>
+        
+      </h1>
+
+      <div class="post-meta">
+        <span class="post-time">
+          2019-01-25
+        </span>
+        
+          <span class="post-category">
+            
+              <a href="/categories/python/">python</a>
+            
+          </span>
+        
+        
+      </div>
+    </header>
+
+    
+    
+
+
+    <div class="post-content">
+      
+        
+        
+          
+        
+
+        
+          <p>本文将基于 Flask 1.1.dev ( <a href="https://github.com/pallets/flask/commit/a74864ec229141784374f1998324d2cbac837295" target="_blank" rel="noopener">a74864</a> )，分析 Flask 源码之中一些有趣并且值得关注的部分，包括 路由机制、请求流程、上下文管理 等等。</p>
+          <div class="read-more">
+            <a href="/2019/01/25/flask-source-code-read/" class="read-more-link">阅读更多</a>
+          </div>
+        
+      
+    </div>
+
+    
+
+    
+
+  </article>
+
       
         
   <article class="post">
@@ -682,58 +733,6 @@
   </article>
 
       
-        
-  <article class="post">
-    <header class="post-header">
-      <h1 class="post-title">
-        
-          <a class="post-link" href="/2018/06/22/Common-sort-algorithm/">十种常见的排序方法</a>
-        
-      </h1>
-
-      <div class="post-meta">
-        <span class="post-time">
-          2018-06-22
-        </span>
-        
-          <span class="post-category">
-            
-              <a href="/categories/python/">python</a>
-            
-          </span>
-        
-        
-      </div>
-    </header>
-
-    
-    
-
-
-    <div class="post-content">
-      
-        
-        
-          
-        
-
-        
-          <h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>本文介绍了十种常见简单排序算法的python实现。</p>
-<p>将要介绍的这十种排序算法分别是——冒泡排序、选择排序、插入排序、希尔排序、快速排序、归并排序、堆排序、计数排序、基数排序、桶排序<br>
-          <div class="read-more">
-            <a href="/2018/06/22/Common-sort-algorithm/" class="read-more-link">阅读更多</a>
-          </div>
-        
-      
-    </div>
-
-    
-
-    
-
-  </article>
-
-      
       
   <nav class="pagination">
     
@@ -829,7 +828,7 @@
      
       2017 - 
     
-    2018
+    2019
 
     <span class="heart">
       <i class="iconfont icon-heart"></i>
@@ -895,7 +894,7 @@
 	randomName = modelNames[Math.floor(Math.random() * modelNum)]
 
     loadlive2d("live2d", "/model/Pio/" + randomName);
-    $('.container').after("<canvas class='fireworks' style='position:fixed;left:0;top:0;pointer-events:none;z-index:9999'></canvas>")
+    $('.container').after("<canvas class='fireworks' style='position:fixed;left:0;top:0;pointer-events:none;z-index:999'></canvas>")
 </script>
 
 <script async type="text/javascript" src="/js/src/jquery.click-firewords.js"></script>

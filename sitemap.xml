@@ -2,9 +2,16 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://arianx.me/2019/01/25/flask-source-code-read/</loc>
+    
+    <lastmod>2019-01-26T02:16:49.761Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>https://arianx.me/2018/12/30/walkthrough-cpython3.7-dict-source-code/</loc>
     
-    <lastmod>2018-12-31T12:44:38.833Z</lastmod>
+    <lastmod>2019-01-25T08:12:49.413Z</lastmod>
     
   </url>
   
