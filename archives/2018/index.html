@@ -158,7 +158,7 @@
   </ul>
 </nav>
 
-    <div class="container" id="mobile-panel">
+    <div class="container" id="mobile-panel" style="z-index:0">
       <header id="header" class="header"><div class="logo-wrapper">
   <a href="/." class="logo">Arian's Blog</a>
 </div>
@@ -606,5 +606,19 @@
 
 <script async type="text/javascript" src="/js/src/jquery.click-firewords.js"></script>
 
+
+<script type="text/javascript">//樱花
+ var system ={}; 
+ var p = navigator.platform; 
+ system.win = p.indexOf("Win") == 0; 
+ system.mac = p.indexOf("Mac") == 0; 
+ system.x11 = (p == "X11") || (p.indexOf("Linux") == 0); 
+ if(system.win||system.mac||system.xll){//如果是电脑
+ 
+ $.getScript("/js/src/yinghua.js");
+ }else{ //如果是手机
+ 
+ }
+ </script>
   </body>
 </html>
