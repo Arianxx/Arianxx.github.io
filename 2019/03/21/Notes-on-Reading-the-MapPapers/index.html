@@ -1,0 +1,551 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+  <head>
+    
+<meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+
+  <meta name="description" content="MapReduce 阅读纪要"/>
+
+
+
+
+  <meta name="keywords" content="分布式, 论文, Arian's Blog" />
+
+
+
+
+
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="Arian's Blog">
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=2.10.2" />
+
+
+
+<link rel="canonical" href="https://arianx.me/2019/03/21/Notes-on-Reading-the-MapPapers/"/>
+
+
+
+  <link rel="stylesheet" type="text/css" href="/lib/fancybox/jquery.fancybox.css" />
+
+
+
+
+  <link rel="stylesheet" type="text/css" href="/lib/nprogress/nprogress.min.css" />
+
+
+
+<link rel="stylesheet" type="text/css" href="/css/style.css?v=2.10.2" />
+
+
+
+  
+  <script id="baidu_analytics">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?7da15ed69b10673f5e71fb736eca6373";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+  <script id="baidu_push">
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+
+
+
+
+
+
+
+<script>
+  window.config = {"leancloud":{"app_id":null,"app_key":null},"toc":true,"fancybox":true,"pjax":true};
+</script>
+
+    <title> MapReduce 阅读纪要 - Arian's Blog </title>
+  </head>
+
+  <body><div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/." class="logo">Arian's Blog</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    
+      <a href="/">
+        <li class="mobile-menu-item">
+          
+          
+            首页
+          
+        </li>
+      </a>
+    
+      <a href="/archives/">
+        <li class="mobile-menu-item">
+          
+          
+            归档
+          
+        </li>
+      </a>
+    
+      <a href="/tags">
+        <li class="mobile-menu-item">
+          
+          
+            标签
+          
+        </li>
+      </a>
+    
+      <a href="/about">
+        <li class="mobile-menu-item">
+          
+          
+            关于
+          
+        </li>
+      </a>
+    
+  </ul>
+</nav>
+
+    <div class="container" id="mobile-panel" style="z-index:0">
+      <header id="header" class="header"><div class="logo-wrapper">
+  <a href="/." class="logo">Arian's Blog</a>
+</div>
+
+<nav class="site-navbar">
+  
+    <ul id="menu" class="menu">
+      
+        <li class="menu-item">
+          <a class="menu-item-link" href="/">
+            
+            
+              首页
+            
+          </a>
+        </li>
+      
+        <li class="menu-item">
+          <a class="menu-item-link" href="/archives/">
+            
+            
+              归档
+            
+          </a>
+        </li>
+      
+        <li class="menu-item">
+          <a class="menu-item-link" href="/tags">
+            
+            
+              标签
+            
+          </a>
+        </li>
+      
+        <li class="menu-item">
+          <a class="menu-item-link" href="/about">
+            
+            
+              关于
+            
+          </a>
+        </li>
+      
+    </ul>
+  
+</nav>
+
+<div class="waifu" style="z-index:9999">
+    <div class="waifu-tips" style="z-index:9999"></div>
+    <canvas id="live2d" width="240" height="220" class="live2d" style="z-index:9999"></canvas>
+</div>
+
+      </header>
+
+      <main id="main" class="main">
+        <div class="content-wrapper">
+          <div id="content" class="content">
+            
+  
+  <article class="post">
+    <header class="post-header">
+      <h1 class="post-title">
+        
+          MapReduce 阅读纪要
+        
+      </h1>
+
+      <div class="post-meta">
+        <span class="post-time">
+          2019-03-21
+        </span>
+        
+          <span class="post-category">
+            
+              <a href="/categories/分布式/">分布式</a>
+            
+              <a href="/categories/分布式/算法/">算法</a>
+            
+          </span>
+        
+        
+      </div>
+    </header>
+
+    
+    
+  <div class="post-toc" id="post-toc">
+    <h2 class="post-toc-title">文章目录</h2>
+    <div class="post-toc-content">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#MapReduce-模型"><span class="toc-text">MapReduce 模型</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#容错处理"><span class="toc-text">容错处理</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Worker-错误"><span class="toc-text">Worker 错误</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Master-错误"><span class="toc-text">Master 错误</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#失效处理机制"><span class="toc-text">失效处理机制</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#优化"><span class="toc-text">优化</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#储存位置"><span class="toc-text">储存位置</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#任务细度"><span class="toc-text">任务细度</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#备份任务"><span class="toc-text">备份任务</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#技巧"><span class="toc-text">技巧</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#划分函数"><span class="toc-text">划分函数</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#保证排序"><span class="toc-text">保证排序</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#合并函数"><span class="toc-text">合并函数</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#跳过坏任务"><span class="toc-text">跳过坏任务</span></a></li></ol></li></ol>
+    </div>
+  </div>
+
+
+
+    <div class="post-content">
+      
+        <blockquote>
+<p>paper： <a href="https://static.googleusercontent.com/media/research.google.com/en//archive/mapreduce-osdi04.pdf" target="_blank" rel="noopener">https://static.googleusercontent.com/media/research.google.com/en//archive/mapreduce-osdi04.pdf</a></p>
+</blockquote>
+<p>MapReduce 指一个由 Google 提出的，用于在集群上使用并行、分布式算法处理大规模数据的编程模型，以及一系列相关实现。本文是我阅读 Google 原论文之后的一些纪要。</p>
+<a id="more"></a>
+<h2 id="MapReduce-模型"><a href="#MapReduce-模型" class="headerlink" title="MapReduce 模型"></a>MapReduce 模型</h2><p>在 lisp 以及许多其它函数式语言中，常常存在用于处理顺序表数据结构的 <a href="https://en.wikipedia.org/wiki/Map_\(higher-order_function" target="_blank" rel="noopener">map</a>、<a href="https://en.wikipedia.org/wiki/Fold_\(higher-order_function" target="_blank" rel="noopener">reduce</a> 等原语。在本质上，它们是能够以一个顺序表及处理函数为参数的<a href="https://en.wikipedia.org/wiki/Higher-order_function" target="_blank" rel="noopener">高阶函数</a>。 </p>
+<p>map 将一一以顺序表中的元素为参数调用这个处理函数，并以这些调用返回的结果作为元素形成一个新的顺序表。也就是说，这个处理函数将作用于原顺序表中的每一个元素。以 python 为例：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># square</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>result = map(<span class="keyword">lambda</span> x: x * x, [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>])</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>list(result)</span><br><span class="line">[<span class="number">1</span>, <span class="number">4</span>, <span class="number">9</span>, <span class="number">16</span>, <span class="number">25</span>]</span><br></pre></td></tr></table></figure></p>
+<p>reduce 同样将遍历顺序表，但它以前一次处理函数返回的结果，以及当前元素为参数递归的调用处理函数：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># sum</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>reduce(<span class="keyword">lambda</span> a, b: a + b, [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>])</span><br><span class="line"><span class="number">15</span></span><br></pre></td></tr></table></figure></p>
+<p>Google 受这些原语所启发，发现大多数现实世界的分布式作业拥有与其相似的特征。例如，我们可以以这样的方式来统计一大堆文档集合里的词频：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">map</span><span class="params">(key: string, value: string)</span>:</span></span><br><span class="line">    <span class="keyword">for</span> word <span class="keyword">in</span> value:</span><br><span class="line">        emit(word, <span class="string">"1"</span>)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">reduce</span><span class="params">(key: string, values: Iterator)</span>:</span></span><br><span class="line">    emit(string(len(values)))</span><br></pre></td></tr></table></figure></p>
+<p>在这里，map 常常接受文件名和内容作为参数，返回一系列键值对。reduce 以键名和其相关的一系列值为参数，返回最终的结果。在上面的例子中，map 将读取文档内容，然后返回形位 <code>word: &quot;1&quot;</code> 形式的键值对。MapReduce 实现会将键名相同的值集合在一起，传递给 reduce 函数。而 reduce 函数则简单统计了键对应值的数量。</p>
+<p>在单处理器环境中以这种模型运行，不一定会获得比通常方式更高的效率。然而，正如文章开始所说的那样，MapReduce 应用于分布式计算。在实践中，这种受限的模型，能够让框架方便地将任务分布式化，并自动处理诸如数据划分、容错、负载均衡等任务。</p>
+<p>MapReduce 模型中的 Map，是由用户指定的函数。Map 接收一个 key/value pair 值，并且产生一系列中间 key/value pair 值。MapReduce 库将拥有相同 key 值的 pair 聚合在一起并传给 Reduce 函数。</p>
+<p>Reduce 同样由用户定义。它接受一个 key 以及一系列相关的 value，形成更小的 value 集合。典型地一个 Reduce 调用产生零个或一个 value 值。</p>
+<p>通过将输入数据自动划分为 M 个片段，Map 在多台机器上被分布式地调用。通过将 Map 产生的结果划分为 R 份，Reduce 也能在多台机器上调用。R 的数量和划分函数通常是由用户指定的。</p>
+<p>MapReduce 模型的典型执行流程如下：</p>
+<ol>
+<li>一开始，用户程序中的 MapReduce 库将输入文件划分为 M 段。段的大小可配置，通常为 64M。然后，用户程序在集群机器中创建程序的副本。</li>
+<li>其中一个副本被指定为 master。其余的都是由 master 分配任务的 workers。这里有 M 个 Map 任务，以及 R 个 Reduce 任务可以分配。 master 将选择一个空闲的 worker 分配任务。</li>
+<li>被指定了 map 任务的 worker 将读取响应的输入的划分。它从输入中解析出 key/value pair，然后传递给用户定义的 Map 函数，将产生的中间 key/value pair 缓存在内存中。</li>
+<li>缓存的数据周期性地写入本地磁盘，由划分函数划分为 R 个区域。这些区域地位置将发送给 master，以被 master 转发给 reduce work。</li>
+<li>所有的 map 任务完成后，master 开始分配 reduce 任务。master 将对应的地址传送给 reduce worker。reduce worker 通过远程过程调用读取这些区域的内容。读取完之后，reduce work 通过键将这些内容排序。然后将拥有相同的 key 的 values 传递给用户定义的 Reduce 函数。Reduce 函数的输出将会被追加到分区对应的文件中。</li>
+<li>reduce 任务完成后，返回用户调用 MapReduce 过程的地方，继续执行用户接下来的程序。</li>
+</ol>
+<h2 id="容错处理"><a href="#容错处理" class="headerlink" title="容错处理"></a>容错处理</h2><h3 id="Worker-错误"><a href="#Worker-错误" class="headerlink" title="Worker 错误"></a>Worker 错误</h3><p>master 会周期性地 ping 每一个 worker，如果在一段时间之内，一个 worker 都没有响应，那么 master 会认为这个 worker 发生了错误。如果这个 worker 执行的是 map 任务，那么这个 worker 执行过的所有任务都将被 master 安排在其它 worker 上重新执行。如果执行的是 reduce 任务，那么当前执行的任务会被安排在其它 worker 上重新执行。</p>
+<p>之所以要重新执行失败 map worker 上的所有任务，是因为 map worker 产生的输出是保存在本地磁盘上的，一旦失败则无法读取。而 reduce worder 的输出保存在全局文件系统上，失败只需要重新执行当前任务即可。</p>
+<h3 id="Master-错误"><a href="#Master-错误" class="headerlink" title="Master 错误"></a>Master 错误</h3><p>周期地将 master 保存地数据结构保存为 checkpoint 存入磁盘。一旦 master 发生错误，就从最近保存的 checkpoint 中恢复。</p>
+<h3 id="失效处理机制"><a href="#失效处理机制" class="headerlink" title="失效处理机制"></a>失效处理机制</h3><p>当用户定义的 Map 和 Reduce 是确定性的时，MapReduce 的输入输出和在程序串行、没有出现错误的情况下执行的输入输出是一致的。MapReduce 通过自身文件系统的原子性操作保证这一点成立。<br>值得注意的是，MapReduce 的错误处理都假设在 fail-stop 上，由于硬件或软件原因的结果错误无法处理。</p>
+<h2 id="优化"><a href="#优化" class="headerlink" title="优化"></a>优化</h2><h3 id="储存位置"><a href="#储存位置" class="headerlink" title="储存位置"></a>储存位置</h3><p>网络容易成为整个系统的限制。因此，MapReduce 可以构建于一个分布式文件系统（例如： gfs）之上。在分配任务时，MapReduce 从文件系统之中读取各个文件储存的位置，然后让 map worker 读取最近的输入，从而降低对网络的要求。</p>
+<h3 id="任务细度"><a href="#任务细度" class="headerlink" title="任务细度"></a>任务细度</h3><p>为了更好的负载均衡和容错策略，通常使 M 和 R 为 worker 数量的几倍。</p>
+<h3 id="备份任务"><a href="#备份任务" class="headerlink" title="备份任务"></a>备份任务</h3><p>实践表明，大部分 worker 都执行完毕的情况下，仍然在执行的几个 worker 可能由于机器的软硬件因素仍然要执行很长时间。因此，MapReduce 会自动将最后几个任务备份到多个 worker 上执行。以先完成的为结果。</p>
+<h2 id="技巧"><a href="#技巧" class="headerlink" title="技巧"></a>技巧</h2><h3 id="划分函数"><a href="#划分函数" class="headerlink" title="划分函数"></a>划分函数</h3><p>默认情况下，通常通过哈希来划分输入。然而，如果用户有某些特别需求可以自定义划分函数。</p>
+<h3 id="保证排序"><a href="#保证排序" class="headerlink" title="保证排序"></a>保证排序</h3><p>传递给 Reduce 函数的 values 是经过排序的。</p>
+<h3 id="合并函数"><a href="#合并函数" class="headerlink" title="合并函数"></a>合并函数</h3><p>可以给 Map 提供一个合并函数。这个合并函数通常和 Reduce 函数一样，在 Map 完成之后本地调用，以减少最终需要网络传输的数据数量。</p>
+<h3 id="跳过坏任务"><a href="#跳过坏任务" class="headerlink" title="跳过坏任务"></a>跳过坏任务</h3><p>可能由于用户代码或某些第三方库的原因，一些任务的执行将始终失败。worker 在失败时会发送一条消息给 master。master 会记住任务失败的次数。如果次数太多，会跳过这个任务的执行。</p>
+
+      
+    </div>
+
+    
+      
+      
+
+  <div class="post-copyright">
+    <p class="copyright-item">
+      <span>原文作者: </span>
+      <a href="https://arianx.me">Arian</a>
+    </p>
+    <p class="copyright-item">
+      <span>原文链接: </span>
+      <a href="https://arianx.me/2019/03/21/Notes-on-Reading-the-MapPapers/">https://arianx.me/2019/03/21/Notes-on-Reading-the-MapPapers/</a>
+    </p>
+    <p class="copyright-item">
+      <span>许可协议: </span>
+      
+      本文采用<a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/" target="_blank">知识共享署名-非商业性使用 4.0 国际许可协议</a>
+    </p>
+  </div>
+
+
+
+      
+      
+    
+
+    
+      <footer class="post-footer">
+        
+          <div class="post-tags">
+            
+              <a href="/tags/分布式/">分布式</a>
+            
+              <a href="/tags/论文/">论文</a>
+            
+          </div>
+        
+        
+        
+  <nav class="post-nav">
+    
+    
+      <a class="next" href="/2019/01/25/flask-source-code-read/">
+        <span class="next-text nav-default">Flask 源码的二三事</span>
+        <span class="prev-text nav-mobile">下一篇</span>
+        <i class="iconfont icon-right"></i>
+      </a>
+    
+  </nav>
+
+
+      </footer>
+    
+
+  </article>
+
+
+          </div>
+          
+  <div class="comments" id="comments">
+    
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
+      </div>
+    
+  </div>
+
+
+        </div>
+      </main>
+
+      <footer id="footer" class="footer">
+
+  <div class="social-links">
+    
+      
+        
+          <a href="mailto:ysnyyhs@163.com" class="iconfont icon-email" title="email" target="_blank"></a>
+        
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+        
+          <a href="https://github.com/Arianxx" class="iconfont icon-github" title="github" target="_blank"></a>
+        
+      
+    
+      
+    
+      
+    
+      
+        
+          <a href="https://www.douban.com/people/131732783/" class="iconfont icon-douban" title="douban" target="_blank"></a>
+        
+      
+    
+      
+    
+      
+    
+      
+    
+
+    	<a href="https://music.163.com/#/user/home?id=101778288" class="myiconfont icon-163music" title="yun music" target="_blank">
+    	</a>
+
+      <a href="https://space.bilibili.com/3101019/#/" class="myiconfont icon-bilibili"
+      title="bilibili" target="_blank">
+      </a>
+
+    
+    
+      <a href="/atom.xml" class="iconfont icon-rss" title="rss"></a>
+    
+  </div>
+
+
+
+<div class="copyright">
+  <span class="power-by">
+    由 <a class="hexo-link" href="https://hexo.io/">Hexo</a> 强力驱动
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    主题 - 
+    <a class="theme-link" href="https://github.com/ahonn/hexo-theme-even">Even</a>
+  </span>
+
+  <span class="copyright-year">
+    
+    &copy; 
+     
+      2017 - 
+    
+    2019
+
+    <span class="heart">
+      <i class="iconfont icon-heart"></i>
+    </span>
+    <span class="author">Arian</span>
+  </span>
+</div>
+
+      </footer>
+
+      <div class="back-to-top" id="back-to-top">
+        <i class="iconfont icon-up"></i>
+      </div>
+    </div>
+
+    
+  
+  <script type="text/javascript">
+    var disqus_config = function () {
+        this.page.url = 'https://arianx.me/2019/03/21/Notes-on-Reading-the-MapPapers/';
+        this.page.identifier = '2019/03/21/Notes-on-Reading-the-MapPapers/';
+        this.page.title = 'MapReduce 阅读纪要';
+    };
+    (function() {
+    var d = document, s = d.createElement('script');
+
+    s.src = '//arianx.disqus.com/embed.js';
+
+    s.setAttribute('data-timestamp', +new Date());
+    (d.head || d.body).appendChild(s);
+    })();  
+  </script>
+
+  
+
+  
+
+
+
+    
+  
+
+
+
+  
+  
+
+
+
+
+
+  
+    <script type="text/javascript" src="/lib/jquery/jquery.min.js"></script>
+  
+
+  
+    <script type="text/javascript" src="/lib/slideout/slideout.js"></script>
+  
+
+  
+    <script type="text/javascript" src="/lib/fancybox/jquery.fancybox.pack.js"></script>
+  
+
+  
+    <script type="text/javascript" src="/lib/pjax/jquery.pjax.min.js"></script>
+  
+
+  
+    <script type="text/javascript" src="/lib/nprogress/nprogress.min.js"></script>
+  
+
+
+    <script type="text/javascript" src="/js/src/even.js?v=2.10.2"></script>
+<script type="text/javascript" src="/js/src/bootstrap.js?v=2.10.2"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/2.2.0/anime.min.js" integrity="sha384-BnFYVbw3PHhz5qWXTCSL12MjPc3KxjdKPx7R4R5JjIzxFmYX267NDyJ9B/nZANdg" crossorigin="anonymous"></script>
+<script src="/js/src/transition.min.js"></script>
+
+<script async src="/js/src/message.js"></script>
+<script src="/js/src/live2d.js"></script>
+
+<script type="text/javascript">
+	modelNames = ["default-costume.json", "pajamas-costume.json", "school-costume.json"]
+	modelNum = modelNames.length
+	randomName = modelNames[Math.floor(Math.random() * modelNum)]
+
+    loadlive2d("live2d", "/model/Pio/" + randomName);
+    $('.container').after("<canvas class='fireworks' style='position:fixed;left:0;top:0;pointer-events:none;z-index:999'></canvas>")
+</script>
+
+<script async type="text/javascript" src="/js/src/jquery.click-firewords.js"></script>
+
+
+<script type="text/javascript">//樱花
+ var system ={}; 
+ var p = navigator.platform; 
+ system.win = p.indexOf("Win") == 0; 
+ system.mac = p.indexOf("Mac") == 0; 
+ system.x11 = (p == "X11") || (p.indexOf("Linux") == 0); 
+ if(system.win||system.mac||system.xll){//如果是电脑
+ 
+ $.getScript("/js/src/yinghua.js");
+ }else{ //如果是手机
+ 
+ }
+ </script>
+  </body>
+</html>

@@ -292,8 +292,8 @@
 <p>LocalProxy 是一个有意思的类，结合前面我们给出的 <code>request = LocalProxy(partial(_lookup_req_object, &#39;request&#39;))</code> 语句就会更有意思。它接受一个线程本地变量，然后将对它的实例的几乎所有访问，都会转发给那个线程本地变量上的指定属性。并且在那个属性不存在时弹出 RuntimeError 异常。</p>
 <p>注意到它的 __init__ 方法中的 <code>object.__setattr__(self, &#39;_LocalProxy__local&#39;, local)</code>语句。这里使用 object.__setattr__ 是为了避免循环调用，因为它自己也实现了 __setattr__ 方法（并将它转发给线程本地变量上的属性）。这里使用了 _LocalProxy__local 这个名称，然而在之后却直接以 __local 访问。这是因为 __local 是一个双下划线方法，在自身以外的类访问时，会被重命名。</p>
 <p>前面我们提到过，__slots__ 特殊属性会删除实例的 __dict__ 字典，并以恒定空间储存实例属性，以节省内存。然而这里在 __slots__ 中，又加回了 __dict__ 方法。本来因为 __slots__ 的原因，将要删除的字典，这里又额外添加进来，这是不是有几分做无用功的意味？</p>
-<p>实际上，这也是为了节省内存而做的努力。这里必须存在 __dict__ 原因，是因为 LocalProxy 也会将对自身的属性访问转发给其代理的对象，因此必须允许对 __dict__ 的访问。我们已经为了节省内存，在 __slots__ 中设定了 __local、__name__ 等属性，这样，这些属性将会被存放在固定的空间中而非 __dict__。然而，没有 __dict__，尝试对实例赋其它值时，就会直接引起 AttributeError，使得我们无法对其作转发。因此，我们为其添加 __dict__ 属性以重新允许对实例赋值。当然，此时所有赋值实际会被转发给其代理对象。</p>
-<p>值得注意的是，即使重新规定了 __dict__，当对实例赋值时，规定在 __slots__ 中的其它属性，仍会被储存在固定空间而非 __dict__ 字典，从而 LocalProxy 实例上的 __dict__ 字典实际会一直为空。对线程本地变量的代理，以及 __slots__ 属性的优先级，两者一起使得实例虽然有 __dict__ 属性，却不会浪费使 __slots__ 失效的更多空间。</p>
+<p>实际上，这也是为了节省内存而做的努力。这里必须存在 __dict__ 原因，是因为 LocalProxy 也会将对自身的属性访问转发给其代理的对象，因此必须允许对 __dict__ 的访问。我们已经为了节省内存，在 __slots__ 中设定了 __local、__name__ 等属性，这样，这些属性将会被存放在固定的空间中而非 __dict__。然而，没有 __dict__，尝试对实例其它属性赋值时，就会直接引起 AttributeError，使得我们无法对其作转发。因此，我们为其添加 __dict__ 属性以重新允许对实例属性的赋值。当然，此时所有属性的赋值实际会被转发给其代理对象。</p>
+<p>值得注意的是，即使重新规定了 __dict__，当对实例属性赋值时，规定在 __slots__ 中的其它属性，仍会被储存在固定空间而非 __dict__ 字典，从而 LocalProxy 实例上的 __dict__ 字典实际会一直为空。对线程本地变量的代理，以及 __slots__ 属性的优先级，两者一起使得实例虽然有 __dict__ 属性，却不会浪费使 __slots__ 失效的更多空间。</p>
 <p>好，关于它的 __slots__ 的问题到此为止。我们需要知道这个类会将访问转发给线程本地变量上的一个属性。对于我们的 request 而言，我们传入了 <code>partial(_lookup_req_object, &#39;request&#39;)</code> 作为参数生成它。这里我们回顾一下 _lookup_req_object 的源码：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">_lookup_req_object</span><span class="params">(name)</span>:</span></span><br><span class="line">    top = _request_ctx_stack.top</span><br><span class="line">    <span class="keyword">if</span> top <span class="keyword">is</span> <span class="keyword">None</span>:</span><br><span class="line">        <span class="keyword">raise</span> RuntimeError(_request_ctx_err_msg)</span><br><span class="line">    <span class="keyword">return</span> getattr(top, name)</span><br></pre></td></tr></table></figure></p>
 <p>它会查看栈顶是否有请求上下文，如果有，就返回想要的属性，否则弹出异常。结合 LocalProxy ，可以看出，实际上，<strong>request一直是请求上下文栈顶的对象的”request”属性</strong>。并且这个 request 对于各个请求来说是独立的。当请求上下文为空时，会弹出 RuntimeError。</p>
 <h2 id="请求上下文Ⅱ"><a href="#请求上下文Ⅱ" class="headerlink" title="请求上下文Ⅱ"></a>请求上下文Ⅱ</h2><p>现在我们了解到 request 是 _request_ctx_stack 这个请求上下文栈的栈顶对象里面的 “request” 属性，但实际上虽然我们知晓了请求上下文栈的存在，却还不了解具体在这个上下文栈中储存了什么对象，因而不能理解它的实质。为了了解 request 的实质，我们回顾前面的请求流程。</p>
@@ -368,6 +368,12 @@
         
         
   <nav class="post-nav">
+    
+      <a class="prev" href="/2019/03/21/Notes-on-Reading-the-MapPapers/">
+        <i class="iconfont icon-left"></i>
+        <span class="prev-text nav-default">MapReduce 阅读纪要</span>
+        <span class="prev-text nav-mobile">上一篇</span>
+      </a>
     
     
       <a class="next" href="/2018/12/30/walkthrough-cpython3.7-dict-source-code/">
