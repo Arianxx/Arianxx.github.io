@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+  <head><meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+<meta name="description" content="记录自己的学习与生活"/><link rel="alternate" href="/atom.xml" title="Arian's Blog"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=2.11.0" />
+<link rel="canonical" href="https://arianx.me/page/5/"/>
+
+<link rel="stylesheet" type="text/css" href="/lib/fancybox/jquery.fancybox.css" /><link rel="stylesheet" type="text/css" href="/lib/nprogress/nprogress.min.css" />
+<link rel="stylesheet" type="text/css" href="/css/style.css?v=2.11.0" />
+
+<script id="baidu_analytics">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?7da15ed69b10673f5e71fb736eca6373";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script><script id="baidu_push">
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+<script>
+  window.config = {"leancloud":{"app_id":null,"app_key":null},"toc":true,"fancybox":true,"pjax":true,"latex":false};
+</script>
+
+    <title>Arian's Blog</title>
+  </head>
+
+  <body><div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/." class="logo">Arian's Blog</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list"><a href="/">
+        <li class="mobile-menu-item">首页
+          </li>
+      </a><a href="/archives/">
+        <li class="mobile-menu-item">归档
+          </li>
+      </a><a href="/tags">
+        <li class="mobile-menu-item">标签
+          </li>
+      </a><a href="/about">
+        <li class="mobile-menu-item">关于
+          </li>
+      </a></ul>
+</nav>
+
+    <div class="container" id="mobile-panel" style="z-index:0">
+      <header id="header" class="header"><div class="logo-wrapper">
+  <a href="/." class="logo">Arian's Blog</a>
+</div>
+
+<nav class="site-navbar"><ul id="menu" class="menu"><li class="menu-item">
+          <a class="menu-item-link" href="/">
+            首页
+            </a>
+        </li>
+      <li class="menu-item">
+          <a class="menu-item-link" href="/archives/">
+            归档
+            </a>
+        </li>
+      <li class="menu-item">
+          <a class="menu-item-link" href="/tags">
+            标签
+            </a>
+        </li>
+      <li class="menu-item">
+          <a class="menu-item-link" href="/about">
+            关于
+            </a>
+        </li>
+      </ul></nav>
+
+<div class="waifu" style="z-index:9999">
+    <div class="waifu-tips" style="z-index:9999"></div>
+    <canvas id="live2d" width="240" height="220" class="live2d" style="z-index:9999"></canvas>
+</div>
+</header>
+
+      <main id="main" class="main">
+        <div class="content-wrapper">
+          <div id="content" class="content"><section id="posts" class="posts"><article class="post">
+    <header class="post-header">
+      <h1 class="post-title"><a class="post-link" href="/2018/06/17/Heap-in-python/">堆排序简述</a>
+        </h1>
+
+      <div class="post-meta">
+        <span class="post-time">
+          2018-06-17
+        </span><span class="post-category">
+            <a href="/categories/算法/">算法</a>
+            </span>
+        </div>
+    </header>
+
+    <div class="post-content"><h2 id="堆"><a href="#堆" class="headerlink" title="堆"></a>堆</h2><p>堆是一种基于树的数据结构，其父节点总是大于（最大堆）或小于（最小堆）其子节点，并且其根节点总是树中最小（或最大）的那个节点。</p>
+<p>堆排序常被用来实现<code>优先队列</code>，用于按给定的因子排定元素的优先级。而其本身最常采用的实现方式是扁平储存的二叉树。在二叉树实现的堆中，一个节点的兄弟节点并无特定的关系。唯一的关系存在于父节点和子结点中。</p>
+<p>由于堆的二叉树总会是一个完全二叉树，且是用列表的方式扁平储存二叉树以实现堆，所以，在堆的列表中，序号为 n 的节点有以下几个特征：</p>
+<ol>
+<li>其父节点为 <code>(n - 1) // 2</code> （取整）。</li>
+<li>其左子节点为 <code>n * 2 + 1</code>。</li>
+<li>其右子节点为 <code>n * 2 + 2</code>。</li>
+</ol>
+<h2 id="操作"><a href="#操作" class="headerlink" title="操作"></a>操作</h2><h3 id="插入"><a href="#插入" class="headerlink" title="插入"></a>插入</h3><p>对堆执行插入操作，只需将其推入列表尾部，然后逐一与其父节点进行比较，如果逆序就交换。直到不再交换，则节点已经在正确为止。</p>
+<p>关键代码：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">heap_up</span><span class="params">(self, index)</span>:</span></span><br><span class="line">        parent = self.parent(index)</span><br><span class="line">        <span class="keyword">while</span> <span class="keyword">True</span>:</span><br><span class="line">            <span class="keyword">if</span> <span class="keyword">not</span> self.compare(self._heap[parent], self._heap[index]):</span><br><span class="line">                self._heap[parent], self._heap[index] = \</span><br><span class="line">                    self._heap[index], self._heap[parent]</span><br><span class="line">            <span class="keyword">else</span>:</span><br><span class="line">                <span class="keyword">break</span></span><br><span class="line">            index = parent</span><br><span class="line">            parent = self.parent(index)</span><br><span class="line"></span><br><span class="line">            <span class="keyword">if</span> index == parent:</span><br><span class="line">                <span class="keyword">break</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">insert</span><span class="params">(self, node)</span>:</span></span><br><span class="line">        self._heap.append(node)</span><br><span class="line">        self.size += <span class="number">1</span></span><br><span class="line">        self.heap_up(self.size - <span class="number">1</span>)</span><br></pre></td></tr></table></figure></p>
+<h3 id="提取"><a href="#提取" class="headerlink" title="提取"></a>提取</h3><p>提取堆中最大的一个元素，只需提取第一个元素，然后用最后一个元素覆盖第一个元素。再逐一将这个元素与和这个元素差距最大的子元素比较，如果逆序就交换。直到不再交换为止，删除最后一个元素，返回提取出来的第一个元素。操作完毕。</p>
+<p>关键代码：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"> <span class="function"><span class="keyword">def</span> <span class="title">heap_down</span><span class="params">(self, index=<span class="number">0</span>)</span>:</span></span><br><span class="line">        <span class="keyword">while</span> <span class="keyword">True</span>:</span><br><span class="line">            child = self.max_child(index)</span><br><span class="line">            <span class="keyword">if</span> <span class="keyword">not</span> child:</span><br><span class="line">                <span class="keyword">break</span></span><br><span class="line">            <span class="keyword">else</span>:</span><br><span class="line">                <span class="keyword">if</span> self.compare(self._heap[child], self._heap[index]):</span><br><span class="line">                    self._heap[child], self._heap[index] = \</span><br><span class="line">                        self._heap[index], self._heap[child]</span><br><span class="line">                    index = child</span><br><span class="line">                <span class="keyword">else</span>:</span><br><span class="line">                    <span class="keyword">break</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">extract</span><span class="params">(self)</span>:</span></span><br><span class="line">        top = self._heap[<span class="number">0</span>]</span><br><span class="line">        self._heap[<span class="number">0</span>] = self._heap[self.size - <span class="number">1</span>]</span><br><span class="line">        self.heap_down()</span><br><span class="line">        self._heap.pop()</span><br><span class="line">        self.size -= <span class="number">1</span></span><br><span class="line">        <span class="keyword">return</span> top</span><br></pre></td></tr></table></figure></p>
+          <div class="read-more">
+            <a href="/2018/06/17/Heap-in-python/" class="read-more-link">阅读更多</a>
+          </div>
+        </div></article>
+      <article class="post">
+    <header class="post-header">
+      <h1 class="post-title"><a class="post-link" href="/2018/06/17/python-avl-binary-tree/">Python中的AVL树</a>
+        </h1>
+
+      <div class="post-meta">
+        <span class="post-time">
+          2018-06-17
+        </span><span class="post-category">
+            <a href="/categories/算法/">算法</a>
+            </span>
+        </div>
+    </header>
+
+    <div class="post-content"><blockquote>
+<p>今宵は雪月花</p>
+</blockquote>
+<h2 id="AVL树"><a href="#AVL树" class="headerlink" title="AVL树"></a>AVL树</h2><p>将普通二叉树直接用于查找，平均情况下，仅需要查找一个分支，其时间复杂度为O(log n)。想要使查找时间尽可能短，就要使树的高度经可能短，使二叉树保持平衡状态。如果一个二叉树变得越来越不平衡，最后，其时间复杂度就变成了O(n)，相当于从头到尾遍历所有节点。</p>
+<p>AVL是最先发明的一种自平衡二叉查找树，像普通二叉树一样组织数据。所不同的是，AVL的每一个节点都附带了一个<code>平衡因子</code>，其值代表了左子树和右子树的高度之差。对于每一次改变其平衡性的操作，AVL树都通过执行一次<code>旋转</code>操作来使其重新平衡。每一次插入和删除操作最多可能有<code>log n</code>个节点被旋转。因此，AVL树的插入、删除、查找操作的时间复杂度都在O(log n)。</p>
+<p>下面使用python来实现AVL树。</p>
+<h2 id="节点"><a href="#节点" class="headerlink" title="节点"></a>节点</h2><p>由普通二叉树的节点继承而来：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">AvlNode</span><span class="params">(Node)</span>:</span></span><br><span class="line">    <span class="string">"""</span></span><br><span class="line"><span class="string">    The binary searching tree. Inherit from theo `Node` class.</span></span><br><span class="line"><span class="string">    """</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self, key)</span>:</span></span><br><span class="line">        super().__init__(key)</span><br><span class="line">        self.height = <span class="number">0</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__repr__</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="keyword">return</span> <span class="string">'AvlNode(key=&#123;key&#125;)'</span>.format(key=self.key)</span><br><span class="line"></span><br><span class="line"><span class="meta">    @property</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">max_child_height</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="string">"""</span></span><br><span class="line"><span class="string">        The leaf node's height is 0. So the null node's height is -1.</span></span><br><span class="line"><span class="string">        """</span></span><br><span class="line">        <span class="keyword">return</span> max(self.left.height <span class="keyword">if</span> self.left <span class="keyword">else</span> <span class="number">-1</span>,</span><br><span class="line">                   self.right.height <span class="keyword">if</span> self.right <span class="keyword">else</span> <span class="number">-1</span>)</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">adjust_height</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="string">"""</span></span><br><span class="line"><span class="string">        Search from this node to its ancestor node</span></span><br><span class="line"><span class="string">        until the height doesn't change.</span></span><br><span class="line"><span class="string">        """</span></span><br><span class="line">        old_height = self.height</span><br><span class="line">        self.height = self.max_child_height + <span class="number">1</span></span><br><span class="line">        <span class="keyword">if</span> self.height != old_height <span class="keyword">and</span> self.parent:</span><br><span class="line">            self.parent.adjust_height()</span><br><span class="line"></span><br><span class="line"><span class="meta">    @property</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">balance</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="string">"""</span></span><br><span class="line"><span class="string">        The null node's height is deemed as -1.</span></span><br><span class="line"><span class="string">        """</span></span><br><span class="line">        <span class="keyword">return</span> (self.left.height <span class="keyword">if</span> self.left <span class="keyword">else</span> <span class="number">-1</span>) \</span><br><span class="line">            - (self.right.height <span class="keyword">if</span> self.right <span class="keyword">else</span> <span class="number">-1</span>)</span><br></pre></td></tr></table></figure></p>
+<p>普通二叉树的节点：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Node</span>:</span></span><br><span class="line">    <span class="string">"""</span></span><br><span class="line"><span class="string">    Pure binary tree's node.</span></span><br><span class="line"><span class="string">    """</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self, key)</span>:</span></span><br><span class="line">        <span class="string">"""</span></span><br><span class="line"><span class="string">        Build the node instance.</span></span><br><span class="line"><span class="string">        @param key: The object that implements the __lt__ and __gt__ method.</span></span><br><span class="line"><span class="string">        """</span></span><br><span class="line">        self.key = key</span><br><span class="line">        self.count = <span class="number">1</span></span><br><span class="line">        self.left = <span class="keyword">None</span></span><br><span class="line">        self.right = <span class="keyword">None</span></span><br><span class="line">        self.parent = <span class="keyword">None</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__repr__</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="keyword">return</span> <span class="string">'Node(&#123;key&#125;)'</span>.format(key=self.key)</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">is_root</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="string">"""</span></span><br><span class="line"><span class="string">        Is this is the root node.(have not parent node)</span></span><br><span class="line"><span class="string">        """</span></span><br><span class="line">        <span class="keyword">return</span> bool(self.parent)</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">is_leaf</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="string">"""</span></span><br><span class="line"><span class="string">        Is this is a leaf node.(have not any left or right point)</span></span><br><span class="line"><span class="string">        """</span></span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">not</span> bool(self.left) <span class="keyword">and</span> <span class="keyword">not</span> bool(self.right)</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">is_branch</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="string">"""</span></span><br><span class="line"><span class="string">        Is this is a branch node.(have the left point or right point)</span></span><br><span class="line"><span class="string">        """</span></span><br><span class="line">        <span class="keyword">return</span> bool(self.left) ^ bool(self.right)</span><br></pre></td></tr></table></figure></p>
+<p>与普通二叉树节点不同，AVL树的节点附带了树的高度信息，以此来判断这个节点是否处于平衡状态。如果这个节点的左子树与右子树高度差的绝对值大于1，就视这个节点为不平衡的，应该在稍后执行旋转操作。</p>
+<p>并且AVL树的节点还又一个adjust_height方法，用于在进行一个会改变树高的操作后，重新计算这个节点所属的整个子树的高度，直到高度不再变化，代表调整完毕。</p>
+<h2 id="插入操作"><a href="#插入操作" class="headerlink" title="插入操作"></a>插入操作</h2><p>AVL树的插入操作和普通二叉树类似。只不过在每一次插入后，需要重新计算子树高度（调用插入节点的adjust_height方法）。如果这次插入操作改变了树的平衡性，就需要旋转节点以使树重新平衡。</p>
+<p>插入操作的关键代码如下：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">insert</span><span class="params">(self, key, node=None)</span>:</span></span><br><span class="line">        <span class="string">"""</span></span><br><span class="line"><span class="string">        Insert the key to the tree.</span></span><br><span class="line"><span class="string">        """</span></span><br><span class="line">        new_node = super().insert(key, node=node)</span><br><span class="line">        <span class="keyword">if</span> new_node:</span><br><span class="line">            parent = new_node.parent</span><br><span class="line">            <span class="keyword">while</span> parent:</span><br><span class="line">                <span class="comment"># It has no effect on the node itself</span></span><br><span class="line">                <span class="comment"># but may change its parents' blance.</span></span><br><span class="line">                <span class="keyword">assert</span>(<span class="keyword">not</span> parent.is_leaf())</span><br><span class="line">                parent.height = parent.max_child_height + <span class="number">1</span></span><br><span class="line">                <span class="keyword">if</span> parent.balance <span class="keyword">not</span> <span class="keyword">in</span> [<span class="number">-1</span>, <span class="number">0</span>, <span class="number">1</span>]:</span><br><span class="line">                    self.rebalance(parent)</span><br><span class="line">                    <span class="keyword">break</span></span><br><span class="line">                parent = parent.parent</span><br></pre></td></tr></table></figure>
+<p>这是AvlBiTree类的一个方法，用于为AVL数插入节点。它继承自代表普通二叉树的BiTree类。因此，这里的插入方法覆盖了BiTree的插入方法。在其中调用了父类的insert方法来普通插入节点。之后，再调整树的高度。并且逐一遍历其父节点查看平衡性是否受到破坏。如果平衡新被破坏，就调用rebalance方法旋转节点，使树重新平衡。</p>
+<p>如果进行了一次rebalance旋转操作，代表已经消除了这次插入操作的副作用使树重新平衡。那么，其上所有祖先节点的平衡性都不受这次插入操作的影响。因此，break结束对祖先节点的遍历。代表本次插入操作完成。</p>
+<h2 id="旋转结点使树重新平衡"><a href="#旋转结点使树重新平衡" class="headerlink" title="旋转结点使树重新平衡"></a>旋转结点使树重新平衡</h2><p>关键代表如下：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">rebalance</span><span class="params">(self, node)</span>:</span></span><br><span class="line">        <span class="string">"""</span></span><br><span class="line"><span class="string">        Rotate the appointed node if the balance had been breaked.</span></span><br><span class="line"><span class="string">        """</span></span><br><span class="line">        <span class="keyword">if</span> node.balance == <span class="number">2</span>:</span><br><span class="line">            <span class="keyword">if</span> node.left.balance == <span class="number">1</span>:</span><br><span class="line">                <span class="comment"># LL rotate</span></span><br><span class="line">                self.__ll_rotate(node)</span><br><span class="line">            <span class="keyword">else</span>:</span><br><span class="line">                <span class="keyword">assert</span>(node.left.balance == <span class="number">-1</span>)</span><br><span class="line">                <span class="comment"># LR rotate</span></span><br><span class="line">                self.__lr_rotate(node)</span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            <span class="keyword">assert</span>(node.balance == <span class="number">-2</span>)</span><br><span class="line">            <span class="keyword">if</span> node.right.balance == <span class="number">-1</span>:</span><br><span class="line">                <span class="comment"># RR rotate</span></span><br><span class="line">                self.__rr_rotate(node)</span><br><span class="line">            <span class="keyword">else</span>:</span><br><span class="line">                <span class="keyword">assert</span>(node.right.balance == <span class="number">1</span>)</span><br><span class="line">                <span class="comment"># RL rotate</span></span><br><span class="line">                self.__rl_rotate(node)</span><br></pre></td></tr></table></figure>
+<p>可见，这实际上接近于一个调度方法，根据平衡性的情况，执行不同的旋转操作。</p>
+<h2 id="具体旋转操作："><a href="#具体旋转操作：" class="headerlink" title="具体旋转操作："></a>具体旋转操作：</h2>
+          <div class="read-more">
+            <a href="/2018/06/17/python-avl-binary-tree/" class="read-more-link">阅读更多</a>
+          </div>
+        </div></article>
+      <article class="post">
+    <header class="post-header">
+      <h1 class="post-title"><a class="post-link" href="/2018/06/07/The-usage-of-the-raise-from-in-python/">python在异常捕获里抛出异常</a>
+        </h1>
+
+      <div class="post-meta">
+        <span class="post-time">
+          2018-06-07
+        </span><span class="post-category">
+            <a href="/categories/python/">python</a>
+            </span>
+        </div>
+    </header>
+
+    <div class="post-content"><h2 id="python2异常对象"><a href="#python2异常对象" class="headerlink" title="python2异常对象"></a>python2异常对象</h2><p>有时，我们需要在捕获一个异常之后，在捕获的语句里面抛出另外一个异常。例如：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">try</span>:</span><br><span class="line"><span class="meta">... </span>    print(<span class="number">1</span>/<span class="number">0</span>)</span><br><span class="line"><span class="meta">... </span><span class="keyword">except</span> ZeroDivisionError <span class="keyword">as</span> e:</span><br><span class="line"><span class="meta">... </span>    <span class="keyword">raise</span> ValueError(e)</span><br><span class="line">...</span><br><span class="line">Traceback (most recent call last):</span><br><span class="line">  File <span class="string">"&lt;stdin&gt;"</span>, line <span class="number">2</span>, <span class="keyword">in</span> &lt;module&gt;</span><br><span class="line">ZeroDivisionError: division by zero</span><br><span class="line"></span><br><span class="line">During handling of the above exception, another exception occurred:</span><br><span class="line"></span><br><span class="line">Traceback (most recent call last):</span><br><span class="line">  File <span class="string">"&lt;stdin&gt;"</span>, line <span class="number">4</span>, <span class="keyword">in</span> &lt;module&gt;</span><br><span class="line">ValueError: division by zero</span><br></pre></td></tr></table></figure></p>
+<p>上面在捕获除零异常后，重新在处理语句里抛出了ValueError，并将除零异常的信息传给了ValueError。同时，可以发现抛出的信息还附带了追踪信息，可以看到异常的抛出顺序。</p>
+<p>然而，在python2里，从一个异常捕获中直接抛出另一个异常，并不会附带追踪信息：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">try</span>:</span><br><span class="line"><span class="meta">... </span>    print(<span class="number">1</span>/<span class="number">0</span>)</span><br><span class="line"><span class="meta">... </span><span class="keyword">except</span> ZeroDivisionError <span class="keyword">as</span> e:</span><br><span class="line"><span class="meta">... </span>    <span class="keyword">raise</span> ValueError</span><br><span class="line">...</span><br><span class="line">Traceback (most recent call last):</span><br><span class="line">  File <span class="string">"&lt;stdin&gt;"</span>, line <span class="number">4</span>, <span class="keyword">in</span> &lt;module&gt;</span><br><span class="line">ValueError</span><br></pre></td></tr></table></figure></p>
+<p>python2异常抛出语句的语法是：raise exc, value, traceback。第一个参数是Exception的子类或子类的实例，第二个参数是初始化异常的信息，第三个参数是traceback对象。</p>
+<p>python2中，可以通过这种方式看到traceback：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt;<span class="keyword">import</span> sys</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="function"><span class="keyword">def</span> <span class="title">bar</span><span class="params">()</span>:</span></span><br><span class="line"><span class="meta">... </span>    <span class="keyword">try</span>:</span><br><span class="line"><span class="meta">... </span>            foo()</span><br><span class="line"><span class="meta">... </span>    <span class="keyword">except</span> RuntimeError <span class="keyword">as</span> e:</span><br><span class="line"><span class="meta">... </span>            <span class="keyword">raise</span></span><br><span class="line">...</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="function"><span class="keyword">def</span> <span class="title">bar</span><span class="params">()</span>:</span></span><br><span class="line"><span class="meta">... </span>    <span class="keyword">try</span>:</span><br><span class="line"><span class="meta">... </span>            foo()</span><br><span class="line"><span class="meta">... </span>    <span class="keyword">except</span> ValueError <span class="keyword">as</span> e:</span><br><span class="line"><span class="meta">... </span>            <span class="keyword">raise</span> RuntimeError(e), <span class="keyword">None</span>, sys.exc_info()[<span class="number">2</span>]</span><br><span class="line">...</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>bar()</span><br><span class="line">Traceback (most recent call last):</span><br><span class="line">  File <span class="string">"&lt;stdin&gt;"</span>, line <span class="number">1</span>, <span class="keyword">in</span> &lt;module&gt;</span><br><span class="line">  File <span class="string">"&lt;stdin&gt;"</span>, line <span class="number">3</span>, <span class="keyword">in</span> bar</span><br><span class="line">  File <span class="string">"&lt;stdin&gt;"</span>, line <span class="number">3</span>, <span class="keyword">in</span> foo</span><br><span class="line">RuntimeError: integer division <span class="keyword">or</span> modulo by zero</span><br></pre></td></tr></table></figure></p>
+<p>python3简化了异常抛出语句的语法，不再支持python2抛出三元素元组的方式，而是简化为了一个exception参数。例如，在python2中原来有多个语句实现同一个异常抛出效果：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; raise RuntimeError, ValueError</span><br><span class="line">Traceback (most recent call last):</span><br><span class="line">  File &quot;&lt;stdin&gt;&quot;, line 1, in &lt;module&gt;</span><br><span class="line">RuntimeError: &lt;type &apos;exceptions.ValueError&apos;&gt;</span><br><span class="line">&gt;&gt;&gt; raise RuntimeError(ValueError)</span><br><span class="line">Traceback (most recent call last):</span><br><span class="line">  File &quot;&lt;stdin&gt;&quot;, line 1, in &lt;module&gt;</span><br><span class="line">RuntimeError: &lt;type &apos;exceptions.ValueError&apos;&gt;</span><br></pre></td></tr></table></figure>
+<p>这显然违背了python之禅里”There should be one– and preferably only one –obvious way to do it”的理念。</p>
+<h2 id="python3异常对象"><a href="#python3异常对象" class="headerlink" title="python3异常对象"></a>python3异常对象</h2><p>所以，在python3中，不再支持元组的形式的异常抛出，只支持抛出Exception的子类或实例。如果是子类，就无参数调用得到实例再抛出；如果是实例则直接抛出。并且，python3为异常对象新增加了几种特殊方法。例如，增加了<code>__context__</code>方法，用于在多重异常抛出中保留以前异常的抛出信息：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">try</span>:</span><br><span class="line"><span class="meta">... </span>    <span class="number">1</span>/<span class="number">0</span></span><br><span class="line"><span class="meta">... </span><span class="keyword">except</span> ZeroDivisionError <span class="keyword">as</span> e:</span><br><span class="line"><span class="meta">... </span>    print(e.__context__)</span><br><span class="line">...</span><br><span class="line"><span class="keyword">None</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">try</span>:</span><br><span class="line"><span class="meta">... </span>    <span class="number">1</span>/<span class="number">0</span></span><br><span class="line"><span class="meta">... </span><span class="keyword">except</span> ZeroDivisionError <span class="keyword">as</span> e:</span><br><span class="line"><span class="meta">... </span>    a = []</span><br><span class="line"><span class="meta">... </span>    <span class="keyword">try</span>:</span><br><span class="line"><span class="meta">... </span>            a[<span class="number">1</span>]</span><br><span class="line"><span class="meta">... </span>    <span class="keyword">except</span> IndexError <span class="keyword">as</span> e:</span><br><span class="line"><span class="meta">... </span>            print(e.__context__)</span><br><span class="line">...</span><br><span class="line">division by zero</span><br></pre></td></tr></table></figure></p>
+<p>python3的异常对象还增加了<code>__traceback__</code>信息，用于在多重异常抛出中记录以前的抛出信息，从而简化了多重异常抛出的操作。在python3中，可以通过使用raise…from…语法快速指定traceback对象：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">try</span>:</span><br><span class="line"><span class="meta">... </span>    print(<span class="number">1</span>/<span class="number">0</span>)</span><br><span class="line"><span class="meta">... </span><span class="keyword">except</span> ZeroDivisionError <span class="keyword">as</span> e:</span><br><span class="line"><span class="meta">... </span>    <span class="keyword">raise</span> ValueError <span class="keyword">from</span> e</span><br><span class="line">...</span><br><span class="line">Traceback (most recent call last):</span><br><span class="line">  File <span class="string">"&lt;stdin&gt;"</span>, line <span class="number">2</span>, <span class="keyword">in</span> &lt;module&gt;</span><br><span class="line">ZeroDivisionError: division by zero</span><br><span class="line"></span><br><span class="line">The above exception was the direct cause of the following exception:</span><br><span class="line"></span><br><span class="line">Traceback (most recent call last):</span><br><span class="line">  File <span class="string">"&lt;stdin&gt;"</span>, line <span class="number">4</span>, <span class="keyword">in</span> &lt;module&gt;</span><br><span class="line">ValueError</span><br></pre></td></tr></table></figure></p>
+<p>可以看到不单附带了跟踪信息，还有“The above exception was the direct cause of the following exception”这句指明了异常之间的关系。</p>
+<p>并且，在python3中，即使不使用raise … from …语法，默认也附带了追踪信息，保存在<code>__context__</code>中，以”during handling another exception happened”的形式展现：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">try</span>:</span><br><span class="line"><span class="meta">... </span>    print(<span class="number">1</span>/<span class="number">0</span>)</span><br><span class="line"><span class="meta">... </span><span class="keyword">except</span> ZeroDivisionError:</span><br><span class="line"><span class="meta">... </span>    <span class="keyword">raise</span> ValueError</span><br><span class="line">...</span><br><span class="line">Traceback (most recent call last):</span><br><span class="line">  File <span class="string">"&lt;stdin&gt;"</span>, line <span class="number">2</span>, <span class="keyword">in</span> &lt;module&gt;</span><br><span class="line">ZeroDivisionError: division by zero</span><br><span class="line"></span><br><span class="line">During handling of the above exception, another exception occurred:</span><br><span class="line"></span><br><span class="line">Traceback (most recent call last):</span><br><span class="line">  File <span class="string">"&lt;stdin&gt;"</span>, line <span class="number">4</span>, <span class="keyword">in</span> &lt;module&gt;</span><br><span class="line">ValueError</span><br></pre></td></tr></table></figure></p>
+<p>还可以通过异常对象的with_traceback方法指定traceback对象，这种方法的提示语句如上：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">try</span>:</span><br><span class="line"><span class="meta">... </span>    print(<span class="number">1</span>/<span class="number">0</span>)</span><br><span class="line"><span class="meta">... </span><span class="keyword">except</span> ZeroDivisionError <span class="keyword">as</span> e:</span><br><span class="line"><span class="meta">... </span>    <span class="keyword">raise</span> ValueError.with_traceback(e)</span><br><span class="line">...</span><br><span class="line">Traceback (most recent call last):</span><br><span class="line">  File <span class="string">"&lt;stdin&gt;"</span>, line <span class="number">2</span>, <span class="keyword">in</span> &lt;module&gt;</span><br><span class="line">ZeroDivisionError: division by zero</span><br><span class="line"></span><br><span class="line">During handling of the above exception, another exception occurred:</span><br><span class="line"></span><br><span class="line">Traceback (most recent call last):</span><br><span class="line">  File <span class="string">"&lt;stdin&gt;"</span>, line <span class="number">4</span>, <span class="keyword">in</span> &lt;module&gt;</span><br><span class="line">ValueError: division by zero</span><br></pre></td></tr></table></figure></p>
+<h2 id="cause-属性"><a href="#cause-属性" class="headerlink" title="__cause__属性"></a><code>__cause__</code>属性</h2><p>实际上，在使用 raise … from … 语法时，一个名为 <code>__cause__</code>的属性就被赋给异常对象，这个属性直接指明了异常发生的原因。当<code>__cause__</code>被设置的时候，<code>__suppress_context__</code>方法也会被同时设置为True。如果<code>__suppress_context__</code>被设置为True，在打印traceback信息时，<code>__context__</code>就会被忽略。</p>
+<p>所以，如果在某些时候，想要忽略多重异常抛出中的上层的异常信息，可以使用 raise … from None来实现：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">try</span>:</span><br><span class="line"><span class="meta">... </span>    print(<span class="number">1</span>/<span class="number">0</span>)</span><br><span class="line"><span class="meta">... </span><span class="keyword">except</span> ZeroDivisionError:</span><br><span class="line"><span class="meta">... </span>    <span class="keyword">raise</span> ValueError <span class="keyword">from</span> <span class="keyword">None</span></span><br><span class="line">...</span><br><span class="line">Traceback (most recent call last):</span><br><span class="line">  File <span class="string">"&lt;stdin&gt;"</span>, line <span class="number">4</span>, <span class="keyword">in</span> &lt;module&gt;</span><br><span class="line">ValueError</span><br></pre></td></tr></table></figure></p>
+<p>可以发现上层的ZeroDivisionError被忽略了。</p>
+<h2 id="结语"><a href="#结语" class="headerlink" title="结语"></a>结语</h2><p>有一种常见的python编程风格，叫做<code>EAFP(easier to ask for forgiveness than permissino，取得原谅比获得许可容易)</code>。先假定方法存在直接调用，如果不存在就捕获异常。这种方法简明轻快，体现出了python的鸭子类型和松散协议。</p>
+<p>这种方法的特点就是代码块中有较多的try和except关键字。灵活运用异常，能够更得心应手的使用这种风格编程。</p>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><p><a href="https://stackoverflow.com/questions/24752395/python-raise-from-usage" target="_blank" rel="noopener">https://stackoverflow.com/questions/24752395/python-raise-from-usage</a></p>
+<p><a href="https://mozillazg.com/2016/08/python-the-right-way-to-catch-exception-then-reraise-another-exception.html#hidid1" target="_blank" rel="noopener">https://mozillazg.com/2016/08/python-the-right-way-to-catch-exception-then-reraise-another-exception.html#hidid1</a></p>
+
+        </div></article>
+      <nav class="pagination"><a class="prev" href="/page/4/">
+        <i class="iconfont icon-left"></i>
+        <span class="prev-text">上一页</span>
+      </a>
+    <a class="next" href="/page/6/">
+        <span class="next-text">下一页</span>
+        <i class="iconfont icon-right"></i>
+      </a>
+    </nav></section></div></div>
+      </main>
+
+      <footer id="footer" class="footer"><div class="social-links">
+    
+      
+        
+          <a href="mailto:ysnyyhs@163.com" class="iconfont icon-email" title="email" target="_blank"></a>
+        
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+        
+          <a href="https://github.com/Arianxx" class="iconfont icon-github" title="github" target="_blank"></a>
+        
+      
+    
+      
+    
+      
+    
+      
+        
+          <a href="https://www.douban.com/people/131732783/" class="iconfont icon-douban" title="douban" target="_blank"></a>
+        
+      
+    
+      
+    
+      
+    
+      
+    
+
+    	<a href="https://music.163.com/#/user/home?id=101778288" class="myiconfont icon-163music" title="yun music" target="_blank">
+    	</a>
+
+      <a href="https://space.bilibili.com/3101019/#/" class="myiconfont icon-bilibili"
+      title="bilibili" target="_blank">
+      </a>
+
+    
+    <a href="/atom.xml" class="iconfont icon-rss" title="rss"></a>
+    </div><div class="copyright">
+  <span class="power-by">
+    由 <a class="hexo-link" href="https://hexo.io/">Hexo</a> 强力驱动
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    主题 - 
+    <a class="theme-link" href="https://github.com/ahonn/hexo-theme-even">Even</a>
+  </span>
+
+  <span class="copyright-year">&copy;2017 - 2019<span class="heart">
+      <i class="iconfont icon-heart"></i>
+    </span>
+    <span class="author">Arian</span>
+  </span>
+</div>
+</footer>
+
+      <div class="back-to-top" id="back-to-top">
+        <i class="iconfont icon-up"></i>
+      </div>
+    </div><script type="text/javascript" src="/lib/jquery/jquery.min.js"></script>
+  <script type="text/javascript" src="/lib/slideout/slideout.js"></script>
+  <script type="text/javascript" src="/lib/fancybox/jquery.fancybox.pack.js"></script>
+  <script type="text/javascript" src="/lib/pjax/jquery.pjax.min.js"></script>
+  <script type="text/javascript" src="/lib/nprogress/nprogress.min.js"></script>
+  <script type="text/javascript" src="/js/src/even.js?v=2.11.0"></script>
+<script type="text/javascript" src="/js/src/bootstrap.js?v=2.11.0"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/2.2.0/anime.min.js" integrity="sha384-BnFYVbw3PHhz5qWXTCSL12MjPc3KxjdKPx7R4R5JjIzxFmYX267NDyJ9B/nZANdg" crossorigin="anonymous"></script>
+<script src="/js/src/transition.min.js"></script>
+
+<script async src="/js/src/message.js"></script>
+<script src="/js/src/live2d.js"></script>
+
+<script type="text/javascript">
+	modelNames = ["default-costume.json", "pajamas-costume.json", "school-costume.json"]
+	modelNum = modelNames.length
+	randomName = modelNames[Math.floor(Math.random() * modelNum)]
+
+    loadlive2d("live2d", "/model/Pio/" + randomName);
+    $('.container').after("<canvas class='fireworks' style='position:fixed;left:0;top:0;pointer-events:none;z-index:999'></canvas>")
+</script>
+
+<script async type="text/javascript" src="/js/src/jquery.click-firewords.js"></script>
+
+
+<script type="text/javascript">//樱花
+ var system ={}; 
+ var p = navigator.platform; 
+ system.win = p.indexOf("Win") == 0; 
+ system.mac = p.indexOf("Mac") == 0; 
+ system.x11 = (p == "X11") || (p.indexOf("Linux") == 0); 
+ if(system.win||system.mac||system.xll){//如果是电脑
+ 
+ $.getScript("/js/src/yinghua.js");
+ }else{ //如果是手机
+ 
+ }
+ </script></body>
+</html>

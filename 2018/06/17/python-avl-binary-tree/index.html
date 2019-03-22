@@ -1,8 +1,6 @@
 <!DOCTYPE html>
 <html lang="zh-cn">
-  <head>
-    
-<meta charset="UTF-8"/>
+  <head><meta charset="UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
 
@@ -15,52 +13,13 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
 
-
-
-  <meta name="description" content="Python中的AVL树"/>
-
-
-
-
-  <meta name="keywords" content="python, 算法, Arian's Blog" />
-
-
-
-
-
-
-
-
-
-
-  <link rel="alternate" href="/atom.xml" title="Arian's Blog">
-
-
-
-
-  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=2.10.2" />
-
-
-
+<meta name="description" content="Python中的AVL树"/><meta name="keywords" content="python, 算法, Arian's Blog" /><link rel="alternate" href="/atom.xml" title="Arian's Blog"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=2.11.0" />
 <link rel="canonical" href="https://arianx.me/2018/06/17/python-avl-binary-tree/"/>
 
+<link rel="stylesheet" type="text/css" href="/lib/fancybox/jquery.fancybox.css" /><link rel="stylesheet" type="text/css" href="/lib/nprogress/nprogress.min.css" />
+<link rel="stylesheet" type="text/css" href="/css/style.css?v=2.11.0" />
 
-
-  <link rel="stylesheet" type="text/css" href="/lib/fancybox/jquery.fancybox.css" />
-
-
-
-
-  <link rel="stylesheet" type="text/css" href="/lib/nprogress/nprogress.min.css" />
-
-
-
-<link rel="stylesheet" type="text/css" href="/css/style.css?v=2.10.2" />
-
-
-
-  
-  <script id="baidu_analytics">
+<script id="baidu_analytics">
     var _hmt = _hmt || [];
     (function() {
       var hm = document.createElement("script");
@@ -68,12 +27,7 @@
       var s = document.getElementsByTagName("script")[0];
       s.parentNode.insertBefore(hm, s);
     })();
-  </script>
-
-
-
-
-  <script id="baidu_push">
+  </script><script id="baidu_push">
 (function(){
     var bp = document.createElement('script');
     var curProtocol = window.location.protocol.split(':')[0];
@@ -87,20 +41,11 @@
     s.parentNode.insertBefore(bp, s);
 })();
 </script>
-
-
-
-
-
-
-
-
-
 <script>
-  window.config = {"leancloud":{"app_id":null,"app_key":null},"toc":true,"fancybox":true,"pjax":true};
+  window.config = {"leancloud":{"app_id":null,"app_key":null},"toc":true,"fancybox":true,"pjax":true,"latex":false};
 </script>
 
-    <title> Python中的AVL树 - Arian's Blog </title>
+    <title>Python中的AVL树 - Arian's Blog</title>
   </head>
 
   <body><div id="mobile-navbar" class="mobile-navbar">
@@ -115,45 +60,19 @@
 </div>
 
 <nav id="mobile-menu" class="mobile-menu slideout-menu">
-  <ul class="mobile-menu-list">
-    
-      <a href="/">
-        <li class="mobile-menu-item">
-          
-          
-            首页
-          
-        </li>
-      </a>
-    
-      <a href="/archives/">
-        <li class="mobile-menu-item">
-          
-          
-            归档
-          
-        </li>
-      </a>
-    
-      <a href="/tags">
-        <li class="mobile-menu-item">
-          
-          
-            标签
-          
-        </li>
-      </a>
-    
-      <a href="/about">
-        <li class="mobile-menu-item">
-          
-          
-            关于
-          
-        </li>
-      </a>
-    
-  </ul>
+  <ul class="mobile-menu-list"><a href="/">
+        <li class="mobile-menu-item">首页
+          </li>
+      </a><a href="/archives/">
+        <li class="mobile-menu-item">归档
+          </li>
+      </a><a href="/tags">
+        <li class="mobile-menu-item">标签
+          </li>
+      </a><a href="/about">
+        <li class="mobile-menu-item">关于
+          </li>
+      </a></ul>
 </nav>
 
     <div class="container" id="mobile-panel" style="z-index:0">
@@ -161,102 +80,59 @@
   <a href="/." class="logo">Arian's Blog</a>
 </div>
 
-<nav class="site-navbar">
-  
-    <ul id="menu" class="menu">
-      
-        <li class="menu-item">
+<nav class="site-navbar"><ul id="menu" class="menu"><li class="menu-item">
           <a class="menu-item-link" href="/">
-            
-            
-              首页
-            
-          </a>
+            首页
+            </a>
         </li>
-      
-        <li class="menu-item">
+      <li class="menu-item">
           <a class="menu-item-link" href="/archives/">
-            
-            
-              归档
-            
-          </a>
+            归档
+            </a>
         </li>
-      
-        <li class="menu-item">
+      <li class="menu-item">
           <a class="menu-item-link" href="/tags">
-            
-            
-              标签
-            
-          </a>
+            标签
+            </a>
         </li>
-      
-        <li class="menu-item">
+      <li class="menu-item">
           <a class="menu-item-link" href="/about">
-            
-            
-              关于
-            
-          </a>
+            关于
+            </a>
         </li>
-      
-    </ul>
-  
-</nav>
+      </ul></nav>
 
 <div class="waifu" style="z-index:9999">
     <div class="waifu-tips" style="z-index:9999"></div>
     <canvas id="live2d" width="240" height="220" class="live2d" style="z-index:9999"></canvas>
 </div>
-
-      </header>
+</header>
 
       <main id="main" class="main">
         <div class="content-wrapper">
-          <div id="content" class="content">
-            
-  
-  <article class="post">
+          <div id="content" class="content"><article class="post">
     <header class="post-header">
-      <h1 class="post-title">
-        
-          Python中的AVL树
-        
-      </h1>
+      <h1 class="post-title">Python中的AVL树
+        </h1>
 
       <div class="post-meta">
         <span class="post-time">
           2018-06-17
-        </span>
-        
-          <span class="post-category">
-            
-              <a href="/categories/算法/">算法</a>
-            
-          </span>
-        
-        
-      </div>
+        </span><span class="post-category">
+            <a href="/categories/算法/">算法</a>
+            </span>
+        </div>
     </header>
 
-    
-    
-  <div class="post-toc" id="post-toc">
+    <div class="post-toc" id="post-toc">
     <h2 class="post-toc-title">文章目录</h2>
     <div class="post-toc-content">
       <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#AVL树"><span class="toc-text">AVL树</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#节点"><span class="toc-text">节点</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#插入操作"><span class="toc-text">插入操作</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#旋转结点使树重新平衡"><span class="toc-text">旋转结点使树重新平衡</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#具体旋转操作："><span class="toc-text">具体旋转操作：</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#左旋"><span class="toc-text">左旋</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#ll"><span class="toc-text">ll</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#lr"><span class="toc-text">lr</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#右旋"><span class="toc-text">右旋</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#rr"><span class="toc-text">rr</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#rl"><span class="toc-text">rl</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#删除操作"><span class="toc-text">删除操作</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#参考"><span class="toc-text">参考</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#AVL树python实现的完整代码"><span class="toc-text">AVL树python实现的完整代码</span></a></li></ol>
     </div>
-  </div>
-
-
-
-    <div class="post-content">
-      
-        <blockquote>
+  </div><div class="post-content"><blockquote>
 <p>今宵は雪月花</p>
 </blockquote>
-<h2 id="AVL树"><a href="#AVL树" class="headerlink" title="AVL树"></a>AVL树</h2><p>将普通二叉树直接用于查找，平均情况下，仅需要查找一个分支，其时间复杂度为O(log n)。想要使查找时间尽可能短，就要使树的高度经可能短，使二叉树保持平衡状态。如果一个二叉树变得越来越不平衡，最后，其时间复杂度就变成了O(n)，相当于从头到尾遍历所有节点。<br><a id="more"></a></p>
+<h2 id="AVL树"><a href="#AVL树" class="headerlink" title="AVL树"></a>AVL树</h2><p>将普通二叉树直接用于查找，平均情况下，仅需要查找一个分支，其时间复杂度为O(log n)。想要使查找时间尽可能短，就要使树的高度经可能短，使二叉树保持平衡状态。如果一个二叉树变得越来越不平衡，最后，其时间复杂度就变成了O(n)，相当于从头到尾遍历所有节点。</p>
 <p>AVL是最先发明的一种自平衡二叉查找树，像普通二叉树一样组织数据。所不同的是，AVL的每一个节点都附带了一个<code>平衡因子</code>，其值代表了左子树和右子树的高度之差。对于每一次改变其平衡性的操作，AVL树都通过执行一次<code>旋转</code>操作来使其重新平衡。每一次插入和删除操作最多可能有<code>log n</code>个节点被旋转。因此，AVL树的插入、删除、查找操作的时间复杂度都在O(log n)。</p>
 <p>下面使用python来实现AVL树。</p>
 <h2 id="节点"><a href="#节点" class="headerlink" title="节点"></a>节点</h2><p>由普通二叉树的节点继承而来：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">AvlNode</span><span class="params">(Node)</span>:</span></span><br><span class="line">    <span class="string">"""</span></span><br><span class="line"><span class="string">    The binary searching tree. Inherit from theo `Node` class.</span></span><br><span class="line"><span class="string">    """</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self, key)</span>:</span></span><br><span class="line">        super().__init__(key)</span><br><span class="line">        self.height = <span class="number">0</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__repr__</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="keyword">return</span> <span class="string">'AvlNode(key=&#123;key&#125;)'</span>.format(key=self.key)</span><br><span class="line"></span><br><span class="line"><span class="meta">    @property</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">max_child_height</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="string">"""</span></span><br><span class="line"><span class="string">        The leaf node's height is 0. So the null node's height is -1.</span></span><br><span class="line"><span class="string">        """</span></span><br><span class="line">        <span class="keyword">return</span> max(self.left.height <span class="keyword">if</span> self.left <span class="keyword">else</span> <span class="number">-1</span>,</span><br><span class="line">                   self.right.height <span class="keyword">if</span> self.right <span class="keyword">else</span> <span class="number">-1</span>)</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">adjust_height</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="string">"""</span></span><br><span class="line"><span class="string">        Search from this node to its ancestor node</span></span><br><span class="line"><span class="string">        until the height doesn't change.</span></span><br><span class="line"><span class="string">        """</span></span><br><span class="line">        old_height = self.height</span><br><span class="line">        self.height = self.max_child_height + <span class="number">1</span></span><br><span class="line">        <span class="keyword">if</span> self.height != old_height <span class="keyword">and</span> self.parent:</span><br><span class="line">            self.parent.adjust_height()</span><br><span class="line"></span><br><span class="line"><span class="meta">    @property</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">balance</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="string">"""</span></span><br><span class="line"><span class="string">        The null node's height is deemed as -1.</span></span><br><span class="line"><span class="string">        """</span></span><br><span class="line">        <span class="keyword">return</span> (self.left.height <span class="keyword">if</span> self.left <span class="keyword">else</span> <span class="number">-1</span>) \</span><br><span class="line">            - (self.right.height <span class="keyword">if</span> self.right <span class="keyword">else</span> <span class="number">-1</span>)</span><br></pre></td></tr></table></figure></p>
@@ -271,7 +147,7 @@
 <h2 id="旋转结点使树重新平衡"><a href="#旋转结点使树重新平衡" class="headerlink" title="旋转结点使树重新平衡"></a>旋转结点使树重新平衡</h2><p>关键代表如下：</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">rebalance</span><span class="params">(self, node)</span>:</span></span><br><span class="line">        <span class="string">"""</span></span><br><span class="line"><span class="string">        Rotate the appointed node if the balance had been breaked.</span></span><br><span class="line"><span class="string">        """</span></span><br><span class="line">        <span class="keyword">if</span> node.balance == <span class="number">2</span>:</span><br><span class="line">            <span class="keyword">if</span> node.left.balance == <span class="number">1</span>:</span><br><span class="line">                <span class="comment"># LL rotate</span></span><br><span class="line">                self.__ll_rotate(node)</span><br><span class="line">            <span class="keyword">else</span>:</span><br><span class="line">                <span class="keyword">assert</span>(node.left.balance == <span class="number">-1</span>)</span><br><span class="line">                <span class="comment"># LR rotate</span></span><br><span class="line">                self.__lr_rotate(node)</span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            <span class="keyword">assert</span>(node.balance == <span class="number">-2</span>)</span><br><span class="line">            <span class="keyword">if</span> node.right.balance == <span class="number">-1</span>:</span><br><span class="line">                <span class="comment"># RR rotate</span></span><br><span class="line">                self.__rr_rotate(node)</span><br><span class="line">            <span class="keyword">else</span>:</span><br><span class="line">                <span class="keyword">assert</span>(node.right.balance == <span class="number">1</span>)</span><br><span class="line">                <span class="comment"># RL rotate</span></span><br><span class="line">                self.__rl_rotate(node)</span><br></pre></td></tr></table></figure>
 <p>可见，这实际上接近于一个调度方法，根据平衡性的情况，执行不同的旋转操作。</p>
-<h2 id="具体旋转操作："><a href="#具体旋转操作：" class="headerlink" title="具体旋转操作："></a>具体旋转操作：</h2><!--MORE-->
+<h2 id="具体旋转操作："><a href="#具体旋转操作：" class="headerlink" title="具体旋转操作："></a>具体旋转操作：</h2><a id="more"></a>
 <h3 id="左旋"><a href="#左旋" class="headerlink" title="左旋"></a>左旋</h3><h4 id="ll"><a href="#ll" class="headerlink" title="ll"></a>ll</h4><p>如果插入一个节点后使得父节点（平衡性受到破坏的节点）的左节点的平衡性为 1（左子树高度大于右子树），需要对左子树进行一次旋转操作。</p>
 <p>令父节点为A，左子节点为B，旋转步骤为：</p>
 <ol>
@@ -321,14 +197,8 @@
 <h2 id="AVL树python实现的完整代码"><a href="#AVL树python实现的完整代码" class="headerlink" title="AVL树python实现的完整代码"></a>AVL树python实现的完整代码</h2><p>放在了github gist里，可能需要vpn:</p>
 <p><a href="https://gist.github.com/Arianxx/5226596ee425a6ee0b1be074a7f85d13" target="_blank" rel="noopener">https://gist.github.com/Arianxx/5226596ee425a6ee0b1be074a7f85d13</a></p>
 <script src="https://gist.github.com/Arianxx/5226596ee425a6ee0b1be074a7f85d13.js"></script>
-      
-    </div>
-
-    
-      
-      
-
-  <div class="post-copyright">
+      </div>
+      <div class="post-copyright">
     <p class="copyright-item">
       <span>原文作者: </span>
       <a href="https://arianx.me">Arian</a>
@@ -338,75 +208,36 @@
       <a href="https://arianx.me/2018/06/17/python-avl-binary-tree/">https://arianx.me/2018/06/17/python-avl-binary-tree/</a>
     </p>
     <p class="copyright-item">
-      <span>许可协议: </span>
-      
-      本文采用<a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/" target="_blank">知识共享署名-非商业性使用 4.0 国际许可协议</a>
+      <span>许可协议: </span>本文采用<a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/" target="_blank">知识共享署名-非商业性使用 4.0 国际许可协议</a>
     </p>
   </div>
-
-
-
-      
-      
-    
-
-    
       <footer class="post-footer">
+        <div class="post-tags">
+            <a href="/tags/python/">python</a>
+            <a href="/tags/算法/">算法</a>
+            </div>
         
-          <div class="post-tags">
-            
-              <a href="/tags/python/">python</a>
-            
-              <a href="/tags/算法/">算法</a>
-            
-          </div>
-        
-        
-        
-  <nav class="post-nav">
-    
-      <a class="prev" href="/2018/06/17/Heap-in-python/">
+        <nav class="post-nav"><a class="prev" href="/2018/06/17/Heap-in-python/">
         <i class="iconfont icon-left"></i>
         <span class="prev-text nav-default">堆排序简述</span>
         <span class="prev-text nav-mobile">上一篇</span>
       </a>
-    
-    
-      <a class="next" href="/2018/06/07/The-usage-of-the-raise-from-in-python/">
+    <a class="next" href="/2018/06/07/The-usage-of-the-raise-from-in-python/">
         <span class="next-text nav-default">python在异常捕获里抛出异常</span>
         <span class="prev-text nav-mobile">下一篇</span>
         <i class="iconfont icon-right"></i>
       </a>
-    
-  </nav>
-
-
-      </footer>
-    
-
-  </article>
-
-
-          </div>
-          
-  <div class="comments" id="comments">
-    
-      <div id="disqus_thread">
+    </nav></footer>
+    </article></div><div class="comments" id="comments"><div id="disqus_thread">
         <noscript>
           Please enable JavaScript to view the
           <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a>
         </noscript>
       </div>
-    
-  </div>
-
-
-        </div>
+    </div></div>
       </main>
 
-      <footer id="footer" class="footer">
-
-  <div class="social-links">
+      <footer id="footer" class="footer"><div class="social-links">
     
       
         
@@ -455,14 +286,8 @@
       </a>
 
     
-    
-      <a href="/atom.xml" class="iconfont icon-rss" title="rss"></a>
-    
-  </div>
-
-
-
-<div class="copyright">
+    <a href="/atom.xml" class="iconfont icon-rss" title="rss"></a>
+    </div><div class="copyright">
   <span class="power-by">
     由 <a class="hexo-link" href="https://hexo.io/">Hexo</a> 强力驱动
   </span>
@@ -472,31 +297,18 @@
     <a class="theme-link" href="https://github.com/ahonn/hexo-theme-even">Even</a>
   </span>
 
-  <span class="copyright-year">
-    
-    &copy; 
-     
-      2017 - 
-    
-    2019
-
-    <span class="heart">
+  <span class="copyright-year">&copy;2017 - 2019<span class="heart">
       <i class="iconfont icon-heart"></i>
     </span>
     <span class="author">Arian</span>
   </span>
 </div>
-
-      </footer>
+</footer>
 
       <div class="back-to-top" id="back-to-top">
         <i class="iconfont icon-up"></i>
       </div>
-    </div>
-
-    
-  
-  <script type="text/javascript">
+    </div><script type="text/javascript">
     var disqus_config = function () {
         this.page.url = 'https://arianx.me/2018/06/17/python-avl-binary-tree/';
         this.page.identifier = '2018/06/17/python-avl-binary-tree/';
@@ -510,49 +322,13 @@
     s.setAttribute('data-timestamp', +new Date());
     (d.head || d.body).appendChild(s);
     })();  
-  </script>
-
-  
-
-  
-
-
-
-    
-  
-
-
-
-  
-  
-
-
-
-
-
-  
-    <script type="text/javascript" src="/lib/jquery/jquery.min.js"></script>
-  
-
-  
-    <script type="text/javascript" src="/lib/slideout/slideout.js"></script>
-  
-
-  
-    <script type="text/javascript" src="/lib/fancybox/jquery.fancybox.pack.js"></script>
-  
-
-  
-    <script type="text/javascript" src="/lib/pjax/jquery.pjax.min.js"></script>
-  
-
-  
-    <script type="text/javascript" src="/lib/nprogress/nprogress.min.js"></script>
-  
-
-
-    <script type="text/javascript" src="/js/src/even.js?v=2.10.2"></script>
-<script type="text/javascript" src="/js/src/bootstrap.js?v=2.10.2"></script>
+  </script><script type="text/javascript" src="/lib/jquery/jquery.min.js"></script>
+  <script type="text/javascript" src="/lib/slideout/slideout.js"></script>
+  <script type="text/javascript" src="/lib/fancybox/jquery.fancybox.pack.js"></script>
+  <script type="text/javascript" src="/lib/pjax/jquery.pjax.min.js"></script>
+  <script type="text/javascript" src="/lib/nprogress/nprogress.min.js"></script>
+  <script type="text/javascript" src="/js/src/even.js?v=2.11.0"></script>
+<script type="text/javascript" src="/js/src/bootstrap.js?v=2.11.0"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/2.2.0/anime.min.js" integrity="sha384-BnFYVbw3PHhz5qWXTCSL12MjPc3KxjdKPx7R4R5JjIzxFmYX267NDyJ9B/nZANdg" crossorigin="anonymous"></script>
 <script src="/js/src/transition.min.js"></script>
 
@@ -583,6 +359,5 @@
  }else{ //如果是手机
  
  }
- </script>
-  </body>
+ </script></body>
 </html>

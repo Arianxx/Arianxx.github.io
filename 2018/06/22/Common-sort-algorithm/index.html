@@ -1,8 +1,6 @@
 <!DOCTYPE html>
 <html lang="zh-cn">
-  <head>
-    
-<meta charset="UTF-8"/>
+  <head><meta charset="UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
 
@@ -15,52 +13,13 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
 
-
-
-  <meta name="description" content="十种常见的排序方法"/>
-
-
-
-
-  <meta name="keywords" content="python, 算法, Arian's Blog" />
-
-
-
-
-
-
-
-
-
-
-  <link rel="alternate" href="/atom.xml" title="Arian's Blog">
-
-
-
-
-  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=2.10.2" />
-
-
-
+<meta name="description" content="十种常见的排序方法"/><meta name="keywords" content="python, 算法, Arian's Blog" /><link rel="alternate" href="/atom.xml" title="Arian's Blog"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=2.11.0" />
 <link rel="canonical" href="https://arianx.me/2018/06/22/Common-sort-algorithm/"/>
 
+<link rel="stylesheet" type="text/css" href="/lib/fancybox/jquery.fancybox.css" /><link rel="stylesheet" type="text/css" href="/lib/nprogress/nprogress.min.css" />
+<link rel="stylesheet" type="text/css" href="/css/style.css?v=2.11.0" />
 
-
-  <link rel="stylesheet" type="text/css" href="/lib/fancybox/jquery.fancybox.css" />
-
-
-
-
-  <link rel="stylesheet" type="text/css" href="/lib/nprogress/nprogress.min.css" />
-
-
-
-<link rel="stylesheet" type="text/css" href="/css/style.css?v=2.10.2" />
-
-
-
-  
-  <script id="baidu_analytics">
+<script id="baidu_analytics">
     var _hmt = _hmt || [];
     (function() {
       var hm = document.createElement("script");
@@ -68,12 +27,7 @@
       var s = document.getElementsByTagName("script")[0];
       s.parentNode.insertBefore(hm, s);
     })();
-  </script>
-
-
-
-
-  <script id="baidu_push">
+  </script><script id="baidu_push">
 (function(){
     var bp = document.createElement('script');
     var curProtocol = window.location.protocol.split(':')[0];
@@ -87,20 +41,11 @@
     s.parentNode.insertBefore(bp, s);
 })();
 </script>
-
-
-
-
-
-
-
-
-
 <script>
-  window.config = {"leancloud":{"app_id":null,"app_key":null},"toc":true,"fancybox":true,"pjax":true};
+  window.config = {"leancloud":{"app_id":null,"app_key":null},"toc":true,"fancybox":true,"pjax":true,"latex":false};
 </script>
 
-    <title> 十种常见的排序方法 - Arian's Blog </title>
+    <title>十种常见的排序方法 - Arian's Blog</title>
   </head>
 
   <body><div id="mobile-navbar" class="mobile-navbar">
@@ -115,45 +60,19 @@
 </div>
 
 <nav id="mobile-menu" class="mobile-menu slideout-menu">
-  <ul class="mobile-menu-list">
-    
-      <a href="/">
-        <li class="mobile-menu-item">
-          
-          
-            首页
-          
-        </li>
-      </a>
-    
-      <a href="/archives/">
-        <li class="mobile-menu-item">
-          
-          
-            归档
-          
-        </li>
-      </a>
-    
-      <a href="/tags">
-        <li class="mobile-menu-item">
-          
-          
-            标签
-          
-        </li>
-      </a>
-    
-      <a href="/about">
-        <li class="mobile-menu-item">
-          
-          
-            关于
-          
-        </li>
-      </a>
-    
-  </ul>
+  <ul class="mobile-menu-list"><a href="/">
+        <li class="mobile-menu-item">首页
+          </li>
+      </a><a href="/archives/">
+        <li class="mobile-menu-item">归档
+          </li>
+      </a><a href="/tags">
+        <li class="mobile-menu-item">标签
+          </li>
+      </a><a href="/about">
+        <li class="mobile-menu-item">关于
+          </li>
+      </a></ul>
 </nav>
 
     <div class="container" id="mobile-panel" style="z-index:0">
@@ -161,100 +80,57 @@
   <a href="/." class="logo">Arian's Blog</a>
 </div>
 
-<nav class="site-navbar">
-  
-    <ul id="menu" class="menu">
-      
-        <li class="menu-item">
+<nav class="site-navbar"><ul id="menu" class="menu"><li class="menu-item">
           <a class="menu-item-link" href="/">
-            
-            
-              首页
-            
-          </a>
+            首页
+            </a>
         </li>
-      
-        <li class="menu-item">
+      <li class="menu-item">
           <a class="menu-item-link" href="/archives/">
-            
-            
-              归档
-            
-          </a>
+            归档
+            </a>
         </li>
-      
-        <li class="menu-item">
+      <li class="menu-item">
           <a class="menu-item-link" href="/tags">
-            
-            
-              标签
-            
-          </a>
+            标签
+            </a>
         </li>
-      
-        <li class="menu-item">
+      <li class="menu-item">
           <a class="menu-item-link" href="/about">
-            
-            
-              关于
-            
-          </a>
+            关于
+            </a>
         </li>
-      
-    </ul>
-  
-</nav>
+      </ul></nav>
 
 <div class="waifu" style="z-index:9999">
     <div class="waifu-tips" style="z-index:9999"></div>
     <canvas id="live2d" width="240" height="220" class="live2d" style="z-index:9999"></canvas>
 </div>
-
-      </header>
+</header>
 
       <main id="main" class="main">
         <div class="content-wrapper">
-          <div id="content" class="content">
-            
-  
-  <article class="post">
+          <div id="content" class="content"><article class="post">
     <header class="post-header">
-      <h1 class="post-title">
-        
-          十种常见的排序方法
-        
-      </h1>
+      <h1 class="post-title">十种常见的排序方法
+        </h1>
 
       <div class="post-meta">
         <span class="post-time">
           2018-06-22
-        </span>
-        
-          <span class="post-category">
-            
-              <a href="/categories/python/">python</a>
-            
-          </span>
-        
-        
-      </div>
+        </span><span class="post-category">
+            <a href="/categories/python/">python</a>
+            </span>
+        </div>
     </header>
 
-    
-    
-  <div class="post-toc" id="post-toc">
+    <div class="post-toc" id="post-toc">
     <h2 class="post-toc-title">文章目录</h2>
     <div class="post-toc-content">
       <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#简介"><span class="toc-text">简介</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#冒泡排序"><span class="toc-text">冒泡排序</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#选择排序"><span class="toc-text">选择排序</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#插入排序"><span class="toc-text">插入排序</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#希尔排序"><span class="toc-text">希尔排序</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#快速排序"><span class="toc-text">快速排序</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#归并排序"><span class="toc-text">归并排序</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#堆排序"><span class="toc-text">堆排序</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#计数排序"><span class="toc-text">计数排序</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#基数排序"><span class="toc-text">基数排序</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#桶排序"><span class="toc-text">桶排序</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#各个排序算法的运行时间比较"><span class="toc-text">各个排序算法的运行时间比较</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#碎碎念"><span class="toc-text">碎碎念</span></a></li></ol>
     </div>
-  </div>
-
-
-
-    <div class="post-content">
-      
-        <h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>本文介绍了十种常见简单排序算法的python实现。</p>
-<p>将要介绍的这十种排序算法分别是——冒泡排序、选择排序、插入排序、希尔排序、快速排序、归并排序、堆排序、计数排序、基数排序、桶排序<br><a id="more"></a></p>
+  </div><div class="post-content"><h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>本文介绍了十种常见简单排序算法的python实现。</p>
+<p>将要介绍的这十种排序算法分别是——冒泡排序、选择排序、插入排序、希尔排序、快速排序、归并排序、堆排序、计数排序、基数排序、桶排序</p>
 <h2 id="冒泡排序"><a href="#冒泡排序" class="headerlink" title="冒泡排序"></a>冒泡排序</h2><p>一遍遍遍历元素，两两交换其中不符合顺序的元素，将最大（或最小的）那个元素提取到最边缘的位置，直到不再有需要交换的元素为止。冒泡排序时常是排序算法中比较简单，也比较低效的一种排序方式。其时间复杂度为<code>O(n^2)</code>，空间复杂度为<code>O(1)</code>。</p>
 <p>实现：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 冒泡排序</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">bubble_sort</span><span class="params">(data, compare=lambda x, y: x &lt;= y)</span>:</span></span><br><span class="line">    length = len(data)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(length):</span><br><span class="line">        <span class="keyword">for</span> j <span class="keyword">in</span> range(<span class="number">0</span>, length - i - <span class="number">1</span>):</span><br><span class="line">            <span class="keyword">if</span> <span class="keyword">not</span> compare(data[j], data[j + <span class="number">1</span>]):</span><br><span class="line">                data[j], data[j + <span class="number">1</span>] = data[j + <span class="number">1</span>], data[j]</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> data</span><br></pre></td></tr></table></figure></p>
 <h2 id="选择排序"><a href="#选择排序" class="headerlink" title="选择排序"></a>选择排序</h2><p>每一次遍历元素，都选择其余元素中最小或最大的那个元素，每一次都缩小遍历范围直到遍历完成。选择排序的时间复杂度仍然为<code>O(n^2)</code>，空间复杂度为<code>O(1)</code>。即使如此，选择排序的性能要略优于冒泡排序。</p>
@@ -272,7 +148,7 @@
 <h2 id="计数排序"><a href="#计数排序" class="headerlink" title="计数排序"></a>计数排序</h2><p>计数排序是一种非比较的，稳定的线性时间排序算法。它将序列中的元素与一个数组中的位置对应。这个数组的下标是元素的值，这个位置储存的值是元素在新序列里所处于的位置。由n个元素组成，最大值为k的序列，首先构建一个长度为k的数组，遍历序列将它映射到数组之中，最后根据数组生成新的有序序列。因此，计数排序的时间复杂度与空间复杂度均为<code>O(n + k)</code>。</p>
 <p>计数排序适用于容易将序列的值映射为整数，且跨度不太大的情况下。并且，序列排序经常被用于更复杂的排序（如基数排序）的基本排序方法。</p>
 <p>实现:<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 计数排序</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">counting_sort</span><span class="params">(data, max_value=None)</span>:</span></span><br><span class="line">    <span class="string">"""</span></span><br><span class="line"><span class="string">    @param data: 要排序的可迭代对象</span></span><br><span class="line"><span class="string">    @param max: data里的最大值</span></span><br><span class="line"><span class="string">    """</span></span><br><span class="line">    max_value = max_value <span class="keyword">if</span> max_value <span class="keyword">is</span> <span class="keyword">not</span> <span class="keyword">None</span> <span class="keyword">else</span> max(data)</span><br><span class="line"></span><br><span class="line">    result = [<span class="keyword">None</span> <span class="keyword">for</span> _ <span class="keyword">in</span> range(len(data))]</span><br><span class="line">    position = [<span class="number">0</span> <span class="keyword">for</span> _ <span class="keyword">in</span> range(max_value + <span class="number">1</span>)]</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> value <span class="keyword">in</span> data:</span><br><span class="line">        position[value] += <span class="number">1</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> index <span class="keyword">in</span> range(<span class="number">1</span>, max_value + <span class="number">1</span>):</span><br><span class="line">        position[index] += position[index - <span class="number">1</span>]</span><br><span class="line"></span><br><span class="line">    n = len(data) - <span class="number">1</span></span><br><span class="line">    <span class="keyword">while</span> n &gt;= <span class="number">0</span>:</span><br><span class="line">        value = data[n]</span><br><span class="line">        result[position[value] - <span class="number">1</span>] = value</span><br><span class="line">        position[value] -= <span class="number">1</span></span><br><span class="line">        n -= <span class="number">1</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> result</span><br></pre></td></tr></table></figure></p>
-<!--MORE-->
+<a id="more"></a>
 <h2 id="基数排序"><a href="#基数排序" class="headerlink" title="基数排序"></a>基数排序</h2><p>基数排序根据给定的基数，对序列元素的每一位依次进行计数排序。因为基数排序对p位元素的每一位都执行了计数排序，因此其时间复杂度为计数排序的p倍，即<code>O(p * (n + k))</code>。</p>
 <p>与计数排序不同，只要可以将元素分成整形数字组成的几部分（如：字符串），就可以使用基数排序。</p>
 <p>实现：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 基数排序</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">radix_sort</span><span class="params">(data, exp=<span class="number">10</span>, digit=<span class="number">5</span>)</span>:</span></span><br><span class="line">    <span class="keyword">from</span> math <span class="keyword">import</span> pow</span><br><span class="line">    <span class="string">"""</span></span><br><span class="line"><span class="string">    @param data: 待排序的可迭代对象</span></span><br><span class="line"><span class="string">    @param exp: 排序的基数</span></span><br><span class="line"><span class="string">    @param digit: 数据的最大位数</span></span><br><span class="line"><span class="string">    """</span></span><br><span class="line">    <span class="keyword">for</span> e <span class="keyword">in</span> range(digit):</span><br><span class="line">        result = [<span class="keyword">None</span> <span class="keyword">for</span> _ <span class="keyword">in</span> range(len(data))]</span><br><span class="line">        now_exp = pow(exp, e)</span><br><span class="line">        position = [<span class="number">0</span> <span class="keyword">for</span> _ <span class="keyword">in</span> range(exp)]</span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span> value <span class="keyword">in</span> data:</span><br><span class="line">            bit = int(value / now_exp) % exp</span><br><span class="line">            position[bit] += <span class="number">1</span></span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span> index <span class="keyword">in</span> range(<span class="number">1</span>, exp):</span><br><span class="line">            position[index] += position[index - <span class="number">1</span>]</span><br><span class="line"></span><br><span class="line">        n = len(data) - <span class="number">1</span></span><br><span class="line">        <span class="keyword">while</span> n &gt;= <span class="number">0</span>:</span><br><span class="line">            bit = int(data[n] / now_exp) % exp</span><br><span class="line">            result[position[bit] - <span class="number">1</span>] = data[n]</span><br><span class="line">            position[bit] -= <span class="number">1</span></span><br><span class="line">            n -= <span class="number">1</span></span><br><span class="line"></span><br><span class="line">        data = result</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> data</span><br></pre></td></tr></table></figure></p>
@@ -282,14 +158,8 @@
 <p>结果为:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">COUNT:2000      SIZE:2000</span><br><span class="line">counting_sort  :0.002000093460083008</span><br><span class="line">bucket_sort    :0.0020058155059814453</span><br><span class="line">&lt;lambda&gt;       :0.009976387023925781</span><br><span class="line">radix_sort     :0.014000892639160156</span><br><span class="line">quick_sort1    :0.017019033432006836</span><br><span class="line">merge_sort     :0.026001930236816406</span><br><span class="line">shell_sort     :0.32696533203125</span><br><span class="line">selection_sort :0.45195460319519043</span><br><span class="line">ins_sort       :0.9020371437072754</span><br><span class="line">bubble_sort    :1.868042230606079</span><br><span class="line"></span><br><span class="line">COUNT:20000     SIZE:20000</span><br><span class="line">counting_sort  :0.01299905776977539</span><br><span class="line">bucket_sort    :0.025992870330810547</span><br><span class="line">radix_sort     :0.08400774002075195</span><br><span class="line">&lt;lambda&gt;       :0.12100505828857422</span><br><span class="line">quick_sort1    :0.13498902320861816</span><br><span class="line">merge_sort     :0.1459970474243164</span><br><span class="line">shell_sort     :25.587008714675903</span><br><span class="line">selection_sort :43.999064207077026</span><br><span class="line">ins_sort       :70.03945851325989</span><br><span class="line">bubble_sort    :84.87412595748901</span><br></pre></td></tr></table></figure></p>
 <h2 id="碎碎念"><a href="#碎碎念" class="headerlink" title="碎碎念"></a>碎碎念</h2><p>诶，六月炎炎近酷暑，吹着空调写代码╮（╯＿╰）╭</p>
 
-      
-    </div>
-
-    
-      
-      
-
-  <div class="post-copyright">
+      </div>
+      <div class="post-copyright">
     <p class="copyright-item">
       <span>原文作者: </span>
       <a href="https://arianx.me">Arian</a>
@@ -299,75 +169,36 @@
       <a href="https://arianx.me/2018/06/22/Common-sort-algorithm/">https://arianx.me/2018/06/22/Common-sort-algorithm/</a>
     </p>
     <p class="copyright-item">
-      <span>许可协议: </span>
-      
-      本文采用<a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/" target="_blank">知识共享署名-非商业性使用 4.0 国际许可协议</a>
+      <span>许可协议: </span>本文采用<a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/" target="_blank">知识共享署名-非商业性使用 4.0 国际许可协议</a>
     </p>
   </div>
-
-
-
-      
-      
-    
-
-    
       <footer class="post-footer">
+        <div class="post-tags">
+            <a href="/tags/python/">python</a>
+            <a href="/tags/算法/">算法</a>
+            </div>
         
-          <div class="post-tags">
-            
-              <a href="/tags/python/">python</a>
-            
-              <a href="/tags/算法/">算法</a>
-            
-          </div>
-        
-        
-        
-  <nav class="post-nav">
-    
-      <a class="prev" href="/2018/06/24/Python-Huffman-Tree/">
+        <nav class="post-nav"><a class="prev" href="/2018/06/24/Python-Huffman-Tree/">
         <i class="iconfont icon-left"></i>
         <span class="prev-text nav-default">实现霍夫曼编码</span>
         <span class="prev-text nav-mobile">上一篇</span>
       </a>
-    
-    
-      <a class="next" href="/2018/06/17/Heap-in-python/">
+    <a class="next" href="/2018/06/17/Heap-in-python/">
         <span class="next-text nav-default">堆排序简述</span>
         <span class="prev-text nav-mobile">下一篇</span>
         <i class="iconfont icon-right"></i>
       </a>
-    
-  </nav>
-
-
-      </footer>
-    
-
-  </article>
-
-
-          </div>
-          
-  <div class="comments" id="comments">
-    
-      <div id="disqus_thread">
+    </nav></footer>
+    </article></div><div class="comments" id="comments"><div id="disqus_thread">
         <noscript>
           Please enable JavaScript to view the
           <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a>
         </noscript>
       </div>
-    
-  </div>
-
-
-        </div>
+    </div></div>
       </main>
 
-      <footer id="footer" class="footer">
-
-  <div class="social-links">
+      <footer id="footer" class="footer"><div class="social-links">
     
       
         
@@ -416,14 +247,8 @@
       </a>
 
     
-    
-      <a href="/atom.xml" class="iconfont icon-rss" title="rss"></a>
-    
-  </div>
-
-
-
-<div class="copyright">
+    <a href="/atom.xml" class="iconfont icon-rss" title="rss"></a>
+    </div><div class="copyright">
   <span class="power-by">
     由 <a class="hexo-link" href="https://hexo.io/">Hexo</a> 强力驱动
   </span>
@@ -433,31 +258,18 @@
     <a class="theme-link" href="https://github.com/ahonn/hexo-theme-even">Even</a>
   </span>
 
-  <span class="copyright-year">
-    
-    &copy; 
-     
-      2017 - 
-    
-    2019
-
-    <span class="heart">
+  <span class="copyright-year">&copy;2017 - 2019<span class="heart">
       <i class="iconfont icon-heart"></i>
     </span>
     <span class="author">Arian</span>
   </span>
 </div>
-
-      </footer>
+</footer>
 
       <div class="back-to-top" id="back-to-top">
         <i class="iconfont icon-up"></i>
       </div>
-    </div>
-
-    
-  
-  <script type="text/javascript">
+    </div><script type="text/javascript">
     var disqus_config = function () {
         this.page.url = 'https://arianx.me/2018/06/22/Common-sort-algorithm/';
         this.page.identifier = '2018/06/22/Common-sort-algorithm/';
@@ -471,49 +283,13 @@
     s.setAttribute('data-timestamp', +new Date());
     (d.head || d.body).appendChild(s);
     })();  
-  </script>
-
-  
-
-  
-
-
-
-    
-  
-
-
-
-  
-  
-
-
-
-
-
-  
-    <script type="text/javascript" src="/lib/jquery/jquery.min.js"></script>
-  
-
-  
-    <script type="text/javascript" src="/lib/slideout/slideout.js"></script>
-  
-
-  
-    <script type="text/javascript" src="/lib/fancybox/jquery.fancybox.pack.js"></script>
-  
-
-  
-    <script type="text/javascript" src="/lib/pjax/jquery.pjax.min.js"></script>
-  
-
-  
-    <script type="text/javascript" src="/lib/nprogress/nprogress.min.js"></script>
-  
-
-
-    <script type="text/javascript" src="/js/src/even.js?v=2.10.2"></script>
-<script type="text/javascript" src="/js/src/bootstrap.js?v=2.10.2"></script>
+  </script><script type="text/javascript" src="/lib/jquery/jquery.min.js"></script>
+  <script type="text/javascript" src="/lib/slideout/slideout.js"></script>
+  <script type="text/javascript" src="/lib/fancybox/jquery.fancybox.pack.js"></script>
+  <script type="text/javascript" src="/lib/pjax/jquery.pjax.min.js"></script>
+  <script type="text/javascript" src="/lib/nprogress/nprogress.min.js"></script>
+  <script type="text/javascript" src="/js/src/even.js?v=2.11.0"></script>
+<script type="text/javascript" src="/js/src/bootstrap.js?v=2.11.0"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/2.2.0/anime.min.js" integrity="sha384-BnFYVbw3PHhz5qWXTCSL12MjPc3KxjdKPx7R4R5JjIzxFmYX267NDyJ9B/nZANdg" crossorigin="anonymous"></script>
 <script src="/js/src/transition.min.js"></script>
 
@@ -544,6 +320,5 @@
  }else{ //如果是手机
  
  }
- </script>
-  </body>
+ </script></body>
 </html>

@@ -1,8 +1,6 @@
 <!DOCTYPE html>
 <html lang="zh-cn">
-  <head>
-    
-<meta charset="UTF-8"/>
+  <head><meta charset="UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
 
@@ -15,52 +13,13 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
 
-
-
-  <meta name="description" content="cpython3.7 dict 对象的内在原理"/>
-
-
-
-
-  <meta name="keywords" content="python, 源码, Arian's Blog" />
-
-
-
-
-
-
-
-
-
-
-  <link rel="alternate" href="/atom.xml" title="Arian's Blog">
-
-
-
-
-  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=2.10.2" />
-
-
-
+<meta name="description" content="cpython3.7 dict 对象的内在原理"/><meta name="keywords" content="python, 源码, Arian's Blog" /><link rel="alternate" href="/atom.xml" title="Arian's Blog"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=2.11.0" />
 <link rel="canonical" href="https://arianx.me/2018/12/30/walkthrough-cpython3.7-dict-source-code/"/>
 
+<link rel="stylesheet" type="text/css" href="/lib/fancybox/jquery.fancybox.css" /><link rel="stylesheet" type="text/css" href="/lib/nprogress/nprogress.min.css" />
+<link rel="stylesheet" type="text/css" href="/css/style.css?v=2.11.0" />
 
-
-  <link rel="stylesheet" type="text/css" href="/lib/fancybox/jquery.fancybox.css" />
-
-
-
-
-  <link rel="stylesheet" type="text/css" href="/lib/nprogress/nprogress.min.css" />
-
-
-
-<link rel="stylesheet" type="text/css" href="/css/style.css?v=2.10.2" />
-
-
-
-  
-  <script id="baidu_analytics">
+<script id="baidu_analytics">
     var _hmt = _hmt || [];
     (function() {
       var hm = document.createElement("script");
@@ -68,12 +27,7 @@
       var s = document.getElementsByTagName("script")[0];
       s.parentNode.insertBefore(hm, s);
     })();
-  </script>
-
-
-
-
-  <script id="baidu_push">
+  </script><script id="baidu_push">
 (function(){
     var bp = document.createElement('script');
     var curProtocol = window.location.protocol.split(':')[0];
@@ -87,20 +41,11 @@
     s.parentNode.insertBefore(bp, s);
 })();
 </script>
-
-
-
-
-
-
-
-
-
 <script>
-  window.config = {"leancloud":{"app_id":null,"app_key":null},"toc":true,"fancybox":true,"pjax":true};
+  window.config = {"leancloud":{"app_id":null,"app_key":null},"toc":true,"fancybox":true,"pjax":true,"latex":false};
 </script>
 
-    <title> cpython3.7 dict 对象的内在原理 - Arian's Blog </title>
+    <title>cpython3.7 dict 对象的内在原理 - Arian's Blog</title>
   </head>
 
   <body><div id="mobile-navbar" class="mobile-navbar">
@@ -115,45 +60,19 @@
 </div>
 
 <nav id="mobile-menu" class="mobile-menu slideout-menu">
-  <ul class="mobile-menu-list">
-    
-      <a href="/">
-        <li class="mobile-menu-item">
-          
-          
-            首页
-          
-        </li>
-      </a>
-    
-      <a href="/archives/">
-        <li class="mobile-menu-item">
-          
-          
-            归档
-          
-        </li>
-      </a>
-    
-      <a href="/tags">
-        <li class="mobile-menu-item">
-          
-          
-            标签
-          
-        </li>
-      </a>
-    
-      <a href="/about">
-        <li class="mobile-menu-item">
-          
-          
-            关于
-          
-        </li>
-      </a>
-    
-  </ul>
+  <ul class="mobile-menu-list"><a href="/">
+        <li class="mobile-menu-item">首页
+          </li>
+      </a><a href="/archives/">
+        <li class="mobile-menu-item">归档
+          </li>
+      </a><a href="/tags">
+        <li class="mobile-menu-item">标签
+          </li>
+      </a><a href="/about">
+        <li class="mobile-menu-item">关于
+          </li>
+      </a></ul>
 </nav>
 
     <div class="container" id="mobile-panel" style="z-index:0">
@@ -161,99 +80,56 @@
   <a href="/." class="logo">Arian's Blog</a>
 </div>
 
-<nav class="site-navbar">
-  
-    <ul id="menu" class="menu">
-      
-        <li class="menu-item">
+<nav class="site-navbar"><ul id="menu" class="menu"><li class="menu-item">
           <a class="menu-item-link" href="/">
-            
-            
-              首页
-            
-          </a>
+            首页
+            </a>
         </li>
-      
-        <li class="menu-item">
+      <li class="menu-item">
           <a class="menu-item-link" href="/archives/">
-            
-            
-              归档
-            
-          </a>
+            归档
+            </a>
         </li>
-      
-        <li class="menu-item">
+      <li class="menu-item">
           <a class="menu-item-link" href="/tags">
-            
-            
-              标签
-            
-          </a>
+            标签
+            </a>
         </li>
-      
-        <li class="menu-item">
+      <li class="menu-item">
           <a class="menu-item-link" href="/about">
-            
-            
-              关于
-            
-          </a>
+            关于
+            </a>
         </li>
-      
-    </ul>
-  
-</nav>
+      </ul></nav>
 
 <div class="waifu" style="z-index:9999">
     <div class="waifu-tips" style="z-index:9999"></div>
     <canvas id="live2d" width="240" height="220" class="live2d" style="z-index:9999"></canvas>
 </div>
-
-      </header>
+</header>
 
       <main id="main" class="main">
         <div class="content-wrapper">
-          <div id="content" class="content">
-            
-  
-  <article class="post">
+          <div id="content" class="content"><article class="post">
     <header class="post-header">
-      <h1 class="post-title">
-        
-          cpython3.7 dict 对象的内在原理
-        
-      </h1>
+      <h1 class="post-title">cpython3.7 dict 对象的内在原理
+        </h1>
 
       <div class="post-meta">
         <span class="post-time">
           2018-12-30
-        </span>
-        
-          <span class="post-category">
-            
-              <a href="/categories/python/">python</a>
-            
-          </span>
-        
-        
-      </div>
+        </span><span class="post-category">
+            <a href="/categories/python/">python</a>
+            </span>
+        </div>
     </header>
 
-    
-    
-  <div class="post-toc" id="post-toc">
+    <div class="post-toc" id="post-toc">
     <h2 class="post-toc-title">文章目录</h2>
     <div class="post-toc-content">
       <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#哈希表简述"><span class="toc-text">哈希表简述</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#dict-的结构"><span class="toc-text">dict 的结构</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#PyDictKeyEntry"><span class="toc-text">PyDictKeyEntry</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#PyDictKeysObject"><span class="toc-text">PyDictKeysObject</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#PyDictObject"><span class="toc-text">PyDictObject</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#操作哈希表"><span class="toc-text">操作哈希表</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#读取、置位哈希表"><span class="toc-text">读取、置位哈希表</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#查询哈希表"><span class="toc-text">查询哈希表</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#插入哈希表"><span class="toc-text">插入哈希表</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#删除键值"><span class="toc-text">删除键值</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#调整哈希表"><span class="toc-text">调整哈希表</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#相关API"><span class="toc-text">相关API</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#PyDict-GetItem"><span class="toc-text">PyDict_GetItem</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#PyDict-DelItem"><span class="toc-text">PyDict_DelItem</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#PyDict-Contains"><span class="toc-text">PyDict_Contains</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#内部优化"><span class="toc-text">内部优化</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#dict-缓存池"><span class="toc-text">dict 缓存池</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#split-table"><span class="toc-text">split table</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#结束"><span class="toc-text">结束</span></a></li></ol>
     </div>
-  </div>
-
-
-
-    <div class="post-content">
-      
-        <p>众所周知，python 中有一个应用得极其广泛内建对象——dict(字典)。cpython 解释器本身，以及大量的 python 程序，都依赖于 dict 对象。因此，dict 对象在 python 中设计得极其高效，其插入、删除、查询等操作的时间复杂度都是O(1)。</p>
+  </div><div class="post-content"><p>众所周知，python 中有一个应用得极其广泛内建对象——dict(字典)。cpython 解释器本身，以及大量的 python 程序，都依赖于 dict 对象。因此，dict 对象在 python 中设计得极其高效，其插入、删除、查询等操作的时间复杂度都是O(1)。</p>
 <p>dict 对象可以这样使用:<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>scores = &#123;<span class="string">'Mike'</span>: <span class="number">90</span>, <span class="string">'Jack'</span>: <span class="number">100</span>&#125;</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>scores[<span class="string">'Ariana'</span>] = <span class="number">0</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>scores[<span class="string">'Jack'</span>]</span><br><span class="line"><span class="number">100</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>scores[<span class="string">'Tim'</span>]</span><br><span class="line">Traceback (most recent call last):</span><br><span class="line">  File <span class="string">"&lt;stdin&gt;"</span>, line <span class="number">1</span>, <span class="keyword">in</span> &lt;module&gt;</span><br><span class="line">KeyError: <span class="string">'Tim'</span></span><br></pre></td></tr></table></figure></p>
 <p>本文将从 cpython3.7 源码的角度出发，探讨 dict 对象的内部原理。主要将探讨以下几个内容：</p>
 <ul>
@@ -262,7 +138,7 @@
 <li>cpython 对 dict 的内部优化，如缓冲池、split table</li>
 <li>遍历 dict 保持插入顺序的原理</li>
 </ul>
-<p>本文的剖析基于 <a href="https://github.com/python/cpython/blob/bb86bf4c4eaa30b1f5192dab9f389ce0bb61114d/Objects/dictobject.c" target="_blank" rel="noopener">https://github.com/python/cpython/blob/bb86bf4c4eaa30b1f5192dab9f389ce0bb61114d/Objects/dictobject.c</a> 这份源码。<br><a id="more"></a></p>
+<p>本文的剖析基于 <a href="https://github.com/python/cpython/blob/bb86bf4c4eaa30b1f5192dab9f389ce0bb61114d/Objects/dictobject.c" target="_blank" rel="noopener">https://github.com/python/cpython/blob/bb86bf4c4eaa30b1f5192dab9f389ce0bb61114d/Objects/dictobject.c</a> 这份源码。</p>
 <h2 id="哈希表简述"><a href="#哈希表简述" class="headerlink" title="哈希表简述"></a>哈希表简述</h2><p>cpython 采用哈希表来实现 dict（与之不同的是，c++ 采用红黑树来实现 map）。因此，想要了解 cpython 的 dict 实现，需要先对哈希表这个数据结构有所了解。</p>
 <p>哈希表是一种实现了<a href="https://en.wikipedia.org/wiki/Associative_array" target="_blank" rel="noopener">关联数组</a>抽象数据类型的，键值形式的数据结构。哈希表通常利用一个<strong>哈希函数</strong>，将一个给定的键映射为一个值，这个值反映了与键对应的数据的储存位置。例如，将一个数组作为数据的储存位置，那么，哈希函数就将键映射为这个数组中键对应数据的下标。以后想要查找这个数据时，就不用从头遍历数组，而是直接哈希键取得下标，使得查询的时间由O(n)缩短到O(1)。</p>
 <p>由于我们最终会将数据储存在一个确定大小的空间内，而待哈希的值又是源源不断的。因此，我们难以避免有多个不同的数据被哈希函数哈希到同一个数据地址的情况，这种情况就叫做发生了<a href="https://en.wikipedia.org/wiki/Collision_(computer_science" target="_blank" rel="noopener">冲突</a>)。衡量哈希表的冲突率的一个指标是哈希表的<strong>负载因子</strong>，它等于哈希表已使用的空间除以哈希表的总空间。直观上来说，它反映了哈希表中的一个位置平均储存的数据个数。当负载因子的值大于 2/3 时，哈希发生冲突的概率就将大大增加。因此，后面我们会看到，当 dict 中的哈希表负载因子大于 2/3 时，解释器会重新分配哈希表的大小使其负载因子小于 2/3。</p>
@@ -332,14 +208,8 @@
 <h2 id="结束"><a href="#结束" class="headerlink" title="结束"></a>结束</h2><p>先就这样吧</p>
 <p><img src="https://arian-blogs.oss-cn-beijing.aliyuncs.com/18-12-31/50518040.jpg" alt="girl"></p>
 
-      
-    </div>
-
-    
-      
-      
-
-  <div class="post-copyright">
+      </div>
+      <div class="post-copyright">
     <p class="copyright-item">
       <span>原文作者: </span>
       <a href="https://arianx.me">Arian</a>
@@ -349,75 +219,36 @@
       <a href="https://arianx.me/2018/12/30/walkthrough-cpython3.7-dict-source-code/">https://arianx.me/2018/12/30/walkthrough-cpython3.7-dict-source-code/</a>
     </p>
     <p class="copyright-item">
-      <span>许可协议: </span>
-      
-      本文采用<a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/" target="_blank">知识共享署名-非商业性使用 4.0 国际许可协议</a>
+      <span>许可协议: </span>本文采用<a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/" target="_blank">知识共享署名-非商业性使用 4.0 国际许可协议</a>
     </p>
   </div>
-
-
-
-      
-      
-    
-
-    
       <footer class="post-footer">
+        <div class="post-tags">
+            <a href="/tags/python/">python</a>
+            <a href="/tags/源码/">源码</a>
+            </div>
         
-          <div class="post-tags">
-            
-              <a href="/tags/python/">python</a>
-            
-              <a href="/tags/源码/">源码</a>
-            
-          </div>
-        
-        
-        
-  <nav class="post-nav">
-    
-      <a class="prev" href="/2019/01/25/flask-source-code-read/">
+        <nav class="post-nav"><a class="prev" href="/2019/01/25/flask-source-code-read/">
         <i class="iconfont icon-left"></i>
         <span class="prev-text nav-default">Flask 源码的二三事</span>
         <span class="prev-text nav-mobile">上一篇</span>
       </a>
-    
-    
-      <a class="next" href="/2018/11/27/bottle-source-code-analysis/">
+    <a class="next" href="/2018/11/27/bottle-source-code-analysis/">
         <span class="next-text nav-default">值得夸耀的 bottle 微框架源代码之剖析</span>
         <span class="prev-text nav-mobile">下一篇</span>
         <i class="iconfont icon-right"></i>
       </a>
-    
-  </nav>
-
-
-      </footer>
-    
-
-  </article>
-
-
-          </div>
-          
-  <div class="comments" id="comments">
-    
-      <div id="disqus_thread">
+    </nav></footer>
+    </article></div><div class="comments" id="comments"><div id="disqus_thread">
         <noscript>
           Please enable JavaScript to view the
           <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a>
         </noscript>
       </div>
-    
-  </div>
-
-
-        </div>
+    </div></div>
       </main>
 
-      <footer id="footer" class="footer">
-
-  <div class="social-links">
+      <footer id="footer" class="footer"><div class="social-links">
     
       
         
@@ -466,14 +297,8 @@
       </a>
 
     
-    
-      <a href="/atom.xml" class="iconfont icon-rss" title="rss"></a>
-    
-  </div>
-
-
-
-<div class="copyright">
+    <a href="/atom.xml" class="iconfont icon-rss" title="rss"></a>
+    </div><div class="copyright">
   <span class="power-by">
     由 <a class="hexo-link" href="https://hexo.io/">Hexo</a> 强力驱动
   </span>
@@ -483,31 +308,18 @@
     <a class="theme-link" href="https://github.com/ahonn/hexo-theme-even">Even</a>
   </span>
 
-  <span class="copyright-year">
-    
-    &copy; 
-     
-      2017 - 
-    
-    2019
-
-    <span class="heart">
+  <span class="copyright-year">&copy;2017 - 2019<span class="heart">
       <i class="iconfont icon-heart"></i>
     </span>
     <span class="author">Arian</span>
   </span>
 </div>
-
-      </footer>
+</footer>
 
       <div class="back-to-top" id="back-to-top">
         <i class="iconfont icon-up"></i>
       </div>
-    </div>
-
-    
-  
-  <script type="text/javascript">
+    </div><script type="text/javascript">
     var disqus_config = function () {
         this.page.url = 'https://arianx.me/2018/12/30/walkthrough-cpython3.7-dict-source-code/';
         this.page.identifier = '2018/12/30/walkthrough-cpython3.7-dict-source-code/';
@@ -521,49 +333,13 @@
     s.setAttribute('data-timestamp', +new Date());
     (d.head || d.body).appendChild(s);
     })();  
-  </script>
-
-  
-
-  
-
-
-
-    
-  
-
-
-
-  
-  
-
-
-
-
-
-  
-    <script type="text/javascript" src="/lib/jquery/jquery.min.js"></script>
-  
-
-  
-    <script type="text/javascript" src="/lib/slideout/slideout.js"></script>
-  
-
-  
-    <script type="text/javascript" src="/lib/fancybox/jquery.fancybox.pack.js"></script>
-  
-
-  
-    <script type="text/javascript" src="/lib/pjax/jquery.pjax.min.js"></script>
-  
-
-  
-    <script type="text/javascript" src="/lib/nprogress/nprogress.min.js"></script>
-  
-
-
-    <script type="text/javascript" src="/js/src/even.js?v=2.10.2"></script>
-<script type="text/javascript" src="/js/src/bootstrap.js?v=2.10.2"></script>
+  </script><script type="text/javascript" src="/lib/jquery/jquery.min.js"></script>
+  <script type="text/javascript" src="/lib/slideout/slideout.js"></script>
+  <script type="text/javascript" src="/lib/fancybox/jquery.fancybox.pack.js"></script>
+  <script type="text/javascript" src="/lib/pjax/jquery.pjax.min.js"></script>
+  <script type="text/javascript" src="/lib/nprogress/nprogress.min.js"></script>
+  <script type="text/javascript" src="/js/src/even.js?v=2.11.0"></script>
+<script type="text/javascript" src="/js/src/bootstrap.js?v=2.11.0"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/2.2.0/anime.min.js" integrity="sha384-BnFYVbw3PHhz5qWXTCSL12MjPc3KxjdKPx7R4R5JjIzxFmYX267NDyJ9B/nZANdg" crossorigin="anonymous"></script>
 <script src="/js/src/transition.min.js"></script>
 
@@ -594,6 +370,5 @@
  }else{ //如果是手机
  
  }
- </script>
-  </body>
+ </script></body>
 </html>

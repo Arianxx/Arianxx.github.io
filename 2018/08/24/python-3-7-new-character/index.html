@@ -1,8 +1,6 @@
 <!DOCTYPE html>
 <html lang="zh-cn">
-  <head>
-    
-<meta charset="UTF-8"/>
+  <head><meta charset="UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
 
@@ -15,52 +13,13 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
 
-
-
-  <meta name="description" content="python3.7一些有趣的新特性"/>
-
-
-
-
-  <meta name="keywords" content="python, Arian's Blog" />
-
-
-
-
-
-
-
-
-
-
-  <link rel="alternate" href="/atom.xml" title="Arian's Blog">
-
-
-
-
-  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=2.10.2" />
-
-
-
+<meta name="description" content="python3.7一些有趣的新特性"/><meta name="keywords" content="python, Arian's Blog" /><link rel="alternate" href="/atom.xml" title="Arian's Blog"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=2.11.0" />
 <link rel="canonical" href="https://arianx.me/2018/08/24/python-3-7-new-character/"/>
 
+<link rel="stylesheet" type="text/css" href="/lib/fancybox/jquery.fancybox.css" /><link rel="stylesheet" type="text/css" href="/lib/nprogress/nprogress.min.css" />
+<link rel="stylesheet" type="text/css" href="/css/style.css?v=2.11.0" />
 
-
-  <link rel="stylesheet" type="text/css" href="/lib/fancybox/jquery.fancybox.css" />
-
-
-
-
-  <link rel="stylesheet" type="text/css" href="/lib/nprogress/nprogress.min.css" />
-
-
-
-<link rel="stylesheet" type="text/css" href="/css/style.css?v=2.10.2" />
-
-
-
-  
-  <script id="baidu_analytics">
+<script id="baidu_analytics">
     var _hmt = _hmt || [];
     (function() {
       var hm = document.createElement("script");
@@ -68,12 +27,7 @@
       var s = document.getElementsByTagName("script")[0];
       s.parentNode.insertBefore(hm, s);
     })();
-  </script>
-
-
-
-
-  <script id="baidu_push">
+  </script><script id="baidu_push">
 (function(){
     var bp = document.createElement('script');
     var curProtocol = window.location.protocol.split(':')[0];
@@ -87,20 +41,11 @@
     s.parentNode.insertBefore(bp, s);
 })();
 </script>
-
-
-
-
-
-
-
-
-
 <script>
-  window.config = {"leancloud":{"app_id":null,"app_key":null},"toc":true,"fancybox":true,"pjax":true};
+  window.config = {"leancloud":{"app_id":null,"app_key":null},"toc":true,"fancybox":true,"pjax":true,"latex":false};
 </script>
 
-    <title> python3.7一些有趣的新特性 - Arian's Blog </title>
+    <title>python3.7一些有趣的新特性 - Arian's Blog</title>
   </head>
 
   <body><div id="mobile-navbar" class="mobile-navbar">
@@ -115,45 +60,19 @@
 </div>
 
 <nav id="mobile-menu" class="mobile-menu slideout-menu">
-  <ul class="mobile-menu-list">
-    
-      <a href="/">
-        <li class="mobile-menu-item">
-          
-          
-            首页
-          
-        </li>
-      </a>
-    
-      <a href="/archives/">
-        <li class="mobile-menu-item">
-          
-          
-            归档
-          
-        </li>
-      </a>
-    
-      <a href="/tags">
-        <li class="mobile-menu-item">
-          
-          
-            标签
-          
-        </li>
-      </a>
-    
-      <a href="/about">
-        <li class="mobile-menu-item">
-          
-          
-            关于
-          
-        </li>
-      </a>
-    
-  </ul>
+  <ul class="mobile-menu-list"><a href="/">
+        <li class="mobile-menu-item">首页
+          </li>
+      </a><a href="/archives/">
+        <li class="mobile-menu-item">归档
+          </li>
+      </a><a href="/tags">
+        <li class="mobile-menu-item">标签
+          </li>
+      </a><a href="/about">
+        <li class="mobile-menu-item">关于
+          </li>
+      </a></ul>
 </nav>
 
     <div class="container" id="mobile-panel" style="z-index:0">
@@ -161,101 +80,57 @@
   <a href="/." class="logo">Arian's Blog</a>
 </div>
 
-<nav class="site-navbar">
-  
-    <ul id="menu" class="menu">
-      
-        <li class="menu-item">
+<nav class="site-navbar"><ul id="menu" class="menu"><li class="menu-item">
           <a class="menu-item-link" href="/">
-            
-            
-              首页
-            
-          </a>
+            首页
+            </a>
         </li>
-      
-        <li class="menu-item">
+      <li class="menu-item">
           <a class="menu-item-link" href="/archives/">
-            
-            
-              归档
-            
-          </a>
+            归档
+            </a>
         </li>
-      
-        <li class="menu-item">
+      <li class="menu-item">
           <a class="menu-item-link" href="/tags">
-            
-            
-              标签
-            
-          </a>
+            标签
+            </a>
         </li>
-      
-        <li class="menu-item">
+      <li class="menu-item">
           <a class="menu-item-link" href="/about">
-            
-            
-              关于
-            
-          </a>
+            关于
+            </a>
         </li>
-      
-    </ul>
-  
-</nav>
+      </ul></nav>
 
 <div class="waifu" style="z-index:9999">
     <div class="waifu-tips" style="z-index:9999"></div>
     <canvas id="live2d" width="240" height="220" class="live2d" style="z-index:9999"></canvas>
 </div>
-
-      </header>
+</header>
 
       <main id="main" class="main">
         <div class="content-wrapper">
-          <div id="content" class="content">
-            
-  
-  <article class="post">
+          <div id="content" class="content"><article class="post">
     <header class="post-header">
-      <h1 class="post-title">
-        
-          python3.7一些有趣的新特性
-        
-      </h1>
+      <h1 class="post-title">python3.7一些有趣的新特性
+        </h1>
 
       <div class="post-meta">
         <span class="post-time">
           2018-08-24
-        </span>
-        
-          <span class="post-category">
-            
-              <a href="/categories/python/">python</a>
-            
-          </span>
-        
-        
-      </div>
+        </span><span class="post-category">
+            <a href="/categories/python/">python</a>
+            </span>
+        </div>
     </header>
 
-    
-    
-  <div class="post-toc" id="post-toc">
+    <div class="post-toc" id="post-toc">
     <h2 class="post-toc-title">文章目录</h2>
     <div class="post-toc-content">
       <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#dataclasses模块"><span class="toc-text">dataclasses模块</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#dataclass装饰器"><span class="toc-text">dataclass装饰器</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#field方法"><span class="toc-text">field方法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#post-init-方法"><span class="toc-text">__post_init__方法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#特殊字段"><span class="toc-text">特殊字段</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#辅助方法"><span class="toc-text">辅助方法</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#延迟类型注释评估"><span class="toc-text">延迟类型注释评估</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#纳秒级时钟精度"><span class="toc-text">纳秒级时钟精度</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#自定义模块属性访问"><span class="toc-text">自定义模块属性访问</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#使用breakpoint-设置断点"><span class="toc-text">使用breakpoint()设置断点</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#其它改变"><span class="toc-text">其它改变</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#参考"><span class="toc-text">参考</span></a></li></ol>
     </div>
-  </div>
-
-
-
-    <div class="post-content">
-      
-        <p>其实python3.7在两个多月前就发布了，因为各种原因（主要懒就是了qaq，一直没怎么仔细关注，所以拖到了现在。唉，转眼八月就到尾巴上了。</p>
+  </div><div class="post-content"><p>其实python3.7在两个多月前就发布了，因为各种原因（主要懒就是了qaq，一直没怎么仔细关注，所以拖到了现在。唉，转眼八月就到尾巴上了。</p>
 <p>总之，本文将介绍python3.7中比较有趣的一些新特性。让我们开始吧。</p>
-<a id="more"></a>
 <h2 id="dataclasses模块"><a href="#dataclasses模块" class="headerlink" title="dataclasses模块"></a>dataclasses模块</h2><p>python3.7中最被人关注，讨论得最广的，当然是dataclasses啦。dataclasses是python3.7新增的模块。正如这个模块的名字”数据类”一样，引入这个特性的主要目的，是为了简化一些主要功能是储存简单的数据的类的创建流程，减少代码冗余。在官方文档中，dataclasses被描述为”这个模块为将自动生成的，像__init__这样的特殊方法，增加到用户定义的类，提供了dataclass装饰器和相关的函数”。</p>
 <h3 id="dataclass装饰器"><a href="#dataclass装饰器" class="headerlink" title="dataclass装饰器"></a>dataclass装饰器</h3><p>大家以往写程序的时候可能都碰到过，需要在__init__方法中传递大量的参数，然后简单的将参数绑定到实例，就像这样:<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Company</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self, name, phone, address, contact, category, staff_number=<span class="number">100</span>)</span>:</span></span><br><span class="line">        self.name = name</span><br><span class="line">        self.phone = phone</span><br><span class="line">        self.address = address</span><br><span class="line">        self.contact = contact</span><br><span class="line">        self.category = category</span><br><span class="line">        self.staff_number = staff_number</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__repr__</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="keyword">return</span> <span class="string">f"Company(name=<span class="subst">&#123;self.name&#125;</span>, phone=<span class="subst">&#123;self.phone&#125;</span>, address=<span class="subst">&#123;self.address&#125;</span>, contact=<span class="subst">&#123;self.contact&#125;</span>, category=<span class="subst">&#123;self.category&#125;</span>, staff_number=<span class="subst">&#123;self.staff_number&#125;</span>"</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__eq__</span><span class="params">(self, other)</span>:</span></span><br><span class="line">        <span class="keyword">return</span> (self.name == other.name &amp;&amp; self.phone == other.phone &amp;&amp; self.address == other.address &amp;&amp; self.contact == other.contact &amp;&amp; self.category == other.category &amp;&amp; self.staff_number == other.staff_number)</span><br></pre></td></tr></table></figure></p>
 <p>当然，这个随意虚构出来的类可能还不够典型，然而已经可以从它身上看到许多工作实际上是在繁复、无味进行的。我们在__init__中声明了所需的参数，将它们一一绑定到实例，并且又在一些特殊方法中进行了许多枯燥平常的工作。</p>
@@ -316,14 +191,8 @@
 <h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><p><a href="https://www.python.org/dev/peps/pep-0557" target="_blank" rel="noopener">https://www.python.org/dev/peps/pep-0557</a></p>
 <p><a href="https://docs.python.org/3/whatsnew/3.7.html" target="_blank" rel="noopener">https://docs.python.org/3/whatsnew/3.7.html</a></p>
 
-      
-    </div>
-
-    
-      
-      
-
-  <div class="post-copyright">
+      </div>
+      <div class="post-copyright">
     <p class="copyright-item">
       <span>原文作者: </span>
       <a href="https://arianx.me">Arian</a>
@@ -333,73 +202,35 @@
       <a href="https://arianx.me/2018/08/24/python-3-7-new-character/">https://arianx.me/2018/08/24/python-3-7-new-character/</a>
     </p>
     <p class="copyright-item">
-      <span>许可协议: </span>
-      
-      本文采用<a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/" target="_blank">知识共享署名-非商业性使用 4.0 国际许可协议</a>
+      <span>许可协议: </span>本文采用<a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/" target="_blank">知识共享署名-非商业性使用 4.0 国际许可协议</a>
     </p>
   </div>
-
-
-
-      
-      
-    
-
-    
       <footer class="post-footer">
+        <div class="post-tags">
+            <a href="/tags/python/">python</a>
+            </div>
         
-          <div class="post-tags">
-            
-              <a href="/tags/python/">python</a>
-            
-          </div>
-        
-        
-        
-  <nav class="post-nav">
-    
-      <a class="prev" href="/2018/10/20/translate-HTTP-Caching/">
+        <nav class="post-nav"><a class="prev" href="/2018/10/20/translate-HTTP-Caching/">
         <i class="iconfont icon-left"></i>
         <span class="prev-text nav-default">翻译：HTTP 缓存</span>
         <span class="prev-text nav-mobile">上一篇</span>
       </a>
-    
-    
-      <a class="next" href="/2018/08/17/Use-bit-arithmetic-to-implement-addition-subtraction-multiplication-and-division/">
+    <a class="next" href="/2018/08/17/Use-bit-arithmetic-to-implement-addition-subtraction-multiplication-and-division/">
         <span class="next-text nav-default">使用位运算实现加减乘除</span>
         <span class="prev-text nav-mobile">下一篇</span>
         <i class="iconfont icon-right"></i>
       </a>
-    
-  </nav>
-
-
-      </footer>
-    
-
-  </article>
-
-
-          </div>
-          
-  <div class="comments" id="comments">
-    
-      <div id="disqus_thread">
+    </nav></footer>
+    </article></div><div class="comments" id="comments"><div id="disqus_thread">
         <noscript>
           Please enable JavaScript to view the
           <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a>
         </noscript>
       </div>
-    
-  </div>
-
-
-        </div>
+    </div></div>
       </main>
 
-      <footer id="footer" class="footer">
-
-  <div class="social-links">
+      <footer id="footer" class="footer"><div class="social-links">
     
       
         
@@ -448,14 +279,8 @@
       </a>
 
     
-    
-      <a href="/atom.xml" class="iconfont icon-rss" title="rss"></a>
-    
-  </div>
-
-
-
-<div class="copyright">
+    <a href="/atom.xml" class="iconfont icon-rss" title="rss"></a>
+    </div><div class="copyright">
   <span class="power-by">
     由 <a class="hexo-link" href="https://hexo.io/">Hexo</a> 强力驱动
   </span>
@@ -465,31 +290,18 @@
     <a class="theme-link" href="https://github.com/ahonn/hexo-theme-even">Even</a>
   </span>
 
-  <span class="copyright-year">
-    
-    &copy; 
-     
-      2017 - 
-    
-    2019
-
-    <span class="heart">
+  <span class="copyright-year">&copy;2017 - 2019<span class="heart">
       <i class="iconfont icon-heart"></i>
     </span>
     <span class="author">Arian</span>
   </span>
 </div>
-
-      </footer>
+</footer>
 
       <div class="back-to-top" id="back-to-top">
         <i class="iconfont icon-up"></i>
       </div>
-    </div>
-
-    
-  
-  <script type="text/javascript">
+    </div><script type="text/javascript">
     var disqus_config = function () {
         this.page.url = 'https://arianx.me/2018/08/24/python-3-7-new-character/';
         this.page.identifier = '2018/08/24/python-3-7-new-character/';
@@ -503,49 +315,13 @@
     s.setAttribute('data-timestamp', +new Date());
     (d.head || d.body).appendChild(s);
     })();  
-  </script>
-
-  
-
-  
-
-
-
-    
-  
-
-
-
-  
-  
-
-
-
-
-
-  
-    <script type="text/javascript" src="/lib/jquery/jquery.min.js"></script>
-  
-
-  
-    <script type="text/javascript" src="/lib/slideout/slideout.js"></script>
-  
-
-  
-    <script type="text/javascript" src="/lib/fancybox/jquery.fancybox.pack.js"></script>
-  
-
-  
-    <script type="text/javascript" src="/lib/pjax/jquery.pjax.min.js"></script>
-  
-
-  
-    <script type="text/javascript" src="/lib/nprogress/nprogress.min.js"></script>
-  
-
-
-    <script type="text/javascript" src="/js/src/even.js?v=2.10.2"></script>
-<script type="text/javascript" src="/js/src/bootstrap.js?v=2.10.2"></script>
+  </script><script type="text/javascript" src="/lib/jquery/jquery.min.js"></script>
+  <script type="text/javascript" src="/lib/slideout/slideout.js"></script>
+  <script type="text/javascript" src="/lib/fancybox/jquery.fancybox.pack.js"></script>
+  <script type="text/javascript" src="/lib/pjax/jquery.pjax.min.js"></script>
+  <script type="text/javascript" src="/lib/nprogress/nprogress.min.js"></script>
+  <script type="text/javascript" src="/js/src/even.js?v=2.11.0"></script>
+<script type="text/javascript" src="/js/src/bootstrap.js?v=2.11.0"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/2.2.0/anime.min.js" integrity="sha384-BnFYVbw3PHhz5qWXTCSL12MjPc3KxjdKPx7R4R5JjIzxFmYX267NDyJ9B/nZANdg" crossorigin="anonymous"></script>
 <script src="/js/src/transition.min.js"></script>
 
@@ -576,6 +352,5 @@
  }else{ //如果是手机
  
  }
- </script>
-  </body>
+ </script></body>
 </html>

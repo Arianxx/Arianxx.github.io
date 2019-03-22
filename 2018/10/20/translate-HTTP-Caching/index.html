@@ -1,8 +1,6 @@
 <!DOCTYPE html>
 <html lang="zh-cn">
-  <head>
-    
-<meta charset="UTF-8"/>
+  <head><meta charset="UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
 
@@ -15,52 +13,13 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
 
-
-
-  <meta name="description" content="翻译：HTTP 缓存"/>
-
-
-
-
-  <meta name="keywords" content="翻译, 缓存, Arian's Blog" />
-
-
-
-
-
-
-
-
-
-
-  <link rel="alternate" href="/atom.xml" title="Arian's Blog">
-
-
-
-
-  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=2.10.2" />
-
-
-
+<meta name="description" content="翻译：HTTP 缓存"/><meta name="keywords" content="翻译, 缓存, Arian's Blog" /><link rel="alternate" href="/atom.xml" title="Arian's Blog"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=2.11.0" />
 <link rel="canonical" href="https://arianx.me/2018/10/20/translate-HTTP-Caching/"/>
 
+<link rel="stylesheet" type="text/css" href="/lib/fancybox/jquery.fancybox.css" /><link rel="stylesheet" type="text/css" href="/lib/nprogress/nprogress.min.css" />
+<link rel="stylesheet" type="text/css" href="/css/style.css?v=2.11.0" />
 
-
-  <link rel="stylesheet" type="text/css" href="/lib/fancybox/jquery.fancybox.css" />
-
-
-
-
-  <link rel="stylesheet" type="text/css" href="/lib/nprogress/nprogress.min.css" />
-
-
-
-<link rel="stylesheet" type="text/css" href="/css/style.css?v=2.10.2" />
-
-
-
-  
-  <script id="baidu_analytics">
+<script id="baidu_analytics">
     var _hmt = _hmt || [];
     (function() {
       var hm = document.createElement("script");
@@ -68,12 +27,7 @@
       var s = document.getElementsByTagName("script")[0];
       s.parentNode.insertBefore(hm, s);
     })();
-  </script>
-
-
-
-
-  <script id="baidu_push">
+  </script><script id="baidu_push">
 (function(){
     var bp = document.createElement('script');
     var curProtocol = window.location.protocol.split(':')[0];
@@ -87,20 +41,11 @@
     s.parentNode.insertBefore(bp, s);
 })();
 </script>
-
-
-
-
-
-
-
-
-
 <script>
-  window.config = {"leancloud":{"app_id":null,"app_key":null},"toc":true,"fancybox":true,"pjax":true};
+  window.config = {"leancloud":{"app_id":null,"app_key":null},"toc":true,"fancybox":true,"pjax":true,"latex":false};
 </script>
 
-    <title> 翻译：HTTP 缓存 - Arian's Blog </title>
+    <title>翻译：HTTP 缓存 - Arian's Blog</title>
   </head>
 
   <body><div id="mobile-navbar" class="mobile-navbar">
@@ -115,45 +60,19 @@
 </div>
 
 <nav id="mobile-menu" class="mobile-menu slideout-menu">
-  <ul class="mobile-menu-list">
-    
-      <a href="/">
-        <li class="mobile-menu-item">
-          
-          
-            首页
-          
-        </li>
-      </a>
-    
-      <a href="/archives/">
-        <li class="mobile-menu-item">
-          
-          
-            归档
-          
-        </li>
-      </a>
-    
-      <a href="/tags">
-        <li class="mobile-menu-item">
-          
-          
-            标签
-          
-        </li>
-      </a>
-    
-      <a href="/about">
-        <li class="mobile-menu-item">
-          
-          
-            关于
-          
-        </li>
-      </a>
-    
-  </ul>
+  <ul class="mobile-menu-list"><a href="/">
+        <li class="mobile-menu-item">首页
+          </li>
+      </a><a href="/archives/">
+        <li class="mobile-menu-item">归档
+          </li>
+      </a><a href="/tags">
+        <li class="mobile-menu-item">标签
+          </li>
+      </a><a href="/about">
+        <li class="mobile-menu-item">关于
+          </li>
+      </a></ul>
 </nav>
 
     <div class="container" id="mobile-panel" style="z-index:0">
@@ -161,97 +80,56 @@
   <a href="/." class="logo">Arian's Blog</a>
 </div>
 
-<nav class="site-navbar">
-  
-    <ul id="menu" class="menu">
-      
-        <li class="menu-item">
+<nav class="site-navbar"><ul id="menu" class="menu"><li class="menu-item">
           <a class="menu-item-link" href="/">
-            
-            
-              首页
-            
-          </a>
+            首页
+            </a>
         </li>
-      
-        <li class="menu-item">
+      <li class="menu-item">
           <a class="menu-item-link" href="/archives/">
-            
-            
-              归档
-            
-          </a>
+            归档
+            </a>
         </li>
-      
-        <li class="menu-item">
+      <li class="menu-item">
           <a class="menu-item-link" href="/tags">
-            
-            
-              标签
-            
-          </a>
+            标签
+            </a>
         </li>
-      
-        <li class="menu-item">
+      <li class="menu-item">
           <a class="menu-item-link" href="/about">
-            
-            
-              关于
-            
-          </a>
+            关于
+            </a>
         </li>
-      
-    </ul>
-  
-</nav>
+      </ul></nav>
 
 <div class="waifu" style="z-index:9999">
     <div class="waifu-tips" style="z-index:9999"></div>
     <canvas id="live2d" width="240" height="220" class="live2d" style="z-index:9999"></canvas>
 </div>
-
-      </header>
+</header>
 
       <main id="main" class="main">
         <div class="content-wrapper">
-          <div id="content" class="content">
-            
-  
-  <article class="post">
+          <div id="content" class="content"><article class="post">
     <header class="post-header">
-      <h1 class="post-title">
-        
-          翻译：HTTP 缓存
-        
-      </h1>
+      <h1 class="post-title">翻译：HTTP 缓存
+        </h1>
 
       <div class="post-meta">
         <span class="post-time">
           2018-10-20
-        </span>
-        
-        
-      </div>
+        </span></div>
     </header>
 
-    
-    
-  <div class="post-toc" id="post-toc">
+    <div class="post-toc" id="post-toc">
     <h2 class="post-toc-title">文章目录</h2>
     <div class="post-toc-content">
       <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#通过-ETags-效验缓存的响应"><span class="toc-text">通过 ETags 效验缓存的响应</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Cache-Control"><span class="toc-text">Cache-Control</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#“no-cache”-和-“no-store”"><span class="toc-text">“no-cache” 和 “no-store”</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#“public”-和-“private”"><span class="toc-text">“public” 和 “private”</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#“max-age”"><span class="toc-text">“max-age”</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#定义最优-Cache-Control-策略"><span class="toc-text">定义最优 Cache-Control 策略</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#无效化以及更新缓存的响应"><span class="toc-text">无效化以及更新缓存的响应</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Caching-清单"><span class="toc-text">Caching 清单</span></a></li></ol>
     </div>
-  </div>
-
-
-
-    <div class="post-content">
-      
-        <blockquote>
+  </div><div class="post-content"><blockquote>
 <p><a href="https://developers.google.com/web/fundamentals/performance/optimizing-content-efficiency/http-caching" target="_blank" rel="noopener">原文章</a></p>
 </blockquote>
 <p>通过网络获取一些东西总是缓慢并且昂贵的。多数的响应需要在客户端和服务器之间往返多次。当它们可用并且浏览器能够处理它们的时候，就会发生延迟，还会访问者带来数据成本。因此，缓存和重用之前获取的资源的能力，是优化效率的一个至关重要的方面。</p>
-<a id="more"></a>
 <p>好消息是每个浏览器都附带一个HTTP缓存的实现。所有你需要做的事情，就是确保每个从服务器发出的响应，都提供了一个能够指示浏览器何时以及缓存该响应多长时间的有效的HTTP头部。</p>
 <p><img src="https://arian-blogs.oss-cn-beijing.aliyuncs.com/18-10-20/42085477.jpg" alt=""></p>
 <p>当服务器返回一个响应的时候，它也会发出一系列描述了它的内容类型、长度、缓存指令、令牌等的HTTP头部。例如，在上面的例子中，服务器返回了1024字节的响应，指示客户端最多缓存它120s，并且提供了一个可以被用来在响应过期之后，检查资源是否被更改的，值为”x234dff”的效验令牌。</p>
@@ -310,14 +188,8 @@
 <li><strong>最小化改变</strong>：一些资源比其它资源更新得更快。如果这儿有一个经常更新的资源（例如，一个 JavaScript函数或者一系列CSS样式表），考虑将代码作为单独的文件交付。这样做能够使其余的内容能够从缓存中获取（例如，库代码不会经常改变），并且在无论何时更新被获取时，使下载的内容总量最小化。</li>
 </ul>
 
-      
-    </div>
-
-    
-      
-      
-
-  <div class="post-copyright">
+      </div>
+      <div class="post-copyright">
     <p class="copyright-item">
       <span>原文作者: </span>
       <a href="https://arianx.me">Arian</a>
@@ -327,75 +199,36 @@
       <a href="https://arianx.me/2018/10/20/translate-HTTP-Caching/">https://arianx.me/2018/10/20/translate-HTTP-Caching/</a>
     </p>
     <p class="copyright-item">
-      <span>许可协议: </span>
-      
-      本文采用<a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/" target="_blank">知识共享署名-非商业性使用 4.0 国际许可协议</a>
+      <span>许可协议: </span>本文采用<a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/" target="_blank">知识共享署名-非商业性使用 4.0 国际许可协议</a>
     </p>
   </div>
-
-
-
-      
-      
-    
-
-    
       <footer class="post-footer">
+        <div class="post-tags">
+            <a href="/tags/翻译/">翻译</a>
+            <a href="/tags/缓存/">缓存</a>
+            </div>
         
-          <div class="post-tags">
-            
-              <a href="/tags/翻译/">翻译</a>
-            
-              <a href="/tags/缓存/">缓存</a>
-            
-          </div>
-        
-        
-        
-  <nav class="post-nav">
-    
-      <a class="prev" href="/2018/10/30/bobo-source-code-reading-note/">
+        <nav class="post-nav"><a class="prev" href="/2018/10/30/bobo-source-code-reading-note/">
         <i class="iconfont icon-left"></i>
         <span class="prev-text nav-default">深具传统的 bobo 微框架源代码之阅读</span>
         <span class="prev-text nav-mobile">上一篇</span>
       </a>
-    
-    
-      <a class="next" href="/2018/08/24/python-3-7-new-character/">
+    <a class="next" href="/2018/08/24/python-3-7-new-character/">
         <span class="next-text nav-default">python3.7一些有趣的新特性</span>
         <span class="prev-text nav-mobile">下一篇</span>
         <i class="iconfont icon-right"></i>
       </a>
-    
-  </nav>
-
-
-      </footer>
-    
-
-  </article>
-
-
-          </div>
-          
-  <div class="comments" id="comments">
-    
-      <div id="disqus_thread">
+    </nav></footer>
+    </article></div><div class="comments" id="comments"><div id="disqus_thread">
         <noscript>
           Please enable JavaScript to view the
           <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a>
         </noscript>
       </div>
-    
-  </div>
-
-
-        </div>
+    </div></div>
       </main>
 
-      <footer id="footer" class="footer">
-
-  <div class="social-links">
+      <footer id="footer" class="footer"><div class="social-links">
     
       
         
@@ -444,14 +277,8 @@
       </a>
 
     
-    
-      <a href="/atom.xml" class="iconfont icon-rss" title="rss"></a>
-    
-  </div>
-
-
-
-<div class="copyright">
+    <a href="/atom.xml" class="iconfont icon-rss" title="rss"></a>
+    </div><div class="copyright">
   <span class="power-by">
     由 <a class="hexo-link" href="https://hexo.io/">Hexo</a> 强力驱动
   </span>
@@ -461,31 +288,18 @@
     <a class="theme-link" href="https://github.com/ahonn/hexo-theme-even">Even</a>
   </span>
 
-  <span class="copyright-year">
-    
-    &copy; 
-     
-      2017 - 
-    
-    2019
-
-    <span class="heart">
+  <span class="copyright-year">&copy;2017 - 2019<span class="heart">
       <i class="iconfont icon-heart"></i>
     </span>
     <span class="author">Arian</span>
   </span>
 </div>
-
-      </footer>
+</footer>
 
       <div class="back-to-top" id="back-to-top">
         <i class="iconfont icon-up"></i>
       </div>
-    </div>
-
-    
-  
-  <script type="text/javascript">
+    </div><script type="text/javascript">
     var disqus_config = function () {
         this.page.url = 'https://arianx.me/2018/10/20/translate-HTTP-Caching/';
         this.page.identifier = '2018/10/20/translate-HTTP-Caching/';
@@ -499,49 +313,13 @@
     s.setAttribute('data-timestamp', +new Date());
     (d.head || d.body).appendChild(s);
     })();  
-  </script>
-
-  
-
-  
-
-
-
-    
-  
-
-
-
-  
-  
-
-
-
-
-
-  
-    <script type="text/javascript" src="/lib/jquery/jquery.min.js"></script>
-  
-
-  
-    <script type="text/javascript" src="/lib/slideout/slideout.js"></script>
-  
-
-  
-    <script type="text/javascript" src="/lib/fancybox/jquery.fancybox.pack.js"></script>
-  
-
-  
-    <script type="text/javascript" src="/lib/pjax/jquery.pjax.min.js"></script>
-  
-
-  
-    <script type="text/javascript" src="/lib/nprogress/nprogress.min.js"></script>
-  
-
-
-    <script type="text/javascript" src="/js/src/even.js?v=2.10.2"></script>
-<script type="text/javascript" src="/js/src/bootstrap.js?v=2.10.2"></script>
+  </script><script type="text/javascript" src="/lib/jquery/jquery.min.js"></script>
+  <script type="text/javascript" src="/lib/slideout/slideout.js"></script>
+  <script type="text/javascript" src="/lib/fancybox/jquery.fancybox.pack.js"></script>
+  <script type="text/javascript" src="/lib/pjax/jquery.pjax.min.js"></script>
+  <script type="text/javascript" src="/lib/nprogress/nprogress.min.js"></script>
+  <script type="text/javascript" src="/js/src/even.js?v=2.11.0"></script>
+<script type="text/javascript" src="/js/src/bootstrap.js?v=2.11.0"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/2.2.0/anime.min.js" integrity="sha384-BnFYVbw3PHhz5qWXTCSL12MjPc3KxjdKPx7R4R5JjIzxFmYX267NDyJ9B/nZANdg" crossorigin="anonymous"></script>
 <script src="/js/src/transition.min.js"></script>
 
@@ -572,6 +350,5 @@
  }else{ //如果是手机
  
  }
- </script>
-  </body>
+ </script></body>
 </html>

@@ -1,8 +1,6 @@
 <!DOCTYPE html>
 <html lang="zh-cn">
-  <head>
-    
-<meta charset="UTF-8"/>
+  <head><meta charset="UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
 
@@ -15,52 +13,13 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
 
-
-
-  <meta name="description" content="python中type和object"/>
-
-
-
-
-  <meta name="keywords" content="python, Arian's Blog" />
-
-
-
-
-
-
-
-
-
-
-  <link rel="alternate" href="/atom.xml" title="Arian's Blog">
-
-
-
-
-  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=2.10.2" />
-
-
-
+<meta name="description" content="python中type和object"/><meta name="keywords" content="python, Arian's Blog" /><link rel="alternate" href="/atom.xml" title="Arian's Blog"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=2.11.0" />
 <link rel="canonical" href="https://arianx.me/2018/05/31/type-and-object-explore/"/>
 
+<link rel="stylesheet" type="text/css" href="/lib/fancybox/jquery.fancybox.css" /><link rel="stylesheet" type="text/css" href="/lib/nprogress/nprogress.min.css" />
+<link rel="stylesheet" type="text/css" href="/css/style.css?v=2.11.0" />
 
-
-  <link rel="stylesheet" type="text/css" href="/lib/fancybox/jquery.fancybox.css" />
-
-
-
-
-  <link rel="stylesheet" type="text/css" href="/lib/nprogress/nprogress.min.css" />
-
-
-
-<link rel="stylesheet" type="text/css" href="/css/style.css?v=2.10.2" />
-
-
-
-  
-  <script id="baidu_analytics">
+<script id="baidu_analytics">
     var _hmt = _hmt || [];
     (function() {
       var hm = document.createElement("script");
@@ -68,12 +27,7 @@
       var s = document.getElementsByTagName("script")[0];
       s.parentNode.insertBefore(hm, s);
     })();
-  </script>
-
-
-
-
-  <script id="baidu_push">
+  </script><script id="baidu_push">
 (function(){
     var bp = document.createElement('script');
     var curProtocol = window.location.protocol.split(':')[0];
@@ -87,20 +41,11 @@
     s.parentNode.insertBefore(bp, s);
 })();
 </script>
-
-
-
-
-
-
-
-
-
 <script>
-  window.config = {"leancloud":{"app_id":null,"app_key":null},"toc":true,"fancybox":true,"pjax":true};
+  window.config = {"leancloud":{"app_id":null,"app_key":null},"toc":true,"fancybox":true,"pjax":true,"latex":false};
 </script>
 
-    <title> python中type和object - Arian's Blog </title>
+    <title>python中type和object - Arian's Blog</title>
   </head>
 
   <body><div id="mobile-navbar" class="mobile-navbar">
@@ -115,45 +60,19 @@
 </div>
 
 <nav id="mobile-menu" class="mobile-menu slideout-menu">
-  <ul class="mobile-menu-list">
-    
-      <a href="/">
-        <li class="mobile-menu-item">
-          
-          
-            首页
-          
-        </li>
-      </a>
-    
-      <a href="/archives/">
-        <li class="mobile-menu-item">
-          
-          
-            归档
-          
-        </li>
-      </a>
-    
-      <a href="/tags">
-        <li class="mobile-menu-item">
-          
-          
-            标签
-          
-        </li>
-      </a>
-    
-      <a href="/about">
-        <li class="mobile-menu-item">
-          
-          
-            关于
-          
-        </li>
-      </a>
-    
-  </ul>
+  <ul class="mobile-menu-list"><a href="/">
+        <li class="mobile-menu-item">首页
+          </li>
+      </a><a href="/archives/">
+        <li class="mobile-menu-item">归档
+          </li>
+      </a><a href="/tags">
+        <li class="mobile-menu-item">标签
+          </li>
+      </a><a href="/about">
+        <li class="mobile-menu-item">关于
+          </li>
+      </a></ul>
 </nav>
 
     <div class="container" id="mobile-panel" style="z-index:0">
@@ -161,103 +80,59 @@
   <a href="/." class="logo">Arian's Blog</a>
 </div>
 
-<nav class="site-navbar">
-  
-    <ul id="menu" class="menu">
-      
-        <li class="menu-item">
+<nav class="site-navbar"><ul id="menu" class="menu"><li class="menu-item">
           <a class="menu-item-link" href="/">
-            
-            
-              首页
-            
-          </a>
+            首页
+            </a>
         </li>
-      
-        <li class="menu-item">
+      <li class="menu-item">
           <a class="menu-item-link" href="/archives/">
-            
-            
-              归档
-            
-          </a>
+            归档
+            </a>
         </li>
-      
-        <li class="menu-item">
+      <li class="menu-item">
           <a class="menu-item-link" href="/tags">
-            
-            
-              标签
-            
-          </a>
+            标签
+            </a>
         </li>
-      
-        <li class="menu-item">
+      <li class="menu-item">
           <a class="menu-item-link" href="/about">
-            
-            
-              关于
-            
-          </a>
+            关于
+            </a>
         </li>
-      
-    </ul>
-  
-</nav>
+      </ul></nav>
 
 <div class="waifu" style="z-index:9999">
     <div class="waifu-tips" style="z-index:9999"></div>
     <canvas id="live2d" width="240" height="220" class="live2d" style="z-index:9999"></canvas>
 </div>
-
-      </header>
+</header>
 
       <main id="main" class="main">
         <div class="content-wrapper">
-          <div id="content" class="content">
-            
-  
-  <article class="post">
+          <div id="content" class="content"><article class="post">
     <header class="post-header">
-      <h1 class="post-title">
-        
-          python中type和object
-        
-      </h1>
+      <h1 class="post-title">python中type和object
+        </h1>
 
       <div class="post-meta">
         <span class="post-time">
           2018-05-31
-        </span>
-        
-          <span class="post-category">
-            
-              <a href="/categories/python/">python</a>
-            
-          </span>
-        
-        
-      </div>
+        </span><span class="post-category">
+            <a href="/categories/python/">python</a>
+            </span>
+        </div>
     </header>
 
-    
-    
-  <div class="post-toc" id="post-toc">
+    <div class="post-toc" id="post-toc">
     <h2 class="post-toc-title">文章目录</h2>
     <div class="post-toc-content">
       <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#type和object"><span class="toc-text">type和object</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#继承和实例化"><span class="toc-text">继承和实例化</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#作为继承关系顶点的object"><span class="toc-text">作为继承关系顶点的object</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#作为对象的顶点的type"><span class="toc-text">作为对象的顶点的type</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#type与object"><span class="toc-text">type与object</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#元编程"><span class="toc-text">元编程</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#参考"><span class="toc-text">参考</span></a></li></ol>
     </div>
-  </div>
-
-
-
-    <div class="post-content">
-      
-        <blockquote>
+  </div><div class="post-content"><blockquote>
 <p>一生一代一双人</p>
 </blockquote>
 <h2 id="type和object"><a href="#type和object" class="headerlink" title="type和object"></a>type和object</h2><p>python中内置了两个类，type和object，用isinstance和issubclass测试这两个类会发现一些奇怪的特性，如下：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># object是自身的实例</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>isinstance(object, object)</span><br><span class="line"><span class="keyword">True</span></span><br><span class="line"><span class="comment"># object也是type的实例</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>isinstance(object, type)</span><br><span class="line"><span class="keyword">True</span></span><br><span class="line"><span class="comment"># type是自身的实例</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>isinstance(type, type)</span><br><span class="line"><span class="keyword">True</span></span><br><span class="line"><span class="comment"># type是object的实例</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>isinstance(type, object)</span><br><span class="line"><span class="keyword">True</span></span><br><span class="line"><span class="comment"># object是自身的子类</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>issubclass(object, object)</span><br><span class="line"><span class="keyword">True</span></span><br><span class="line"><span class="comment"># object不是type的子类</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>issubclass(object, type)</span><br><span class="line"><span class="keyword">False</span></span><br><span class="line"><span class="comment"># type是自身的子类</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>issubclass(type, type)</span><br><span class="line"><span class="keyword">True</span></span><br><span class="line"><span class="comment"># type也是object的子类</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>issubclass(type, object)</span><br><span class="line"><span class="keyword">True</span></span><br></pre></td></tr></table></figure></p>
-<a id="more"></a>
 <p>可以看到，在这里面，type和object互为实例和子类，只有一个例外。而平时，在我们编写程序的过程中，也时常会注意到我们自己的类会有一些属性指向type和object，如：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="class"><span class="keyword">class</span> <span class="title">Foo</span>:</span></span><br><span class="line"><span class="meta">... </span>    <span class="keyword">pass</span></span><br><span class="line">...</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>Foo.__class__</span><br><span class="line">&lt;<span class="class"><span class="keyword">class</span> '<span class="title">type</span>'&gt;</span></span><br><span class="line"><span class="class">&gt;&gt;&gt; <span class="title">Foo</span>.<span class="title">__base__</span></span></span><br><span class="line"><span class="class">&lt;<span class="title">class</span> '<span class="title">object</span>'&gt;</span></span><br></pre></td></tr></table></figure></p>
 <p>那么，type和object这两个类有怎样的区别和联系呢？本文将探讨一些这方面的内容。</p>
 <h2 id="继承和实例化"><a href="#继承和实例化" class="headerlink" title="继承和实例化"></a>继承和实例化</h2><p>类的继承和实例化是编程语言的面向对象特性里面重要的两个方面，对于拥有一切皆是对象语言的python，自然也对其有良好的实现。并且得益于python动态语言的性质，我们可以在程序运行时方便的内省对象的各项属性，如上的：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="class"><span class="keyword">class</span> <span class="title">Foo</span>:</span></span><br><span class="line"><span class="meta">... </span>    <span class="keyword">pass</span></span><br><span class="line">...</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="class"><span class="keyword">class</span> <span class="title">Bar</span>:</span></span><br><span class="line"><span class="meta">... </span>    <span class="keyword">pass</span></span><br><span class="line">...</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>f = Foo()</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>f.__class__</span><br><span class="line">&lt;<span class="class"><span class="keyword">class</span> '<span class="title">__main__</span>.<span class="title">Foo</span>'&gt;</span></span><br><span class="line">&gt;&gt;&gt; b = Bar()</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>b.__class__</span><br><span class="line">&lt;<span class="class"><span class="keyword">class</span> '<span class="title">__main__</span>.<span class="title">Bar</span>'&gt;</span></span><br></pre></td></tr></table></figure></p>
@@ -268,7 +143,7 @@
 <p>python还规定，object类没有父类。如：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="class"><span class="keyword">class</span> <span class="title">Foo</span>:</span></span><br><span class="line"><span class="meta">... </span>    <span class="keyword">pass</span></span><br><span class="line">...</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>Foo.__base__</span><br><span class="line">&lt;<span class="class"><span class="keyword">class</span> '<span class="title">object</span>'&gt;</span></span><br><span class="line"><span class="class">&gt;&gt;&gt; <span class="title">issubclass</span><span class="params">(Foo, object)</span></span></span><br><span class="line"><span class="class"><span class="title">True</span></span></span><br><span class="line">&gt;&gt;&gt; f = Foo()</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>isinstance(f, object)</span><br><span class="line"><span class="keyword">True</span></span><br><span class="line"><span class="comment"># object没有父类</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>object.__base__</span><br><span class="line">&gt;&gt;&gt;</span><br></pre></td></tr></table></figure></p>
 <h2 id="作为对象的顶点的type"><a href="#作为对象的顶点的type" class="headerlink" title="作为对象的顶点的type"></a>作为对象的顶点的type</h2><p>前面说过，在python中，一切皆是对象，类也是对象。是对象就应该有其对应的构造类型。一般的对象由它们的类实例而来。那么作为类本身，它们应该由哪个类实例而来呢？在python中，这个类就是type，<strong>一切的类都是type类型的实例，type的构造类是其自身，type是自身的实例。</strong></p>
 <p>因此，type代表了一切实例关系的顶点。可以通过如下的属性观察到：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="class"><span class="keyword">class</span> <span class="title">Foo</span>:</span></span><br><span class="line"><span class="meta">... </span>    <span class="keyword">pass</span></span><br><span class="line">...</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>Foo.__class__</span><br><span class="line">&lt;<span class="class"><span class="keyword">class</span> '<span class="title">type</span>'&gt;</span></span><br></pre></td></tr></table></figure></p>
-<!--MORE-->
+<a id="more"></a>
 <h2 id="type与object"><a href="#type与object" class="headerlink" title="type与object"></a>type与object</h2><p>于是，由前面的叙述，可以总结出，object是python里面向对象继承关系的体现，一切的类都是object的子类；type是python里“一切皆是对象”的动态特性的体现，一切的类都是type类型的实例，由type类型构造而来。并且，object类没有父类，type是其自身的实例。</p>
 <p>现在，就可以解释开头的奇特特性了：</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>isinstance(type, type)</span><br><span class="line"><span class="keyword">True</span></span><br></pre></td></tr></table></figure>
@@ -292,14 +167,8 @@
 <p><a href="http://www.cnblogs.com/busui/p/7283137.html" target="_blank" rel="noopener">http://www.cnblogs.com/busui/p/7283137.html</a></p>
 <p><a href="https://www.zhihu.com/question/38791962" target="_blank" rel="noopener">https://www.zhihu.com/question/38791962</a></p>
 
-      
-    </div>
-
-    
-      
-      
-
-  <div class="post-copyright">
+      </div>
+      <div class="post-copyright">
     <p class="copyright-item">
       <span>原文作者: </span>
       <a href="https://arianx.me">Arian</a>
@@ -309,73 +178,35 @@
       <a href="https://arianx.me/2018/05/31/type-and-object-explore/">https://arianx.me/2018/05/31/type-and-object-explore/</a>
     </p>
     <p class="copyright-item">
-      <span>许可协议: </span>
-      
-      本文采用<a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/" target="_blank">知识共享署名-非商业性使用 4.0 国际许可协议</a>
+      <span>许可协议: </span>本文采用<a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/" target="_blank">知识共享署名-非商业性使用 4.0 国际许可协议</a>
     </p>
   </div>
-
-
-
-      
-      
-    
-
-    
       <footer class="post-footer">
+        <div class="post-tags">
+            <a href="/tags/python/">python</a>
+            </div>
         
-          <div class="post-tags">
-            
-              <a href="/tags/python/">python</a>
-            
-          </div>
-        
-        
-        
-  <nav class="post-nav">
-    
-      <a class="prev" href="/2018/05/31/meta-programming-explore/">
+        <nav class="post-nav"><a class="prev" href="/2018/05/31/meta-programming-explore/">
         <i class="iconfont icon-left"></i>
         <span class="prev-text nav-default">内省python元类执行流程</span>
         <span class="prev-text nav-mobile">上一篇</span>
       </a>
-    
-    
-      <a class="next" href="/2018/05/14/Explore-the-usage-of-super/">
+    <a class="next" href="/2018/05/14/Explore-the-usage-of-super/">
         <span class="next-text nav-default">浅析python中super用法，兼及继承机制</span>
         <span class="prev-text nav-mobile">下一篇</span>
         <i class="iconfont icon-right"></i>
       </a>
-    
-  </nav>
-
-
-      </footer>
-    
-
-  </article>
-
-
-          </div>
-          
-  <div class="comments" id="comments">
-    
-      <div id="disqus_thread">
+    </nav></footer>
+    </article></div><div class="comments" id="comments"><div id="disqus_thread">
         <noscript>
           Please enable JavaScript to view the
           <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a>
         </noscript>
       </div>
-    
-  </div>
-
-
-        </div>
+    </div></div>
       </main>
 
-      <footer id="footer" class="footer">
-
-  <div class="social-links">
+      <footer id="footer" class="footer"><div class="social-links">
     
       
         
@@ -424,14 +255,8 @@
       </a>
 
     
-    
-      <a href="/atom.xml" class="iconfont icon-rss" title="rss"></a>
-    
-  </div>
-
-
-
-<div class="copyright">
+    <a href="/atom.xml" class="iconfont icon-rss" title="rss"></a>
+    </div><div class="copyright">
   <span class="power-by">
     由 <a class="hexo-link" href="https://hexo.io/">Hexo</a> 强力驱动
   </span>
@@ -441,31 +266,18 @@
     <a class="theme-link" href="https://github.com/ahonn/hexo-theme-even">Even</a>
   </span>
 
-  <span class="copyright-year">
-    
-    &copy; 
-     
-      2017 - 
-    
-    2019
-
-    <span class="heart">
+  <span class="copyright-year">&copy;2017 - 2019<span class="heart">
       <i class="iconfont icon-heart"></i>
     </span>
     <span class="author">Arian</span>
   </span>
 </div>
-
-      </footer>
+</footer>
 
       <div class="back-to-top" id="back-to-top">
         <i class="iconfont icon-up"></i>
       </div>
-    </div>
-
-    
-  
-  <script type="text/javascript">
+    </div><script type="text/javascript">
     var disqus_config = function () {
         this.page.url = 'https://arianx.me/2018/05/31/type-and-object-explore/';
         this.page.identifier = '2018/05/31/type-and-object-explore/';
@@ -479,49 +291,13 @@
     s.setAttribute('data-timestamp', +new Date());
     (d.head || d.body).appendChild(s);
     })();  
-  </script>
-
-  
-
-  
-
-
-
-    
-  
-
-
-
-  
-  
-
-
-
-
-
-  
-    <script type="text/javascript" src="/lib/jquery/jquery.min.js"></script>
-  
-
-  
-    <script type="text/javascript" src="/lib/slideout/slideout.js"></script>
-  
-
-  
-    <script type="text/javascript" src="/lib/fancybox/jquery.fancybox.pack.js"></script>
-  
-
-  
-    <script type="text/javascript" src="/lib/pjax/jquery.pjax.min.js"></script>
-  
-
-  
-    <script type="text/javascript" src="/lib/nprogress/nprogress.min.js"></script>
-  
-
-
-    <script type="text/javascript" src="/js/src/even.js?v=2.10.2"></script>
-<script type="text/javascript" src="/js/src/bootstrap.js?v=2.10.2"></script>
+  </script><script type="text/javascript" src="/lib/jquery/jquery.min.js"></script>
+  <script type="text/javascript" src="/lib/slideout/slideout.js"></script>
+  <script type="text/javascript" src="/lib/fancybox/jquery.fancybox.pack.js"></script>
+  <script type="text/javascript" src="/lib/pjax/jquery.pjax.min.js"></script>
+  <script type="text/javascript" src="/lib/nprogress/nprogress.min.js"></script>
+  <script type="text/javascript" src="/js/src/even.js?v=2.11.0"></script>
+<script type="text/javascript" src="/js/src/bootstrap.js?v=2.11.0"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/2.2.0/anime.min.js" integrity="sha384-BnFYVbw3PHhz5qWXTCSL12MjPc3KxjdKPx7R4R5JjIzxFmYX267NDyJ9B/nZANdg" crossorigin="anonymous"></script>
 <script src="/js/src/transition.min.js"></script>
 
@@ -552,6 +328,5 @@
  }else{ //如果是手机
  
  }
- </script>
-  </body>
+ </script></body>
 </html>

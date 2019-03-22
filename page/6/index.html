@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+  <head><meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+<meta name="description" content="记录自己的学习与生活"/><link rel="alternate" href="/atom.xml" title="Arian's Blog"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=2.11.0" />
+<link rel="canonical" href="https://arianx.me/page/6/"/>
+
+<link rel="stylesheet" type="text/css" href="/lib/fancybox/jquery.fancybox.css" /><link rel="stylesheet" type="text/css" href="/lib/nprogress/nprogress.min.css" />
+<link rel="stylesheet" type="text/css" href="/css/style.css?v=2.11.0" />
+
+<script id="baidu_analytics">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?7da15ed69b10673f5e71fb736eca6373";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script><script id="baidu_push">
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+<script>
+  window.config = {"leancloud":{"app_id":null,"app_key":null},"toc":true,"fancybox":true,"pjax":true,"latex":false};
+</script>
+
+    <title>Arian's Blog</title>
+  </head>
+
+  <body><div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/." class="logo">Arian's Blog</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list"><a href="/">
+        <li class="mobile-menu-item">首页
+          </li>
+      </a><a href="/archives/">
+        <li class="mobile-menu-item">归档
+          </li>
+      </a><a href="/tags">
+        <li class="mobile-menu-item">标签
+          </li>
+      </a><a href="/about">
+        <li class="mobile-menu-item">关于
+          </li>
+      </a></ul>
+</nav>
+
+    <div class="container" id="mobile-panel" style="z-index:0">
+      <header id="header" class="header"><div class="logo-wrapper">
+  <a href="/." class="logo">Arian's Blog</a>
+</div>
+
+<nav class="site-navbar"><ul id="menu" class="menu"><li class="menu-item">
+          <a class="menu-item-link" href="/">
+            首页
+            </a>
+        </li>
+      <li class="menu-item">
+          <a class="menu-item-link" href="/archives/">
+            归档
+            </a>
+        </li>
+      <li class="menu-item">
+          <a class="menu-item-link" href="/tags">
+            标签
+            </a>
+        </li>
+      <li class="menu-item">
+          <a class="menu-item-link" href="/about">
+            关于
+            </a>
+        </li>
+      </ul></nav>
+
+<div class="waifu" style="z-index:9999">
+    <div class="waifu-tips" style="z-index:9999"></div>
+    <canvas id="live2d" width="240" height="220" class="live2d" style="z-index:9999"></canvas>
+</div>
+</header>
+
+      <main id="main" class="main">
+        <div class="content-wrapper">
+          <div id="content" class="content"><section id="posts" class="posts"><article class="post">
+    <header class="post-header">
+      <h1 class="post-title"><a class="post-link" href="/2018/05/31/meta-programming-explore/">内省python元类执行流程</a>
+        </h1>
+
+      <div class="post-meta">
+        <span class="post-time">
+          2018-05-31
+        </span><span class="post-category">
+            <a href="/categories/python/">python</a>
+            </span>
+        </div>
+    </header>
+
+    <div class="post-content"><h2 id="引言"><a href="#引言" class="headerlink" title="引言"></a>引言</h2><p>上一篇文章里面曾简短提到了在python中使用type类可以实现元编程。实际上，在python，存在几种类型的元编程，包括使用装饰器动态修改类或函数的功能、使用魔术方法重写python内置操作符的行为等，还有使用元类在运行时动态的创建和修改类。本文主要探讨python中使用元类进行元编程时，其中类方法的调用顺序和流程的问题。我想理解了这一点就会对使用元类有更深一点的认知。</p>
+<h2 id="什么是元类"><a href="#什么是元类" class="headerlink" title="什么是元类"></a>什么是元类</h2><p>然而，究竟什么是<code>元类</code>？要理解这一点，就需要理解python独特的动态语言特性。在python中，一切都被视为对象。对象的一大特性就是可以在程序运行时，根据不同的上下文而创建。那么，依照这种思想，类也应该是一种对象。把类视为一种对象，在程序运行时，像对象那样动态创建或修改，这种行为就是元编程的一种。能够在程序运行时动态<code>创建或修改类的类</code>就被称为<code>元类</code>。</p>
+<p>所有的对象都由某个类构造而来，那么对于元类，因该由哪种类构造而来呢？在python中，这个类就是type。所有的类都是type的实例，这实际上蕴含了一个思想，所有类都可以<code>看作</code>(只是看作)由type类创建而来的。type是一个类，这个类在运行时构造了另外的类。type类是python内置的一个元类。所以，藉继承type类，我们就可以创建出自己的元类。</p>
+<p>一个简单的示例：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="class"><span class="keyword">class</span> <span class="title">MetaClass</span><span class="params">(type)</span>:</span></span><br><span class="line"><span class="meta">... </span>    <span class="keyword">pass</span></span><br><span class="line">...</span><br><span class="line"><span class="comment"># 在声明中使用metaclass指定元类，就会用指定的元类来构建类</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="class"><span class="keyword">class</span> <span class="title">SubClass</span><span class="params">(metaclass=MetaClass)</span>:</span></span><br><span class="line"><span class="meta">... </span>    <span class="keyword">pass</span></span><br><span class="line">...</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>SubClass.__class__</span><br><span class="line">&lt;<span class="class"><span class="keyword">class</span> '<span class="title">__main__</span>.<span class="title">MetaClass</span>'&gt;</span></span><br><span class="line"><span class="class">&gt;&gt;&gt; <span class="title">MetaClass</span>.<span class="title">__base__</span></span></span><br><span class="line"><span class="class">&lt;<span class="title">class</span> '<span class="title">type</span>'&gt;</span></span><br></pre></td></tr></table></figure></p>
+<p>这个简单的元类示例什么都没有做，但它体现出了python元编程的一些特性。SubClass的<code>__class__</code>属性变为了MetaClass，表明这个类是由MetaClass类，而不是通常的type类所构造的。同时，可以看到我们自定义的元类是type的子类。</p>
+<h2 id="一些与元类编程相关的特殊方法"><a href="#一些与元类编程相关的特殊方法" class="headerlink" title="一些与元类编程相关的特殊方法"></a>一些与元类编程相关的特殊方法</h2><p>在了解真正使用元类编程的方法之前，需要预备一些知识——一些与构造类有关的特殊方法。</p>
+<h3 id="new-方法"><a href="#new-方法" class="headerlink" title="__new__方法"></a><code>__new__</code>方法</h3><p><code>__new__</code>方法是一个静态方法。当调用类构造一个实例时，这个实例就是由<code>__new__</code>方法产生。<code>__new__</code>方法的第一个参数是调用的类本身。</p>
+<h3 id="init-方法："><a href="#init-方法：" class="headerlink" title="__init__方法："></a><code>__init__</code>方法：</h3><p><code>__init__</code>方法修饰将要构造的实例。在返回实例之前做一些初始化工作。</p>
+<h3 id="call-方法："><a href="#call-方法：" class="headerlink" title="__call__方法："></a><code>__call__</code>方法：</h3><p>当调用一个实例时，会尝试调用它的构造类（及父类）的<code>__call__</code>方法。</p>
+<h2 id="另一个例子"><a href="#另一个例子" class="headerlink" title="另一个例子"></a>另一个例子</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line">info = <span class="string">'Success'</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">SetUp</span><span class="params">(type)</span>:</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__new__</span><span class="params">(cls, *args, **kwargs)</span>:</span></span><br><span class="line">        <span class="comment"># 调用超类中的__new__方法得到将要产生的子类对象。</span></span><br><span class="line">        sub_cls = super().__new__(cls, *args, **kwargs)</span><br><span class="line">        <span class="keyword">return</span> sub_cls</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self, *args, **kwargs)</span>:</span></span><br><span class="line">        <span class="comment"># 根据外部信息修饰子类</span></span><br><span class="line">        self._info = info</span><br><span class="line">        <span class="keyword">return</span> self</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__call__</span><span class="params">(cls, *args, **kwargs)</span>:</span></span><br><span class="line">        <span class="comment"># 调用子类产生实例，实际上是调用了元类中的__call__方法。这里使用这一点实现单例模式。</span></span><br><span class="line">        <span class="keyword">if</span> <span class="keyword">not</span> getattr(cls, <span class="string">'_instance'</span>, <span class="keyword">None</span>):</span><br><span class="line">            cls._instance = cls.__new__(cls)</span><br><span class="line">            cls.__init__(cls._instance, *args, **kwargs)</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> cls._instance</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">ExcuteClass</span><span class="params">(metaclass=SetUp)</span>:</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="comment"># 只会被打印一次。</span></span><br><span class="line">        print(<span class="string">'Info is: '</span>, self._info)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">excute1 = ExcuteClass()</span><br><span class="line">excute2 = ExcuteClass()</span><br><span class="line">print(excute1 == excute2)</span><br></pre></td></tr></table></figure>
+<p>执行结果为：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Info <span class="keyword">is</span>:  Success</span><br><span class="line"><span class="keyword">True</span></span><br></pre></td></tr></table></figure></p>
+<p>这个例子展示了元类的一些动态特性。在这里第一个<code>info = &#39;Success&#39;</code>可以看作随上下文不同而变化的信息，元类SetUp根据这个信息的不同将会创建蕴含不同信息的子类。同时，元类本身通过<code>__call__</code>方法干涉了子类实例的创建，实际上实现了<code>单例模式</code>。在这里，子类只会被初始化一次，只会产生一个实例。</p>
+<h2 id="内省执行流程"><a href="#内省执行流程" class="headerlink" title="内省执行流程"></a>内省执行流程</h2><p>那么，使用元类时，详细的顺序究竟是怎么样的呢？先后调用了哪些方法？刚接触元类时，或许许多人都会有这些疑惑。幸亏得益于python强大的动态性，我们可以在运行时方便的内省程序的状况。</p>
+<p>可以藉由下面的程序观察到元类的执行流程：<br>
+          <div class="read-more">
+            <a href="/2018/05/31/meta-programming-explore/" class="read-more-link">阅读更多</a>
+          </div>
+        </div></article>
+      <article class="post">
+    <header class="post-header">
+      <h1 class="post-title"><a class="post-link" href="/2018/05/31/type-and-object-explore/">python中type和object</a>
+        </h1>
+
+      <div class="post-meta">
+        <span class="post-time">
+          2018-05-31
+        </span><span class="post-category">
+            <a href="/categories/python/">python</a>
+            </span>
+        </div>
+    </header>
+
+    <div class="post-content"><blockquote>
+<p>一生一代一双人</p>
+</blockquote>
+<h2 id="type和object"><a href="#type和object" class="headerlink" title="type和object"></a>type和object</h2><p>python中内置了两个类，type和object，用isinstance和issubclass测试这两个类会发现一些奇怪的特性，如下：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># object是自身的实例</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>isinstance(object, object)</span><br><span class="line"><span class="keyword">True</span></span><br><span class="line"><span class="comment"># object也是type的实例</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>isinstance(object, type)</span><br><span class="line"><span class="keyword">True</span></span><br><span class="line"><span class="comment"># type是自身的实例</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>isinstance(type, type)</span><br><span class="line"><span class="keyword">True</span></span><br><span class="line"><span class="comment"># type是object的实例</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>isinstance(type, object)</span><br><span class="line"><span class="keyword">True</span></span><br><span class="line"><span class="comment"># object是自身的子类</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>issubclass(object, object)</span><br><span class="line"><span class="keyword">True</span></span><br><span class="line"><span class="comment"># object不是type的子类</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>issubclass(object, type)</span><br><span class="line"><span class="keyword">False</span></span><br><span class="line"><span class="comment"># type是自身的子类</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>issubclass(type, type)</span><br><span class="line"><span class="keyword">True</span></span><br><span class="line"><span class="comment"># type也是object的子类</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>issubclass(type, object)</span><br><span class="line"><span class="keyword">True</span></span><br></pre></td></tr></table></figure></p>
+<p>可以看到，在这里面，type和object互为实例和子类，只有一个例外。而平时，在我们编写程序的过程中，也时常会注意到我们自己的类会有一些属性指向type和object，如：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="class"><span class="keyword">class</span> <span class="title">Foo</span>:</span></span><br><span class="line"><span class="meta">... </span>    <span class="keyword">pass</span></span><br><span class="line">...</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>Foo.__class__</span><br><span class="line">&lt;<span class="class"><span class="keyword">class</span> '<span class="title">type</span>'&gt;</span></span><br><span class="line"><span class="class">&gt;&gt;&gt; <span class="title">Foo</span>.<span class="title">__base__</span></span></span><br><span class="line"><span class="class">&lt;<span class="title">class</span> '<span class="title">object</span>'&gt;</span></span><br></pre></td></tr></table></figure></p>
+<p>那么，type和object这两个类有怎样的区别和联系呢？本文将探讨一些这方面的内容。</p>
+<h2 id="继承和实例化"><a href="#继承和实例化" class="headerlink" title="继承和实例化"></a>继承和实例化</h2><p>类的继承和实例化是编程语言的面向对象特性里面重要的两个方面，对于拥有一切皆是对象语言的python，自然也对其有良好的实现。并且得益于python动态语言的性质，我们可以在程序运行时方便的内省对象的各项属性，如上的：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="class"><span class="keyword">class</span> <span class="title">Foo</span>:</span></span><br><span class="line"><span class="meta">... </span>    <span class="keyword">pass</span></span><br><span class="line">...</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="class"><span class="keyword">class</span> <span class="title">Bar</span>:</span></span><br><span class="line"><span class="meta">... </span>    <span class="keyword">pass</span></span><br><span class="line">...</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>f = Foo()</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>f.__class__</span><br><span class="line">&lt;<span class="class"><span class="keyword">class</span> '<span class="title">__main__</span>.<span class="title">Foo</span>'&gt;</span></span><br><span class="line">&gt;&gt;&gt; b = Bar()</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>b.__class__</span><br><span class="line">&lt;<span class="class"><span class="keyword">class</span> '<span class="title">__main__</span>.<span class="title">Bar</span>'&gt;</span></span><br></pre></td></tr></table></figure></p>
+<p>可以看到，对象的<code>__class__</code>属性实际上表明了这个对象有哪个类实例化而来。前面说到，在python中，一切皆是对象，类也是一种对象，那么，作为对象的类也拥有<code>__class__</code>属性。而作为对象的类，其<code>__class__</code>属性指向的 type，就表明，这些类是由 type这个元类构建而来。</p>
+<p>而<code>__base__</code>属性的特性如下：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="class"><span class="keyword">class</span> <span class="title">Foo</span><span class="params">()</span>:</span></span><br><span class="line"><span class="meta">... </span>    <span class="keyword">pass</span></span><br><span class="line">...</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="class"><span class="keyword">class</span> <span class="title">Bar</span><span class="params">(Foo)</span>:</span></span><br><span class="line"><span class="meta">... </span>    <span class="keyword">pass</span></span><br><span class="line">...</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>Bar.__base__</span><br><span class="line">&lt;<span class="class"><span class="keyword">class</span> '<span class="title">__main__</span>.<span class="title">Foo</span>'&gt;</span></span><br></pre></td></tr></table></figure></p>
+<p>可以看到<code>__base__</code>属性实际上指向一个类的父类。如果一个类继承了另一个类，那么这个类的 <code>__base__</code>属性就指向它继承的那个类。（如果是多重继承，这些类就在<code>__bases__</code>属性里面）</p>
+<h2 id="作为继承关系顶点的object"><a href="#作为继承关系顶点的object" class="headerlink" title="作为继承关系顶点的object"></a>作为继承关系顶点的object</h2><p>一个类可以继承自其它类，被继承的那个类称为父类。在python中，如果没有显示指定一个类继承自哪个父类，那么这个类就继承自object类。这意味着，在python中，<strong>object实际是所有类的父类，是继承树的根节点，其内蕴含了一些类基本的共有方法。</strong></p>
+<p>python还规定，object类没有父类。如：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="class"><span class="keyword">class</span> <span class="title">Foo</span>:</span></span><br><span class="line"><span class="meta">... </span>    <span class="keyword">pass</span></span><br><span class="line">...</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>Foo.__base__</span><br><span class="line">&lt;<span class="class"><span class="keyword">class</span> '<span class="title">object</span>'&gt;</span></span><br><span class="line"><span class="class">&gt;&gt;&gt; <span class="title">issubclass</span><span class="params">(Foo, object)</span></span></span><br><span class="line"><span class="class"><span class="title">True</span></span></span><br><span class="line">&gt;&gt;&gt; f = Foo()</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>isinstance(f, object)</span><br><span class="line"><span class="keyword">True</span></span><br><span class="line"><span class="comment"># object没有父类</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>object.__base__</span><br><span class="line">&gt;&gt;&gt;</span><br></pre></td></tr></table></figure></p>
+<h2 id="作为对象的顶点的type"><a href="#作为对象的顶点的type" class="headerlink" title="作为对象的顶点的type"></a>作为对象的顶点的type</h2><p>前面说过，在python中，一切皆是对象，类也是对象。是对象就应该有其对应的构造类型。一般的对象由它们的类实例而来。那么作为类本身，它们应该由哪个类实例而来呢？在python中，这个类就是type，<strong>一切的类都是type类型的实例，type的构造类是其自身，type是自身的实例。</strong></p>
+<p>因此，type代表了一切实例关系的顶点。可以通过如下的属性观察到：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="class"><span class="keyword">class</span> <span class="title">Foo</span>:</span></span><br><span class="line"><span class="meta">... </span>    <span class="keyword">pass</span></span><br><span class="line">...</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>Foo.__class__</span><br><span class="line">&lt;<span class="class"><span class="keyword">class</span> '<span class="title">type</span>'&gt;</span></span><br></pre></td></tr></table></figure></p>
+          <div class="read-more">
+            <a href="/2018/05/31/type-and-object-explore/" class="read-more-link">阅读更多</a>
+          </div>
+        </div></article>
+      <article class="post">
+    <header class="post-header">
+      <h1 class="post-title"><a class="post-link" href="/2018/05/14/Explore-the-usage-of-super/">浅析python中super用法，兼及继承机制</a>
+        </h1>
+
+      <div class="post-meta">
+        <span class="post-time">
+          2018-05-14
+        </span><span class="post-category">
+            <a href="/categories/python/">python</a>
+            </span>
+        </div>
+    </header>
+
+    <div class="post-content"><blockquote>
+<p>远在天边，我们一无所见，即使近在眼前，也仅仅是连续不断而变幻不定的表象。 </p>
+</blockquote>
+<h2 id="开始之前"><a href="#开始之前" class="headerlink" title="开始之前"></a>开始之前</h2><p>在学习python的过程中，一直对super的用法感到稍许疑惑。虽然直到它的基本使用方法，却一直觉得模模糊糊。本文将根据实例简要探讨python3中super函数的行为，以加强对super函数的认知，兼及一些相关方面的内容。</p>
+<p>本文将简要谈谈我对对象和继承机制的理解，最终探讨super的用法。</p>
+<h2 id="Ⅰ-面向对象机制"><a href="#Ⅰ-面向对象机制" class="headerlink" title="Ⅰ.面向对象机制"></a>Ⅰ.面向对象机制</h2><p><code>面向对象(OOP, Object Oriented Programming）</code>是目前编程语言中一种主流的思想，python从设计初期就已经是一门面向对象的语言。python为面向对象编程提供了强大的语法支持。因此，在python中，使用面向对象的方式进行程序设计是十分自然并且容易的。</p>
+<p>理所当然，一旦提到面向对象的编程思想，那么便会自然而然想到面向对象思想中的一些重要概念。比如说：<code>类（Class)</code>。类是一种数据结构，简单来说，可以理解为对某些拥有共同属性，或行为的对象的抽象。它可以视作这些拥有相同属性或行为的对象的蓝图，封装了这些对象的共同属性或行为，使得程序设计更模块化，提高了代码的可复用性——一个<code>对象（Object）</code>是它的类的实例，它能够访问它的构造类中的所有属性或方法。</p>
+<p>可以将python中的类与对象类比到现实中。这样，对象就是现实世界中的客体，是一种具体的实体。现实世界中的所有事物都可以看作一个对象。例如，一个人。当我们谈到这个对象时，我们所想到的，是这个带有数量词的、具体的、实在的个体，是“这个人”而不是“那个人”。而现实世界里面存在许许多多的人。这些所有的人有某些共同的特征，我们将这些特征聚合起来，所形成的一个抽象的、宽泛的“人”的这个形式，就是所有作为人的对象的类。</p>
+<p>每个具体的对象都有其独特的<code>标识</code>。例如，在现实中，每个人都会有一个名字。一般来说，在某个给定范围的命名空间中，这个标识是唯一的。我们可以说，某个具有独特标识符的对象属于什么类。例如，张三是人，就是说”张三”属于”人”这个类。这样，可以发现，一般情况下，凡是可以说成“某个东西是什么”这种句法的，都可以抽象出类与对象的关系。</p>
+<p>类比到现实中，类与对象是一种所属关系，对象是一种客观存在的实体。而放到具体的程序设计中来说，类可以视作对某些具有共同特征或行为的数据的<code>抽象</code>。</p>
+<h2 id="Ⅱ-类的继承机制"><a href="#Ⅱ-类的继承机制" class="headerlink" title="Ⅱ.类的继承机制"></a>Ⅱ.类的继承机制</h2><p>一个对象可以说成是某个类的实例，一般情况，就可以说成”对象是类”这种形式。然而，在许多情况下，在这样抽象之后，我们仍然可以发现，类也有其自身的所属。例如说，泰迪是一只熊，在这里，”泰迪”是具体的对象，”熊”是”泰迪”的类，而“熊”这个类，又由“哺乳动物”这个类细分而来。我们可以这样说，熊继承自哺乳动物，而泰迪既是一只熊，也是一只哺乳动物。这样，父类就可以理解为对类的基本属性的抽象，子类是对于父类的补充。</p>
+<p><img src="https://arian-blogs.oss-cn-beijing.aliyuncs.com/18-5-15/85242660.jpg" alt="补充"></p>
+<p>简单来说，对象之于类，是“某个东西是什么”，而子类之于父类，是子类补充了父类。</p>
+<p>在python中，如果一个子类继承了父类，就称这个父类为子类的<code>base class</code>，并且，这个子类的所有base class，都可以在<code>__bases__</code>属性中访问。这个子类的实例，也可以同时访问子类所有父类、以及后续的父类内的属性或方法（此处不考虑带前置双下划线的私有方法）。</p>
+<p>如：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="class"><span class="keyword">class</span> <span class="title">Animal</span><span class="params">()</span>:</span></span><br><span class="line"><span class="meta">... </span>    <span class="function"><span class="keyword">def</span> <span class="title">kind</span><span class="params">(self)</span>:</span></span><br><span class="line"><span class="meta">... </span>        print(<span class="string">"I'm an animal."</span>)</span><br><span class="line">...</span><br><span class="line">&gt;&gt;&gt;</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="class"><span class="keyword">class</span> <span class="title">Bird</span><span class="params">(Animal)</span>:</span></span><br><span class="line"><span class="meta">... </span>    <span class="function"><span class="keyword">def</span> <span class="title">skill</span><span class="params">(self)</span>:</span></span><br><span class="line"><span class="meta">... </span>        print(<span class="string">"I can fly."</span>)</span><br><span class="line">...</span><br><span class="line">&gt;&gt;&gt;</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>bird = Bird()</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>bird.skill()</span><br><span class="line">I can fly.</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>bird.kind()</span><br><span class="line">I<span class="string">'m an animal.</span></span><br></pre></td></tr></table></figure></p>
+<p>可见，实例可访问它的构造类以及之后的父类中的方法。</p>
+<p>同时，子类可以<code>覆盖</code>父类的方法。这样，访问实例中的这个方法时，就访问它的构造方法内重写的那个方法，而不向后追溯。</p>
+<p>如：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="class"><span class="keyword">class</span> <span class="title">Animal</span><span class="params">()</span>:</span></span><br><span class="line"><span class="meta">... </span>    <span class="function"><span class="keyword">def</span> <span class="title">kind</span><span class="params">(self)</span>:</span></span><br><span class="line"><span class="meta">... </span>        print(<span class="string">"I'm an animal."</span>)</span><br><span class="line">...</span><br><span class="line">&gt;&gt;&gt;</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="class"><span class="keyword">class</span> <span class="title">Bird</span><span class="params">(Animal)</span>:</span></span><br><span class="line"><span class="meta">... </span>    <span class="function"><span class="keyword">def</span> <span class="title">kind</span><span class="params">(self)</span>:</span></span><br><span class="line"><span class="meta">... </span>        print(<span class="string">"I'm a bird."</span>)</span><br><span class="line">...</span><br><span class="line">&gt;&gt;&gt;</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>bird = Bird()</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>bird.kind()</span><br><span class="line">I<span class="string">'m a bird.</span></span><br></pre></td></tr></table></figure></p>
+          <div class="read-more">
+            <a href="/2018/05/14/Explore-the-usage-of-super/" class="read-more-link">阅读更多</a>
+          </div>
+        </div></article>
+      <nav class="pagination"><a class="prev" href="/page/5/">
+        <i class="iconfont icon-left"></i>
+        <span class="prev-text">上一页</span>
+      </a>
+    <a class="next" href="/page/7/">
+        <span class="next-text">下一页</span>
+        <i class="iconfont icon-right"></i>
+      </a>
+    </nav></section></div></div>
+      </main>
+
+      <footer id="footer" class="footer"><div class="social-links">
+    
+      
+        
+          <a href="mailto:ysnyyhs@163.com" class="iconfont icon-email" title="email" target="_blank"></a>
+        
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+        
+          <a href="https://github.com/Arianxx" class="iconfont icon-github" title="github" target="_blank"></a>
+        
+      
+    
+      
+    
+      
+    
+      
+        
+          <a href="https://www.douban.com/people/131732783/" class="iconfont icon-douban" title="douban" target="_blank"></a>
+        
+      
+    
+      
+    
+      
+    
+      
+    
+
+    	<a href="https://music.163.com/#/user/home?id=101778288" class="myiconfont icon-163music" title="yun music" target="_blank">
+    	</a>
+
+      <a href="https://space.bilibili.com/3101019/#/" class="myiconfont icon-bilibili"
+      title="bilibili" target="_blank">
+      </a>
+
+    
+    <a href="/atom.xml" class="iconfont icon-rss" title="rss"></a>
+    </div><div class="copyright">
+  <span class="power-by">
+    由 <a class="hexo-link" href="https://hexo.io/">Hexo</a> 强力驱动
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    主题 - 
+    <a class="theme-link" href="https://github.com/ahonn/hexo-theme-even">Even</a>
+  </span>
+
+  <span class="copyright-year">&copy;2017 - 2019<span class="heart">
+      <i class="iconfont icon-heart"></i>
+    </span>
+    <span class="author">Arian</span>
+  </span>
+</div>
+</footer>
+
+      <div class="back-to-top" id="back-to-top">
+        <i class="iconfont icon-up"></i>
+      </div>
+    </div><script type="text/javascript" src="/lib/jquery/jquery.min.js"></script>
+  <script type="text/javascript" src="/lib/slideout/slideout.js"></script>
+  <script type="text/javascript" src="/lib/fancybox/jquery.fancybox.pack.js"></script>
+  <script type="text/javascript" src="/lib/pjax/jquery.pjax.min.js"></script>
+  <script type="text/javascript" src="/lib/nprogress/nprogress.min.js"></script>
+  <script type="text/javascript" src="/js/src/even.js?v=2.11.0"></script>
+<script type="text/javascript" src="/js/src/bootstrap.js?v=2.11.0"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/2.2.0/anime.min.js" integrity="sha384-BnFYVbw3PHhz5qWXTCSL12MjPc3KxjdKPx7R4R5JjIzxFmYX267NDyJ9B/nZANdg" crossorigin="anonymous"></script>
+<script src="/js/src/transition.min.js"></script>
+
+<script async src="/js/src/message.js"></script>
+<script src="/js/src/live2d.js"></script>
+
+<script type="text/javascript">
+	modelNames = ["default-costume.json", "pajamas-costume.json", "school-costume.json"]
+	modelNum = modelNames.length
+	randomName = modelNames[Math.floor(Math.random() * modelNum)]
+
+    loadlive2d("live2d", "/model/Pio/" + randomName);
+    $('.container').after("<canvas class='fireworks' style='position:fixed;left:0;top:0;pointer-events:none;z-index:999'></canvas>")
+</script>
+
+<script async type="text/javascript" src="/js/src/jquery.click-firewords.js"></script>
+
+
+<script type="text/javascript">//樱花
+ var system ={}; 
+ var p = navigator.platform; 
+ system.win = p.indexOf("Win") == 0; 
+ system.mac = p.indexOf("Mac") == 0; 
+ system.x11 = (p == "X11") || (p.indexOf("Linux") == 0); 
+ if(system.win||system.mac||system.xll){//如果是电脑
+ 
+ $.getScript("/js/src/yinghua.js");
+ }else{ //如果是手机
+ 
+ }
+ </script></body>
+</html>

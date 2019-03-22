@@ -1582,3 +1582,7 @@ h6 {
 #nprogress .spinner-icon {
   border-top-color: #9932CC;
   border-left-color: #9932CC; }
+
+.mjx-chtml:focus {
+  padding: 1px 0;
+  outline: none; }

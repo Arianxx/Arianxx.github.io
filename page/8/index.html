@@ -13,8 +13,8 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
 
-<meta name="description" content="南邮ctf训练平台Vigenere writeup"/><meta name="keywords" content="python, ctf, writeup, 密码学, Arian's Blog" /><link rel="alternate" href="/atom.xml" title="Arian's Blog"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=2.11.0" />
-<link rel="canonical" href="https://arianx.me/2018/02/04/南邮ctf训练平台Vigenere writeup/"/>
+<meta name="description" content="记录自己的学习与生活"/><link rel="alternate" href="/atom.xml" title="Arian's Blog"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=2.11.0" />
+<link rel="canonical" href="https://arianx.me/page/8/"/>
 
 <link rel="stylesheet" type="text/css" href="/lib/fancybox/jquery.fancybox.css" /><link rel="stylesheet" type="text/css" href="/lib/nprogress/nprogress.min.css" />
 <link rel="stylesheet" type="text/css" href="/css/style.css?v=2.11.0" />
@@ -45,7 +45,7 @@
   window.config = {"leancloud":{"app_id":null,"app_key":null},"toc":true,"fancybox":true,"pjax":true,"latex":false};
 </script>
 
-    <title>南邮ctf训练平台Vigenere writeup - Arian's Blog</title>
+    <title>Arian's Blog</title>
   </head>
 
   <body><div id="mobile-navbar" class="mobile-navbar">
@@ -110,9 +110,9 @@
 
       <main id="main" class="main">
         <div class="content-wrapper">
-          <div id="content" class="content"><article class="post">
+          <div id="content" class="content"><section id="posts" class="posts"><article class="post">
     <header class="post-header">
-      <h1 class="post-title">南邮ctf训练平台Vigenere writeup
+      <h1 class="post-title"><a class="post-link" href="/2018/02/04/南邮ctf训练平台Vigenere writeup/">南邮ctf训练平台Vigenere writeup</a>
         </h1>
 
       <div class="post-meta">
@@ -124,12 +124,7 @@
         </div>
     </header>
 
-    <div class="post-toc" id="post-toc">
-    <h2 class="post-toc-title">文章目录</h2>
-    <div class="post-toc-content">
-      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#题目分析"><span class="toc-text">题目分析</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#维吉尼亚密码回顾"><span class="toc-text">维吉尼亚密码回顾</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#本题解法"><span class="toc-text">本题解法</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#具体实现"><span class="toc-text">具体实现</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#结语"><span class="toc-text">结语</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#参考"><span class="toc-text">参考</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#完整代码"><span class="toc-text">完整代码</span></a></li></ol>
-    </div>
-  </div><div class="post-content"><blockquote>
+    <div class="post-content"><blockquote>
 <p>原题链接：<a href="">http://ctf.nuptsast.com/challenges#Vigenere</a></p>
 </blockquote>
 <h2 id="题目分析"><a href="#题目分析" class="headerlink" title="题目分析"></a>题目分析</h2><p>题目原文：</p>
@@ -175,44 +170,15 @@
 <hr>
 <p><em><del>看了两篇writeup才能做出来什么的…。</del></em></p>
 <h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><p><a href="">https://findneo.github.io/2017/10/nupt-vigenere/</a><br><a href="">http://blog.csdn.net/qq_31344951/article/details/77934717</a><br><a href="">https://zh.wikipedia.org/wiki/%E7%BB%B4%E5%90%89%E5%B0%BC%E4%BA%9A%E5%AF%86%E7%A0%81</a><br><a href="">https://www.zhihu.com/question/29515338</a><br><a href="">http://blog.csdn.net/limisky/article/details/16885959</a></p>
-<a id="more"></a>
-<h2 id="完整代码"><a href="#完整代码" class="headerlink" title="完整代码"></a>完整代码</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">readCipher</span><span class="params">(filename)</span>:</span></span><br><span class="line">    file = open(filename, <span class="string">'r'</span>)</span><br><span class="line">    strCipher = file.read()</span><br><span class="line">    cipher = []</span><br><span class="line">    index = <span class="number">0</span></span><br><span class="line">    <span class="keyword">while</span> index &lt; len(strCipher):</span><br><span class="line">        cipher.append(int(strCipher[index:index+<span class="number">2</span>], <span class="number">16</span>))</span><br><span class="line">        index += <span class="number">2</span></span><br><span class="line">    <span class="keyword">return</span> cipher</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">getCipherGroup</span><span class="params">(keyLength, cipher)</span>:</span></span><br><span class="line">    cipherGroup = [[] <span class="keyword">for</span> a <span class="keyword">in</span> range(keyLength)]</span><br><span class="line">    count = <span class="number">0</span></span><br><span class="line">    <span class="keyword">while</span> count &lt; len(cipher):</span><br><span class="line">        cipherGroup[(count) % keyLength] += [cipher[count]]</span><br><span class="line">        count += <span class="number">1</span></span><br><span class="line">    <span class="keyword">return</span> cipherGroup</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">getKeyRange</span><span class="params">(keyLength, cipher)</span>:</span></span><br><span class="line">    cipherGroup = getCipherGroup(keyLength, cipher)</span><br><span class="line">    keyGroup = [[] <span class="keyword">for</span> a <span class="keyword">in</span> range(keyLength)]</span><br><span class="line"></span><br><span class="line">    count=<span class="number">0</span></span><br><span class="line">    <span class="keyword">for</span> perCipherGroup <span class="keyword">in</span> cipherGroup:</span><br><span class="line">        <span class="keyword">for</span> keyTest <span class="keyword">in</span> range(<span class="number">1</span>,<span class="number">255</span>):</span><br><span class="line">            <span class="keyword">for</span> perCipher <span class="keyword">in</span> perCipherGroup:</span><br><span class="line">                plainChar = perCipher^keyTest</span><br><span class="line">                <span class="keyword">if</span> plainChar <span class="keyword">not</span> <span class="keyword">in</span> range(<span class="number">32</span>,<span class="number">127</span>):</span><br><span class="line">                    <span class="keyword">break</span></span><br><span class="line">            <span class="keyword">else</span>:</span><br><span class="line">                keyGroup[count].append(keyTest)</span><br><span class="line">        count+=<span class="number">1</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> keyGroup</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">getLetterFrequency</span><span class="params">(key, perCipher)</span>:</span></span><br><span class="line">    frequencies = &#123;<span class="string">"e"</span>: <span class="number">0.12702</span>, <span class="string">"t"</span>: <span class="number">0.09056</span>, <span class="string">"a"</span>: <span class="number">0.08167</span>, <span class="string">"o"</span>: <span class="number">0.07507</span>, <span class="string">"i"</span>: <span class="number">0.06966</span>,</span><br><span class="line">                   <span class="string">"n"</span>: <span class="number">0.06749</span>, <span class="string">"s"</span>: <span class="number">0.06327</span>, <span class="string">"h"</span>: <span class="number">0.06094</span>, <span class="string">"r"</span>: <span class="number">0.05987</span>, <span class="string">"d"</span>: <span class="number">0.04253</span>,</span><br><span class="line">                   <span class="string">"l"</span>: <span class="number">0.04025</span>, <span class="string">"c"</span>: <span class="number">0.02782</span>, <span class="string">"u"</span>: <span class="number">0.02758</span>, <span class="string">"m"</span>: <span class="number">0.02406</span>, <span class="string">"w"</span>: <span class="number">0.02360</span>,</span><br><span class="line">                   <span class="string">"f"</span>: <span class="number">0.02228</span>, <span class="string">"g"</span>: <span class="number">0.02015</span>, <span class="string">"y"</span>: <span class="number">0.01974</span>, <span class="string">"p"</span>: <span class="number">0.01929</span>, <span class="string">"b"</span>: <span class="number">0.01492</span>,</span><br><span class="line">                   <span class="string">"v"</span>: <span class="number">0.00978</span>, <span class="string">"k"</span>: <span class="number">0.00772</span>, <span class="string">"j"</span>: <span class="number">0.00153</span>, <span class="string">"x"</span>: <span class="number">0.00150</span>, <span class="string">"q"</span>: <span class="number">0.00095</span>,</span><br><span class="line">                   <span class="string">"z"</span>: <span class="number">0.00074</span>&#125;</span><br><span class="line"></span><br><span class="line">    count=&#123;&#125;</span><br><span class="line">    <span class="keyword">for</span> ch <span class="keyword">in</span> perCipher:</span><br><span class="line">        plainChar = key^ch</span><br><span class="line">        <span class="keyword">if</span> plainChar <span class="keyword">in</span> range(<span class="number">65</span>,<span class="number">91</span>) <span class="keyword">or</span> plainChar <span class="keyword">in</span> range(<span class="number">97</span>,<span class="number">123</span>):</span><br><span class="line">            char = chr(plainChar).lower()</span><br><span class="line">            count[char] = count.setdefault(char, <span class="number">0</span>)+<span class="number">1</span></span><br><span class="line"></span><br><span class="line">    freq = <span class="number">0.0</span></span><br><span class="line">    <span class="keyword">for</span> a <span class="keyword">in</span> count:</span><br><span class="line">        freq += frequencies[a]*count[a]/len(perCipher)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> freq</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">getKeyConfirmValue</span><span class="params">(keyGroup,cipher)</span>:</span></span><br><span class="line">    cipherGroup = getCipherGroup(len(keyGroup), cipher)</span><br><span class="line">    key = []</span><br><span class="line"></span><br><span class="line">    count=<span class="number">0</span></span><br><span class="line">    <span class="keyword">for</span> perKey <span class="keyword">in</span> keyGroup:</span><br><span class="line">        maxFreq = <span class="number">0</span></span><br><span class="line">        tempKey = <span class="number">0</span></span><br><span class="line">        <span class="keyword">for</span> a <span class="keyword">in</span> perKey:</span><br><span class="line">            freq = getLetterFrequency(a, cipherGroup[count])</span><br><span class="line">            <span class="keyword">if</span> freq&gt;maxFreq:</span><br><span class="line">                maxFreq = freq</span><br><span class="line">                tempKey = a</span><br><span class="line">        key.append(tempKey)</span><br><span class="line">        count += <span class="number">1</span></span><br><span class="line">    </span><br><span class="line">    <span class="keyword">return</span> key</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">cipherDecrypt</span><span class="params">(key, cipher)</span>:</span></span><br><span class="line">    plainText = <span class="string">''</span></span><br><span class="line">    index = <span class="number">0</span></span><br><span class="line">    <span class="keyword">for</span> a <span class="keyword">in</span> cipher:</span><br><span class="line">        plainText += chr(key[index%len(key)]^a)</span><br><span class="line">        index += <span class="number">1</span></span><br><span class="line">    <span class="keyword">return</span> plainText</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">controlFlow</span><span class="params">()</span>:</span></span><br><span class="line">    keyLengthRange = range(<span class="number">1</span>,<span class="number">15</span>)</span><br><span class="line">    cipher = readCipher(<span class="string">'c.txt'</span>)</span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> keyLengthRange:</span><br><span class="line">        keyGroup = getKeyRange(i, cipher)</span><br><span class="line">        <span class="keyword">for</span> a <span class="keyword">in</span> keyGroup:</span><br><span class="line">            <span class="keyword">if</span> <span class="number">0</span> == len(a):</span><br><span class="line">                <span class="keyword">break</span>;          </span><br><span class="line">        <span class="keyword">else</span>:               </span><br><span class="line">            <span class="comment">#print('A possible key group is:', keyGroup,'\n')</span></span><br><span class="line">            key = getKeyConfirmValue(keyGroup, cipher)</span><br><span class="line">            print(<span class="string">'A possible key is:'</span>, key,<span class="string">'\n'</span>)</span><br><span class="line">            plainText = cipherDecrypt(key, cipher)</span><br><span class="line">            print(<span class="string">'A possible plainText is:'</span>, plainText,<span class="string">'\n'</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__==<span class="string">'__main__'</span>:</span><br><span class="line">    controlFlow()</span><br></pre></td></tr></table></figure>
-
-      </div>
-      <div class="post-copyright">
-    <p class="copyright-item">
-      <span>原文作者: </span>
-      <a href="https://arianx.me">Arian</a>
-    </p>
-    <p class="copyright-item">
-      <span>原文链接: </span>
-      <a href="https://arianx.me/2018/02/04/南邮ctf训练平台Vigenere writeup/">https://arianx.me/2018/02/04/南邮ctf训练平台Vigenere writeup/</a>
-    </p>
-    <p class="copyright-item">
-      <span>许可协议: </span>本文采用<a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/" target="_blank">知识共享署名-非商业性使用 4.0 国际许可协议</a>
-    </p>
-  </div>
-      <footer class="post-footer">
-        <div class="post-tags">
-            <a href="/tags/python/">python</a>
-            <a href="/tags/ctf/">ctf</a>
-            <a href="/tags/writeup/">writeup</a>
-            <a href="/tags/密码学/">密码学</a>
-            </div>
-        
-        <nav class="post-nav"><a class="prev" href="/2018/03/03/新学期/">
+          <div class="read-more">
+            <a href="/2018/02/04/南邮ctf训练平台Vigenere writeup/" class="read-more-link">阅读更多</a>
+          </div>
+        </div></article>
+      <nav class="pagination"><a class="prev" href="/page/7/">
         <i class="iconfont icon-left"></i>
-        <span class="prev-text nav-default">新学期开始</span>
-        <span class="prev-text nav-mobile">上一篇</span>
+        <span class="prev-text">上一页</span>
       </a>
-    </nav></footer>
-    </article></div><div class="comments" id="comments"><div id="disqus_thread">
-        <noscript>
-          Please enable JavaScript to view the
-          <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a>
-        </noscript>
-      </div>
-    </div></div>
+    </nav></section></div></div>
       </main>
 
       <footer id="footer" class="footer"><div class="social-links">
@@ -286,21 +252,7 @@
       <div class="back-to-top" id="back-to-top">
         <i class="iconfont icon-up"></i>
       </div>
-    </div><script type="text/javascript">
-    var disqus_config = function () {
-        this.page.url = 'https://arianx.me/2018/02/04/南邮ctf训练平台Vigenere writeup/';
-        this.page.identifier = '2018/02/04/南邮ctf训练平台Vigenere writeup/';
-        this.page.title = '南邮ctf训练平台Vigenere writeup';
-    };
-    (function() {
-    var d = document, s = d.createElement('script');
-
-    s.src = '//arianx.disqus.com/embed.js';
-
-    s.setAttribute('data-timestamp', +new Date());
-    (d.head || d.body).appendChild(s);
-    })();  
-  </script><script type="text/javascript" src="/lib/jquery/jquery.min.js"></script>
+    </div><script type="text/javascript" src="/lib/jquery/jquery.min.js"></script>
   <script type="text/javascript" src="/lib/slideout/slideout.js"></script>
   <script type="text/javascript" src="/lib/fancybox/jquery.fancybox.pack.js"></script>
   <script type="text/javascript" src="/lib/pjax/jquery.pjax.min.js"></script>
