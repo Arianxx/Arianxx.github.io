@@ -112,6 +112,42 @@
         <div class="content-wrapper">
           <div id="content" class="content"><section id="posts" class="posts"><article class="post">
     <header class="post-header">
+      <h1 class="post-title"><a class="post-link" href="/2018/05/14/Explore-the-usage-of-super/">浅析python中super用法，兼及继承机制</a>
+        </h1>
+
+      <div class="post-meta">
+        <span class="post-time">
+          2018-05-14
+        </span><span class="post-category">
+            <a href="/categories/python/">python</a>
+            </span>
+        </div>
+    </header>
+
+    <div class="post-content"><blockquote>
+<p>远在天边，我们一无所见，即使近在眼前，也仅仅是连续不断而变幻不定的表象。 </p>
+</blockquote>
+<h2 id="开始之前"><a href="#开始之前" class="headerlink" title="开始之前"></a>开始之前</h2><p>在学习python的过程中，一直对super的用法感到稍许疑惑。虽然直到它的基本使用方法，却一直觉得模模糊糊。本文将根据实例简要探讨python3中super函数的行为，以加强对super函数的认知，兼及一些相关方面的内容。</p>
+<p>本文将简要谈谈我对对象和继承机制的理解，最终探讨super的用法。</p>
+<h2 id="Ⅰ-面向对象机制"><a href="#Ⅰ-面向对象机制" class="headerlink" title="Ⅰ.面向对象机制"></a>Ⅰ.面向对象机制</h2><p><code>面向对象(OOP, Object Oriented Programming）</code>是目前编程语言中一种主流的思想，python从设计初期就已经是一门面向对象的语言。python为面向对象编程提供了强大的语法支持。因此，在python中，使用面向对象的方式进行程序设计是十分自然并且容易的。</p>
+<p>理所当然，一旦提到面向对象的编程思想，那么便会自然而然想到面向对象思想中的一些重要概念。比如说：<code>类（Class)</code>。类是一种数据结构，简单来说，可以理解为对某些拥有共同属性，或行为的对象的抽象。它可以视作这些拥有相同属性或行为的对象的蓝图，封装了这些对象的共同属性或行为，使得程序设计更模块化，提高了代码的可复用性——一个<code>对象（Object）</code>是它的类的实例，它能够访问它的构造类中的所有属性或方法。</p>
+<p>可以将python中的类与对象类比到现实中。这样，对象就是现实世界中的客体，是一种具体的实体。现实世界中的所有事物都可以看作一个对象。例如，一个人。当我们谈到这个对象时，我们所想到的，是这个带有数量词的、具体的、实在的个体，是“这个人”而不是“那个人”。而现实世界里面存在许许多多的人。这些所有的人有某些共同的特征，我们将这些特征聚合起来，所形成的一个抽象的、宽泛的“人”的这个形式，就是所有作为人的对象的类。</p>
+<p>每个具体的对象都有其独特的<code>标识</code>。例如，在现实中，每个人都会有一个名字。一般来说，在某个给定范围的命名空间中，这个标识是唯一的。我们可以说，某个具有独特标识符的对象属于什么类。例如，张三是人，就是说”张三”属于”人”这个类。这样，可以发现，一般情况下，凡是可以说成“某个东西是什么”这种句法的，都可以抽象出类与对象的关系。</p>
+<p>类比到现实中，类与对象是一种所属关系，对象是一种客观存在的实体。而放到具体的程序设计中来说，类可以视作对某些具有共同特征或行为的数据的<code>抽象</code>。</p>
+<h2 id="Ⅱ-类的继承机制"><a href="#Ⅱ-类的继承机制" class="headerlink" title="Ⅱ.类的继承机制"></a>Ⅱ.类的继承机制</h2><p>一个对象可以说成是某个类的实例，一般情况，就可以说成”对象是类”这种形式。然而，在许多情况下，在这样抽象之后，我们仍然可以发现，类也有其自身的所属。例如说，泰迪是一只熊，在这里，”泰迪”是具体的对象，”熊”是”泰迪”的类，而“熊”这个类，又由“哺乳动物”这个类细分而来。我们可以这样说，熊继承自哺乳动物，而泰迪既是一只熊，也是一只哺乳动物。这样，父类就可以理解为对类的基本属性的抽象，子类是对于父类的补充。</p>
+<p><img src="https://arian-blogs.oss-cn-beijing.aliyuncs.com/18-5-15/85242660.jpg" alt="补充"></p>
+<p>简单来说，对象之于类，是“某个东西是什么”，而子类之于父类，是子类补充了父类。</p>
+<p>在python中，如果一个子类继承了父类，就称这个父类为子类的<code>base class</code>，并且，这个子类的所有base class，都可以在<code>__bases__</code>属性中访问。这个子类的实例，也可以同时访问子类所有父类、以及后续的父类内的属性或方法（此处不考虑带前置双下划线的私有方法）。</p>
+<p>如：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="class"><span class="keyword">class</span> <span class="title">Animal</span><span class="params">()</span>:</span></span><br><span class="line"><span class="meta">... </span>    <span class="function"><span class="keyword">def</span> <span class="title">kind</span><span class="params">(self)</span>:</span></span><br><span class="line"><span class="meta">... </span>        print(<span class="string">"I'm an animal."</span>)</span><br><span class="line">...</span><br><span class="line">&gt;&gt;&gt;</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="class"><span class="keyword">class</span> <span class="title">Bird</span><span class="params">(Animal)</span>:</span></span><br><span class="line"><span class="meta">... </span>    <span class="function"><span class="keyword">def</span> <span class="title">skill</span><span class="params">(self)</span>:</span></span><br><span class="line"><span class="meta">... </span>        print(<span class="string">"I can fly."</span>)</span><br><span class="line">...</span><br><span class="line">&gt;&gt;&gt;</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>bird = Bird()</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>bird.skill()</span><br><span class="line">I can fly.</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>bird.kind()</span><br><span class="line">I<span class="string">'m an animal.</span></span><br></pre></td></tr></table></figure></p>
+<p>可见，实例可访问它的构造类以及之后的父类中的方法。</p>
+<p>同时，子类可以<code>覆盖</code>父类的方法。这样，访问实例中的这个方法时，就访问它的构造方法内重写的那个方法，而不向后追溯。</p>
+<p>如：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="class"><span class="keyword">class</span> <span class="title">Animal</span><span class="params">()</span>:</span></span><br><span class="line"><span class="meta">... </span>    <span class="function"><span class="keyword">def</span> <span class="title">kind</span><span class="params">(self)</span>:</span></span><br><span class="line"><span class="meta">... </span>        print(<span class="string">"I'm an animal."</span>)</span><br><span class="line">...</span><br><span class="line">&gt;&gt;&gt;</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="class"><span class="keyword">class</span> <span class="title">Bird</span><span class="params">(Animal)</span>:</span></span><br><span class="line"><span class="meta">... </span>    <span class="function"><span class="keyword">def</span> <span class="title">kind</span><span class="params">(self)</span>:</span></span><br><span class="line"><span class="meta">... </span>        print(<span class="string">"I'm a bird."</span>)</span><br><span class="line">...</span><br><span class="line">&gt;&gt;&gt;</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>bird = Bird()</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>bird.kind()</span><br><span class="line">I<span class="string">'m a bird.</span></span><br></pre></td></tr></table></figure></p>
+          <div class="read-more">
+            <a href="/2018/05/14/Explore-the-usage-of-super/" class="read-more-link">阅读更多</a>
+          </div>
+        </div></article>
+      <article class="post">
+    <header class="post-header">
       <h1 class="post-title"><a class="post-link" href="/2018/04/13/The-common-Flask-s-extensions/">Flask常见扩展总结</a>
         </h1>
 
@@ -240,35 +276,6 @@
 <p>于是，在这种情况下的状态转移方程就为：f(m,n)=min(max(f(m-1,n-1), f(m-y,n)))+1，(0&lt; y&lt; m+1)。退出条件为当m==0时，需要0次；当n==1时，需要m次。</p>
 <h3 id="推广情况程序实现"><a href="#推广情况程序实现" class="headerlink" title="推广情况程序实现"></a>推广情况程序实现</h3><p><em>以下这段代码参考自<a href="https://www.zhihu.com/question/19690210/answer/18079633" target="_blank" rel="noopener">吴育昕</a></em><br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> functools <span class="keyword">import</span> lru_cache</span><br><span class="line"></span><br><span class="line"><span class="meta">@lru_cache(maxsize=None)</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">test</span><span class="params">(n, m)</span>:</span></span><br><span class="line">    <span class="keyword">if</span> m==<span class="number">0</span>:</span><br><span class="line">        <span class="keyword">return</span> <span class="number">0</span></span><br><span class="line">    <span class="keyword">if</span> n==<span class="number">1</span>:</span><br><span class="line">        <span class="keyword">return</span> m</span><br><span class="line"></span><br><span class="line">    res = min([max(test(n<span class="number">-1</span>, i<span class="number">-1</span>), test(n, m-i)) <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">1</span>,m+<span class="number">1</span>)])+<span class="number">1</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> res</span><br><span class="line"></span><br><span class="line">print(test(<span class="number">2</span>,<span class="number">36</span>))</span><br></pre></td></tr></table></figure></p>
 <h2 id="参考链接"><a href="#参考链接" class="headerlink" title="参考链接"></a>参考链接</h2><p><a href="">https://www.zhihu.com/question/19690210/answer/18079633</a><br><a href="">http://www.raychase.net/1374</a><br><a href="">http://blog.csdn.net/baolinq/article/details/53047288</a></p>
-
-        </div></article>
-      <article class="post">
-    <header class="post-header">
-      <h1 class="post-title"><a class="post-link" href="/2018/03/03/新学期/">新学期开始</a>
-        </h1>
-
-      <div class="post-meta">
-        <span class="post-time">
-          2018-03-03
-        </span><span class="post-category">
-            <a href="/categories/随笔/">随笔</a>
-            </span>
-        </div>
-    </header>
-
-    <div class="post-content"><blockquote>
-<p>你永远不会知道，为了对生活感兴趣，我们究竟付出了多少努力。</p>
-</blockquote>
-<p>寒假偶然遇到一首很喜欢的音乐——雨降りお月さん（雨中的月亮），歌手为堀江由衣，是在补番过程中遇到的一首插曲。这首优美、朦胧，具有淡淡哀愁意境的歌在当时带给我十分深刻的印象。</p>
-<iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width="330" height="86" src="//music.163.com/outchain/player?type=2&id=29091584&auto=0&height=66"></iframe>
-
-<blockquote>
-<p>雨降りお月さん （雨中的月亮，1925年）<br>作詞：野口雨情 作曲：中山晋平<br>歌词整理编译：九日旭（Guanxu）<br><br>雨降あめふりお月つきさん　雲くもの蔭かげ          雨中的月亮 躲在云背后<br>お嫁よめにゆくときゃ　誰だれとゆく      出嫁的时候 要和谁一起去<br>一人ひとりで傘からかさ　さして行ゆく          独自一人 撑伞前行<br>からかさないときゃ　誰だれとゆく    没有伞的话 又和谁一起呢<br>シャラシャラ　シャンシャン      叮叮当当<br>鈴すずつけた          铃声响   <br><br>お馬うまにゆられて　濡ぬれてゆく      在马上摇摇晃晃，冒雨前行<br>急いそがにゃお馬うまよ　夜よが明あけよう    马儿啊快些走 就要天亮了<br>手綱たづなの下したから ちょいと見みたりゃ   马儿从缰绳下面 瞄一下我<br>お袖そででお顔かほを　隠かくしてる          我用衣袖轻遮颜面<br>お袖そでは濡ぬれても　干ほしゃ乾かわく      衣袖湿了 晾晾就干<br>雨降あめふりお月つきさん　雲くもの蔭かげ          雨中的月亮 躲在云背后<br>お馬うまにゆられて　濡ぬれてゆく      在马上摇摇晃晃，冒雨前行<br><br>歌曲由两段原独立的两段歌词组成。第一段由野口雨情创作于大正14年（1925年）的儿童绘画杂志《コドモノクニ》一月号，并且刊登有相应杂志。后由作曲家中山晋平的建议改为歌曲，并受到大人孩子们的欢迎。为此，野口雨情以同一主题创作了一个续篇，以标题”雲の蔭“刊登在同年儿童绘画杂志《コドモノクニ》三月号上，同样配有装帧画并附带乐谱。在发售唱片时，因为原曲太短，两段词合起来作为一首歌。<br><br>歌曲描述了一位新娘子在骑马到婆家的雨路上的历程。配词充满童趣，同时引人幻想。然而，就如这隐隐约约透漏着哀愁、彷徨的旋律一样，这首歌具有这样的“黑色”背景：野口雨情的两个女儿都在年幼时夭折，而根据当地有这样的传说，如果新娘子是已经死去的女儿，那么她就会一个人独自启程去天国，而云背后（雲の蔭)的月亮正是隐喻中的天国。也许，这首歌正是野口雨情对其女儿亡灵的祝福。<br><br>参考自<a href="">https://blog.sina.com.cn/s/blog_4a4b274c0102wjwf.html</a></p>
-</blockquote>
-<p>除此之外，回过头来，整个寒假实在没有什么值得大肆回忆的内容。除了断断续续完成假期伊始订下的一些计划的日常（尽管到最后这些计划也没有来得及全部完成），就是一些琐碎的，在各种彷徨之中逝去的时间。旧的自己已经看起来渐渐消失，然而，新的自己尚没有来临，就是在这样的迷茫之中逝去的时间。</p>
-<p>而新学期又要来临了。大学的第一个学期就这样完整的过去。到这里，也不再是可以以“新手”、“不适应”这样的话语来为自己找借口的时候了吧。</p>
-<p>“给我振作起来啊，混蛋!”。希望新学期能够努力一点。</p>
-<p><img src="https://arian-blogs.oss-cn-beijing.aliyuncs.com/18-3-3/20421160.jpg" alt="miku"><br>最后，为有miku的世界献上祝福。:p</p>
 
         </div></article>
       <nav class="pagination"><a class="prev" href="/page/6/">

@@ -2,6 +2,20 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://arianx.me/2019/03/23/note-of-gfs/</loc>
+    
+    <lastmod>2019-03-24T01:40:23.205Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://arianx.me/2019/03/21/Notes-on-Reading-the-MapPapers/</loc>
+    
+    <lastmod>2019-03-23T07:38:04.321Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>https://arianx.me/2018/05/14/Explore-the-usage-of-super/</loc>
     
     <lastmod>2019-03-22T13:34:43.079Z</lastmod>
@@ -145,13 +159,6 @@
     <loc>https://arianx.me/2019/01/25/flask-source-code-read/</loc>
     
     <lastmod>2019-03-22T13:11:21.455Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://arianx.me/2019/03/21/Notes-on-Reading-the-MapPapers/</loc>
-    
-    <lastmod>2019-03-22T13:11:06.334Z</lastmod>
     
   </url>
   
