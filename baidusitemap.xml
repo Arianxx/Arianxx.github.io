@@ -4,6 +4,28 @@
 
     
   <url>
+    <loc>https://arianx.me/2019/04/15/Redis-network-model-introduction/</loc>
+    <lastmod>2019-04-17T12:49:35.600Z</lastmod>
+    <data>
+        <display>
+        <title>Redis 单线程网络模型及 I/O 多路复用</title>
+        <pubTime>2019-04-15T00:01:08.000Z</pubTime>
+        
+        <tag>redis</tag>
+         
+        <tag>源码</tag>
+         
+         
+           
+             
+              <breadCrumb title="redis" url="https://arianx.me/categories/redis/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
     <loc>https://arianx.me/2019/03/23/note-of-gfs/</loc>
     <lastmod>2019-03-24T01:40:23.205Z</lastmod>
     <data>

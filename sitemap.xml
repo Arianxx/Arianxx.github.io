@@ -2,6 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://arianx.me/2019/04/15/Redis-network-model-introduction/</loc>
+    
+    <lastmod>2019-04-17T12:49:35.600Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>https://arianx.me/2019/03/23/note-of-gfs/</loc>
     
     <lastmod>2019-03-24T01:40:23.205Z</lastmod>

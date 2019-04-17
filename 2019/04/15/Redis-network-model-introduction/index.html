@@ -13,8 +13,8 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
 
-<meta name="description" content="记录自己的学习与生活"/><link rel="alternate" href="/atom.xml" title="Arian's Blog"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=2.11.0" />
-<link rel="canonical" href="https://arianx.me/"/>
+<meta name="description" content="Redis 单线程网络模型及 I/O 多路复用"/><meta name="keywords" content="redis, 源码, Arian's Blog" /><link rel="alternate" href="/atom.xml" title="Arian's Blog"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=2.11.0" />
+<link rel="canonical" href="https://arianx.me/2019/04/15/Redis-network-model-introduction/"/>
 
 <link rel="stylesheet" type="text/css" href="/lib/fancybox/jquery.fancybox.css" /><link rel="stylesheet" type="text/css" href="/lib/nprogress/nprogress.min.css" />
 <link rel="stylesheet" type="text/css" href="/css/style.css?v=2.11.0" />
@@ -45,7 +45,7 @@
   window.config = {"leancloud":{"app_id":null,"app_key":null},"toc":true,"fancybox":true,"pjax":true,"latex":false};
 </script>
 
-    <title>Arian's Blog</title>
+    <title>Redis 单线程网络模型及 I/O 多路复用 - Arian's Blog</title>
   </head>
 
   <body><div id="mobile-navbar" class="mobile-navbar">
@@ -110,9 +110,9 @@
 
       <main id="main" class="main">
         <div class="content-wrapper">
-          <div id="content" class="content"><section id="posts" class="posts"><article class="post">
+          <div id="content" class="content"><article class="post">
     <header class="post-header">
-      <h1 class="post-title"><a class="post-link" href="/2019/04/15/Redis-network-model-introduction/">Redis 单线程网络模型及 I/O 多路复用</a>
+      <h1 class="post-title">Redis 单线程网络模型及 I/O 多路复用
         </h1>
 
       <div class="post-meta">
@@ -124,7 +124,12 @@
         </div>
     </header>
 
-    <div class="post-content"><p>Redis 是时下流行的一个高性能键值内存数据库。与 memcached 的多线程网络模型相比，它采用了基于事件循环的单线程网络模型，并且提供了比 memcached 更丰富的数据类型和相关功能。纵然如此，它拥有和 memcached 近乎相同的执行效率<a href="https://www.linkedin.com/pulse/memcached-vs-redis-which-one-pick-ranjeet-vimal/" target="_blank" rel="noopener">^1</a>。在 benchmark 中，它能做到单机每秒数万甚至超过十万级别的并发量<a href="https://redis.io/topics/benchmarks" target="_blank" rel="noopener">^2</a>。</p>
+    <div class="post-toc" id="post-toc">
+    <h2 class="post-toc-title">文章目录</h2>
+    <div class="post-toc-content">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Reactor-模式"><span class="toc-text">Reactor 模式</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#I-O-多路复用"><span class="toc-text">I/O 多路复用</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#事件"><span class="toc-text">事件</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#事件循环"><span class="toc-text">事件循环</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#处理流程"><span class="toc-text">处理流程</span></a></li></ol>
+    </div>
+  </div><div class="post-content"><p>Redis 是时下流行的一个高性能键值内存数据库。与 memcached 的多线程网络模型相比，它采用了基于事件循环的单线程网络模型，并且提供了比 memcached 更丰富的数据类型和相关功能。纵然如此，它拥有和 memcached 近乎相同的执行效率<a href="https://www.linkedin.com/pulse/memcached-vs-redis-which-one-pick-ranjeet-vimal/" target="_blank" rel="noopener">^1</a>。在 benchmark 中，它能做到单机每秒数万甚至超过十万级别的并发量<a href="https://redis.io/topics/benchmarks" target="_blank" rel="noopener">^2</a>。</p>
 <p>在这篇文章中，我们将探究支撑 redis 实现这种效率的网络模型的构成和原理。</p>
 <h2 id="Reactor-模式"><a href="#Reactor-模式" class="headerlink" title="Reactor 模式"></a>Reactor 模式</h2><p>一般而言，服务器可以通过并行或 I/O 多路复用两种方式来实现它的并发特性。</p>
 <p>并行架构的典型是多线程服务器。主线程在一个循环里面监听套接字，当一个新的请求到来时，就创建一个新线程专门处理这个请求。这种架构最符合直觉，但存在以下问题: 1. 不论是操作系统调度线程，或者是创建线程本身，都需要消耗一定资源。当并发数量增大时，这种消耗可能会变得不可忍受。 2. 多线程之间可能会并发访问数据，产生竞态条件。需要花费额外的精力去处理锁，使得编程容易出错并且趋于复杂。</p>
@@ -178,162 +183,39 @@
 <p>在每一轮事件循环开始前，也就是<code>beforesleep</code>中，都会尝试发送数据，并且注册发送数据的文件事件：<br><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">beforeSleep</span><span class="params">(struct aeEventLoop *eventLoop)</span> </span>&#123;</span><br><span class="line">    ...</span><br><span class="line"></span><br><span class="line">    <span class="comment">/* Handle writes with pending output buffers. */</span></span><br><span class="line">    handleClientsWithPendingWrites();</span><br><span class="line"></span><br><span class="line">    ...</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">handleClientsWithPendingWrites</span><span class="params">(<span class="keyword">void</span>)</span> </span>&#123;</span><br><span class="line">    listIter li;</span><br><span class="line">    listNode *ln;</span><br><span class="line">    <span class="keyword">int</span> processed = listLength(server.clients_pending_write);</span><br><span class="line"></span><br><span class="line">    listRewind(server.clients_pending_write,&amp;li);</span><br><span class="line">    <span class="keyword">while</span>((ln = listNext(&amp;li))) &#123;</span><br><span class="line">        client *c = listNodeValue(ln);</span><br><span class="line"></span><br><span class="line">        <span class="comment">/* Try to write buffers to the client socket. */</span></span><br><span class="line">        <span class="keyword">if</span> (writeToClient(c-&gt;fd,c,<span class="number">0</span>) == C_ERR) <span class="keyword">continue</span>;</span><br><span class="line"></span><br><span class="line">        <span class="comment">/* If after the synchronous writes above we still have data to</span></span><br><span class="line"><span class="comment">         * output to the client, we need to install the writable handler. */</span></span><br><span class="line">        <span class="keyword">if</span> (clientHasPendingReplies(c)) &#123;</span><br><span class="line"></span><br><span class="line">            ...</span><br><span class="line"></span><br><span class="line">            <span class="keyword">if</span> (aeCreateFileEvent(server.el, c-&gt;fd, ae_flags,</span><br><span class="line">                sendReplyToClient, c) == AE_ERR)</span><br><span class="line">            &#123;</span><br><span class="line">                    freeClientAsync(c);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> processed;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
 <p>其中，<code>server.clients_pending_write</code>为一个链表，包含还未进行写入操作的客户端。</p>
 
-        </div></article>
-      <article class="post">
-    <header class="post-header">
-      <h1 class="post-title"><a class="post-link" href="/2019/03/23/note-of-gfs/">GFS 面面观</a>
-        </h1>
-
-      <div class="post-meta">
-        <span class="post-time">
-          2019-03-23
-        </span><span class="post-category">
-            <a href="/categories/分布式/">分布式</a>
-            <a href="/categories/分布式/算法/">算法</a>
-            </span>
-        </div>
-    </header>
-
-    <div class="post-content"><blockquote>
-<p>paper: <a href="https://static.googleusercontent.com/media/research.google.com/en//archive/gfs-sosp2003.pdf" target="_blank" rel="noopener">https://static.googleusercontent.com/media/research.google.com/en//archive/gfs-sosp2003.pdf</a></p>
-</blockquote>
-<p>GFS 是 Google 设计的一个用于大规模数据密集型应用的、可扩展的分布式文件系统，部署在普通硬件设备上，并且能够为用户提供出色的性能和灾难冗余能力。虽然 Google 并没有将 GFS 开源，但是却在 2004 年发布了一篇论文公布了其一些技术细节，影响了以后的诸多分布式文件系统。</p>
-<p>本文是对原论文要点的记录。</p>
-<h2 id="设计假设"><a href="#设计假设" class="headerlink" title="设计假设"></a>设计假设</h2><p>GFS 与传统文件系统共享某些相同的设计目标，如性能、可伸缩性、可靠性以及可用性。然而，GFS 的设计人员审视了他们的应用环境以及使用场景，并基于此给为 GFS 提供了某些不同的设计假设：</p>
-<ol>
-<li>组件失效是常态事件，而不是意外事件。<ul>
-<li>GFS 部署在几百甚至几千台普通的廉价商业设备上。因此在任何时刻都有可能有某些硬件无法访问或工作异常。因此 GFS 从设计初期考虑到这一点，以将持续监控、错误检测、灾难冗余和自动恢复集成到 GFS 中为目标。</li>
-</ul>
-</li>
-<li>巨大的文件。<ul>
-<li>存储在 GFS 中文件通常是巨大的，数 GB 的文件很普遍。因此，需要重新审视分布式文件系统中的某些设计决策，如 I/O 操作和 block 的大小等。</li>
-</ul>
-</li>
-<li>大部分修改的文件操作以追加写入而不是随机写入的方式。<ul>
-<li>用户通常对文件进行追加写入，然后大量的顺序读。而不是频繁的随机读写。因此，GFS 特别为追加写入而优化，并保证其是原子性的。</li>
-</ul>
-</li>
-<li>应用程序和 GFS 协同设计。<ul>
-<li>通过放宽对一致性的要求，采用弱一致性模型，大大简化了 GFS 的设计。引入了原子性的追加写入操作，不需要额外的同步设计。</li>
-</ul>
-</li>
-</ol>
-<h2 id="设计概述"><a href="#设计概述" class="headerlink" title="设计概述"></a>设计概述</h2><h3 id="接口"><a href="#接口" class="headerlink" title="接口"></a>接口</h3><p>虽然 GFS 提供了一套与传统文件系统类似的 API 接口，但并非完全符合 POSIX 标准。GFS 支持如创建新文件、删除文件、打开文件、关闭文件、读写文件、快照等操作。</p>
-<h3 id="架构"><a href="#架构" class="headerlink" title="架构"></a>架构</h3><p>GFS 包含一个单独的 master 节点，以及多个 Chunk 服务器节点。整体架构如图:</p>
-<p><img src="https://arian-blogs.oss-cn-beijing.aliyuncs.com/compressed-03k7.jpg" alt="figure"></p>
-<p>具体上来说：</p>
-<ul>
-<li>GFS 储存的文件都被分成固定大小的 Chunk，并且被复制在多个 Chunk 服务器上。在一个 Chunk 被创建的时候，master 会分给 chunk 一个全局唯一的标识。默认情况下，一个 Chunk 拥有三个储存复制节点。</li>
-<li>master 节点拥有所有的元数据，如：名字空间、访问控制信息、文件和 Chunk 的映射，Chunk 和位置的映射等。master 还管理系统范围内的活动，如 Chunk lease 管理、垃圾回收、Chunk 迁移等。master 会发送心跳包定期和 Chunk 服务器交互以知晓其状态。</li>
-<li>客户端只和 master 交互获得元数据，然后再根据元数据和 Chunk 服务器直接交互。</li>
-</ul>
-<h3 id="单一-master"><a href="#单一-master" class="headerlink" title="单一 master"></a>单一 master</h3><p>单一 master 简化了整个系统的设计，但在另一种意义上，也很容易成为整个系统的瓶颈。因此必须尽量减少对 master 节点的读写。因此，客户端不从 master 节点获取数据。而是告诉 master 要读取的文件和区域，然后 master 返回这个区域所在的 chunk 服务器的位置。由客户端自己联系 Chunk 服务器获取数据。</p>
-<h3 id="Chunk-尺寸"><a href="#Chunk-尺寸" class="headerlink" title="Chunk 尺寸"></a>Chunk 尺寸</h3><p>Chunk 的大小是设计要素之一。 GFS 选择一个 Chunk 为 64 MB，远大于常规文件系统的 block size。选取一个大的 Chunk 大小有如下优点：</p>
-<ol>
-<li>减少了客户端和 master 的通信需求。从而降低 master 的工作负载。</li>
-<li>采用较大的尺寸，可以对一个块进行更多的操作。通过与 Chunk 服务器保持长时间 tcp 链接，从而降低网络负载。</li>
-<li>减少了 master 需要保存在内存中的元数据信息。</li>
-</ol>
-<h3 id="元数据"><a href="#元数据" class="headerlink" title="元数据"></a>元数据</h3><p>master 储存三种类型元数据：</p>
-<ol>
-<li>文件和 Chunk 的命名空间。</li>
-<li>文件和 Chunk 的映射关系。</li>
-<li>每个 Chunk 副本的存放地点。</li>
-</ol>
-<p>前两种数据会定期被写入日志文件中，并被同步到远程服务器。当 master 发生崩溃时，就可以借助这些备份以恢复服务。第三种数据由 master 启动或运行时，向每个 Chunk 服务器轮询获取信息。</p>
-<h3 id="一致性模型"><a href="#一致性模型" class="headerlink" title="一致性模型"></a>一致性模型</h3><p>定义：</p>
-<ul>
-<li>一致：如果所有客户端无论从哪个副本读，读到的数据都是一样的，那么就认为这个数据是一致的。</li>
-<li>已定义：修改文件之后，相关数据是一致的，并且客户端能够读取到它刚才修改的内容，那么相关数据是已定义的。已定义暗含了一致。</li>
-</ul>
-<p>GFS 提供一个弱一致性模型。对于并发随机写入操作来说，数据是一致的，但是未定义的。对于追加写入操作来说，客户端总是可以读取到一致并且已定义的数据，但是实际储存在各个 Chunk 服务器上的数据可能有部分是不一致的。</p>
-<p>GFS 通过以下几点保证数据一致性：</p>
-<ul>
-<li>对 Chunk 的所有副本修改操作顺序一致。</li>
-<li>使用 Chunk 版本号来检测副本因为服务器宕机而失效。</li>
-<li>与服务器定期握手来找到失效的 Chunk 服务器。</li>
-<li>使用 Checksum 来校验数据是否损坏。</li>
-</ul>
-<h2 id="系统交互"><a href="#系统交互" class="headerlink" title="系统交互"></a>系统交互</h2><h3 id="lease"><a href="#lease" class="headerlink" title="lease"></a>lease</h3><p>GFS 使用 lease 来保证写入写入操作的一致性。master 会选出 chunk 的一个副本来发放 lease，称为副本的主 Chunk 服务器。这个 lease 有效期为 60s。当过了有效期之后，master 可能会选出一个新副本发放 lease。当有写入请求时，master 返回给客户端所有副本的位置以及哪一个副本持有 lease。客户端发送数据给最近的副本，然后数据沿拓扑向流向所有副本。当所有的副本都受到了数据后，客户端发送消息给主 Chunk 服务器。主 Chunk 服务器为收到的所有请求分配连续的序号，这些请求可能来自不同的客户端。它按照这个顺序将改变应用于自己的本地磁盘中，然后将顺序推送给所有从服务器。</p>
-<p><img src="http://arian-blogs.oss-cn-beijing.aliyuncs.com/compressed-yay3.jpg" alt="figure"></p>
-<p>所有从 Chunk 服务器返回成功的消息给主 Chunk 服务器之后，主 Chunk 服务器才向客户端返回成功的消息。</p>
-<p>如果有任何从 Chunk 服务器执行失败，主 Chunk 服务器会将这个错误报告给客户端，由客户端来重新发起请求。</p>
-<h3 id="数据流"><a href="#数据流" class="headerlink" title="数据流"></a>数据流</h3><p>数据流与写入操作的控制流程是分离的。在客户端收到 master 发送的位置信息后，它从这些位置中选出一个最近的 Chunk 服务器发送数据。然后数据沿着 Chunk 服务器顺序链发送给所有需要的 Chunk 服务器。</p>
-<h3 id="原子追加记录"><a href="#原子追加记录" class="headerlink" title="原子追加记录"></a>原子追加记录</h3><p>GFS 保证追加记录的原子性。当存在多个并发的追加记录时，GFS 对于每个追加记录至少有一次是写入成功的。GFS 指定写入的偏移量并且在之后返回。</p>
-<p>追加记录在之前描述的控制流程之上加了一些额外的步骤。对于一次指定的追加记录来说，主 Chunk 服务器会检查给定 Chunk 的大小。如果追加记录使得这个 Chunk 的大小超过限制，服务器会填充这个 Chunk 到最大大小然后指示客户端发起请求写入下一个 Chunk。</p>
-<p>如果追加记录在任意一个 Chunk 服务器失败了，客户端需要进行重新操作。重新操作的结果是，同一个 Chunk 的副本可能拥有不一致的记录。GFS 不保证所有副本在字节序上是完全一致的，但至少保证有一次成功的写入。</p>
-<p>因此，追加记录将使数据是一致的，但可能包含部分不一致的局部数据，如填充和错误。</p>
-<h3 id="快照"><a href="#快照" class="headerlink" title="快照"></a>快照</h3><p>写时复制。master 维持一个对所有 chunk 服务器的引用计数。当客户端发起一次快照请求时，并不实际进行复制，而是将相应服务器的引用计数加一。当对相应服务器发起写入请求时，master 注意到它的引用计数大于一，然后才复制一个新的 chunk，并指示客户端写入这个新 chunk。引用计数减一。</p>
-<h2 id="master-节点操作"><a href="#master-节点操作" class="headerlink" title="master 节点操作"></a>master 节点操作</h2><h3 id="名称空间管理和锁"><a href="#名称空间管理和锁" class="headerlink" title="名称空间管理和锁"></a>名称空间管理和锁</h3><p>GFS 的名称空间是一个全局路径和元数据映射关系的查找表。这个表使用前缀压缩储存在内存中。在名称空间的属性结构上，每个节点都是都有一个关联的读写锁。</p>
-<p>每个 master 节点的操作开始之前，都需要获得其路径上所有节点的读锁，以及最终节点的读写锁。</p>
-<h3 id="重新复制、负载均衡"><a href="#重新复制、负载均衡" class="headerlink" title="重新复制、负载均衡"></a>重新复制、负载均衡</h3><p>当 master 节点创建一个新的 chunk 时，它会选择放置初始空间的位置，会考虑几个因素：</p>
-<ul>
-<li>在低于平均硬盘使用率的 Chunk 服务器上创建副本以平衡硬盘使用率。</li>
-<li>限制每个 Chunk 服务器最近的 Chunk 创建次数。因为创建操作通常意味着之后又大量的写入操作。</li>
-<li>为了容错性，使 Chunk 分布在多个机架。</li>
-</ul>
-<p>当 Chunk 的有效副本数少于用户指定的复制数量时，master 节点会重新复制它。<br>同时，master 节点会周期性地进行负载均衡，检查当前副本的分布情况，然后移动副本以获得更好的空间利用率。</p>
-<h3 id="垃圾回收"><a href="#垃圾回收" class="headerlink" title="垃圾回收"></a>垃圾回收</h3><p>GFS 在文件删除之后并不会立刻回收可用的物理空间。而是采用惰性回收的策略。<br>当删除一个文件时，只是把文件重命名为一个特殊的文件名以使其不可见，在实际删除之前，仍然可以恢复。</p>
-<h3 id="失效检测"><a href="#失效检测" class="headerlink" title="失效检测"></a>失效检测</h3><p>master 节点维持有所有 Chunk 的版本号。客户机或 Chunk 服务器在执行操作时都会验证版本号。<br>master 在例行的垃圾回收工作中移除所有失效的副本。</p>
-<h2 id="容错"><a href="#容错" class="headerlink" title="容错"></a>容错</h2><h3 id="master-节点的复制"><a href="#master-节点的复制" class="headerlink" title="master 节点的复制"></a>master 节点的复制</h3><p>为了保证 master 节点的可靠性，master 服务器的状态也要复制。master 服务器的所有操作日志和 checkpoint 会被复制到多台远程机器上。<br>此外，GFS 中还有”影子” master 服务器，这些影子服务器在 master 宕机时提供只读访问。它们的数据通常比 master 更新得慢一点。</p>
-<h3 id="数据完整性"><a href="#数据完整性" class="headerlink" title="数据完整性"></a>数据完整性</h3><p>每个 Chunk 服务器使用 Checksum 来检查保存的数据是否损坏。对于读操作来说，在把数据返回给客户端或者其它的 Chunk 服务器之前，Chunk 服务器会校验读取操作涉及的范围内的块的 Checksum，因此 Chunk 服务器不会把错误数据传递到其它机器上。如果某个 Checksum 不正确，Chunk 服务器返回给请求者错误信息并通知 master，master 会重新复制副本以替代错误版本。</p>
-
-        </div></article>
-      <article class="post">
-    <header class="post-header">
-      <h1 class="post-title"><a class="post-link" href="/2019/03/21/Notes-on-Reading-the-MapPapers/">MapReduce 阅读纪要</a>
-        </h1>
-
-      <div class="post-meta">
-        <span class="post-time">
-          2019-03-21
-        </span><span class="post-category">
-            <a href="/categories/分布式/">分布式</a>
-            <a href="/categories/分布式/算法/">算法</a>
-            </span>
-        </div>
-    </header>
-
-    <div class="post-content"><blockquote>
-<p>paper： <a href="https://static.googleusercontent.com/media/research.google.com/en//archive/mapreduce-osdi04.pdf" target="_blank" rel="noopener">https://static.googleusercontent.com/media/research.google.com/en//archive/mapreduce-osdi04.pdf</a></p>
-</blockquote>
-<p>MapReduce 指一个由 Google 提出的，用于在集群上使用并行、分布式算法处理大规模数据的编程模型，以及一系列相关实现。本文是我阅读 Google 原论文之后的一些纪要。</p>
-<h2 id="MapReduce-模型"><a href="#MapReduce-模型" class="headerlink" title="MapReduce 模型"></a>MapReduce 模型</h2><p>在 lisp 以及许多其它函数式语言中，常常存在用于处理顺序表数据结构的 <a href="https://en.wikipedia.org/wiki/Map_\(higher-order_function" target="_blank" rel="noopener">map</a>、<a href="https://en.wikipedia.org/wiki/Fold_\(higher-order_function" target="_blank" rel="noopener">reduce</a> 等原语。在本质上，它们是能够以一个顺序表及处理函数为参数的<a href="https://en.wikipedia.org/wiki/Higher-order_function" target="_blank" rel="noopener">高阶函数</a>。 </p>
-<p>map 将一一以顺序表中的元素为参数调用这个处理函数，并以这些调用返回的结果作为元素形成一个新的顺序表。也就是说，这个处理函数将作用于原顺序表中的每一个元素。以 python 为例：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># square</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>result = map(<span class="keyword">lambda</span> x: x * x, [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>])</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>list(result)</span><br><span class="line">[<span class="number">1</span>, <span class="number">4</span>, <span class="number">9</span>, <span class="number">16</span>, <span class="number">25</span>]</span><br></pre></td></tr></table></figure></p>
-<p>reduce 同样将遍历顺序表，但它以前一次处理函数返回的结果，以及当前元素为参数递归的调用处理函数：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># sum</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>reduce(<span class="keyword">lambda</span> a, b: a + b, [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>])</span><br><span class="line"><span class="number">15</span></span><br></pre></td></tr></table></figure></p>
-<p>Google 受这些原语所启发，发现大多数现实世界的分布式作业拥有与其相似的特征。例如，我们可以以这样的方式来统计一大堆文档集合里的词频：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">map</span><span class="params">(key: string, value: string)</span>:</span></span><br><span class="line">    <span class="keyword">for</span> word <span class="keyword">in</span> value:</span><br><span class="line">        emit(word, <span class="string">"1"</span>)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">reduce</span><span class="params">(key: string, values: Iterator)</span>:</span></span><br><span class="line">    emit(string(len(values)))</span><br></pre></td></tr></table></figure></p>
-<p>在这里，map 常常接受文件名和内容作为参数，返回一系列键值对。reduce 以键名和其相关的一系列值为参数，返回最终的结果。在上面的例子中，map 将读取文档内容，然后返回形位 <code>word: &quot;1&quot;</code> 形式的键值对。MapReduce 实现会将键名相同的值集合在一起，传递给 reduce 函数。而 reduce 函数则简单统计了键对应值的数量。</p>
-<p>在单处理器环境中以这种模型运行，不一定会获得比通常方式更高的效率。然而，正如文章开始所说的那样，MapReduce 应用于分布式计算。在实践中，这种受限的模型，能够让框架方便地将任务分布式化，并自动处理诸如数据划分、容错、负载均衡等任务。</p>
-<p>MapReduce 模型中的 Map，是由用户指定的函数。Map 接收一个 key/value pair 值，并且产生一系列中间 key/value pair 值。MapReduce 库将拥有相同 key 值的 pair 聚合在一起并传给 Reduce 函数。</p>
-<p>Reduce 同样由用户定义。它接受一个 key 以及一系列相关的 value，形成更小的 value 集合。典型地一个 Reduce 调用产生零个或一个 value 值。</p>
-<p>通过将输入数据自动划分为 M 个片段，Map 在多台机器上被分布式地调用。通过将 Map 产生的结果划分为 R 份，Reduce 也能在多台机器上调用。R 的数量和划分函数通常是由用户指定的。</p>
-<p>MapReduce 模型的典型执行流程如下：</p>
-<ol>
-<li>一开始，用户程序中的 MapReduce 库将输入文件划分为 M 段。段的大小可配置，通常为 64M。然后，用户程序在集群机器中创建程序的副本。</li>
-<li>其中一个副本被指定为 master。其余的都是由 master 分配任务的 workers。这里有 M 个 Map 任务，以及 R 个 Reduce 任务可以分配。 master 将选择一个空闲的 worker 分配任务。</li>
-<li>被指定了 map 任务的 worker 将读取响应的输入的划分。它从输入中解析出 key/value pair，然后传递给用户定义的 Map 函数，将产生的中间 key/value pair 缓存在内存中。</li>
-<li>缓存的数据周期性地写入本地磁盘，由划分函数划分为 R 个区域。这些区域地位置将发送给 master，以被 master 转发给 reduce work。</li>
-<li>所有的 map 任务完成后，master 开始分配 reduce 任务。master 将对应的地址传送给 reduce worker。reduce worker 通过远程过程调用读取这些区域的内容。读取完之后，reduce work 通过键将这些内容排序。然后将拥有相同的 key 的 values 传递给用户定义的 Reduce 函数。Reduce 函数的输出将会被追加到分区对应的文件中。</li>
-<li>reduce 任务完成后，返回用户调用 MapReduce 过程的地方，继续执行用户接下来的程序。</li>
-</ol>
-<h2 id="容错处理"><a href="#容错处理" class="headerlink" title="容错处理"></a>容错处理</h2><h3 id="Worker-错误"><a href="#Worker-错误" class="headerlink" title="Worker 错误"></a>Worker 错误</h3><p>master 会周期性地 ping 每一个 worker，如果在一段时间之内，一个 worker 都没有响应，那么 master 会认为这个 worker 发生了错误。如果这个 worker 执行的是 map 任务，那么这个 worker 执行过的所有任务都将被 master 安排在其它 worker 上重新执行。如果执行的是 reduce 任务，那么当前执行的任务会被安排在其它 worker 上重新执行。</p>
-<p>之所以要重新执行失败 map worker 上的所有任务，是因为 map worker 产生的输出是保存在本地磁盘上的，一旦失败则无法读取。而 reduce worder 的输出保存在全局文件系统上，失败只需要重新执行当前任务即可。</p>
-<h3 id="Master-错误"><a href="#Master-错误" class="headerlink" title="Master 错误"></a>Master 错误</h3><p>周期地将 master 保存地数据结构保存为 checkpoint 存入磁盘。一旦 master 发生错误，就从最近保存的 checkpoint 中恢复。</p>
-<h3 id="失效处理机制"><a href="#失效处理机制" class="headerlink" title="失效处理机制"></a>失效处理机制</h3><p>当用户定义的 Map 和 Reduce 是确定性的时，MapReduce 的输入输出和在程序串行、没有出现错误的情况下执行的输入输出是一致的。MapReduce 通过自身文件系统的原子性操作保证这一点成立。<br>值得注意的是，MapReduce 的错误处理都假设在 fail-stop 上，由于硬件或软件原因的结果错误无法处理。</p>
-<h2 id="优化"><a href="#优化" class="headerlink" title="优化"></a>优化</h2><h3 id="储存位置"><a href="#储存位置" class="headerlink" title="储存位置"></a>储存位置</h3><p>网络容易成为整个系统的限制。因此，MapReduce 可以构建于一个分布式文件系统（例如： gfs）之上。在分配任务时，MapReduce 从文件系统之中读取各个文件储存的位置，然后让 map worker 读取最近的输入，从而降低对网络的要求。</p>
-<h3 id="任务细度"><a href="#任务细度" class="headerlink" title="任务细度"></a>任务细度</h3><p>为了更好的负载均衡和容错策略，通常使 M 和 R 为 worker 数量的几倍。</p>
-<h3 id="备份任务"><a href="#备份任务" class="headerlink" title="备份任务"></a>备份任务</h3><p>实践表明，大部分 worker 都执行完毕的情况下，仍然在执行的几个 worker 可能由于机器的软硬件因素仍然要执行很长时间。因此，MapReduce 会自动将最后几个任务备份到多个 worker 上执行。以先完成的为结果。</p>
-<h2 id="技巧"><a href="#技巧" class="headerlink" title="技巧"></a>技巧</h2><h3 id="划分函数"><a href="#划分函数" class="headerlink" title="划分函数"></a>划分函数</h3><p>默认情况下，通常通过哈希来划分输入。然而，如果用户有某些特别需求可以自定义划分函数。</p>
-<h3 id="保证排序"><a href="#保证排序" class="headerlink" title="保证排序"></a>保证排序</h3><p>传递给 Reduce 函数的 values 是经过排序的。</p>
-<h3 id="合并函数"><a href="#合并函数" class="headerlink" title="合并函数"></a>合并函数</h3><p>可以给 Map 提供一个合并函数。这个合并函数通常和 Reduce 函数一样，在 Map 完成之后本地调用，以减少最终需要网络传输的数据数量。</p>
-<h3 id="跳过坏任务"><a href="#跳过坏任务" class="headerlink" title="跳过坏任务"></a>跳过坏任务</h3><p>可能由于用户代码或某些第三方库的原因，一些任务的执行将始终失败。worker 在失败时会发送一条消息给 master。master 会记住任务失败的次数。如果次数太多，会跳过这个任务的执行。</p>
-
-        </div></article>
-      <nav class="pagination"><a class="next" href="/page/2/">
-        <span class="next-text">下一页</span>
+      </div>
+      <div class="post-copyright">
+    <p class="copyright-item">
+      <span>原文作者: </span>
+      <a href="https://arianx.me">Arian</a>
+    </p>
+    <p class="copyright-item">
+      <span>原文链接: </span>
+      <a href="https://arianx.me/2019/04/15/Redis-network-model-introduction/">https://arianx.me/2019/04/15/Redis-network-model-introduction/</a>
+    </p>
+    <p class="copyright-item">
+      <span>许可协议: </span>本文采用<a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/" target="_blank">知识共享署名-非商业性使用 4.0 国际许可协议</a>
+    </p>
+  </div>
+      <footer class="post-footer">
+        <div class="post-tags">
+            <a href="/tags/redis/">redis</a>
+            <a href="/tags/源码/">源码</a>
+            </div>
+        
+        <nav class="post-nav"><a class="next" href="/2019/03/23/note-of-gfs/">
+        <span class="next-text nav-default">GFS 面面观</span>
+        <span class="prev-text nav-mobile">下一篇</span>
         <i class="iconfont icon-right"></i>
       </a>
-    </nav></section></div></div>
+    </nav></footer>
+    </article></div><div class="comments" id="comments"><div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
+      </div>
+    </div></div>
       </main>
 
       <footer id="footer" class="footer"><div class="social-links">
@@ -407,7 +289,21 @@
       <div class="back-to-top" id="back-to-top">
         <i class="iconfont icon-up"></i>
       </div>
-    </div><script type="text/javascript" src="/lib/jquery/jquery.min.js"></script>
+    </div><script type="text/javascript">
+    var disqus_config = function () {
+        this.page.url = 'https://arianx.me/2019/04/15/Redis-network-model-introduction/';
+        this.page.identifier = '2019/04/15/Redis-network-model-introduction/';
+        this.page.title = 'Redis 单线程网络模型及 I/O 多路复用';
+    };
+    (function() {
+    var d = document, s = d.createElement('script');
+
+    s.src = '//arianx.disqus.com/embed.js';
+
+    s.setAttribute('data-timestamp', +new Date());
+    (d.head || d.body).appendChild(s);
+    })();  
+  </script><script type="text/javascript" src="/lib/jquery/jquery.min.js"></script>
   <script type="text/javascript" src="/lib/slideout/slideout.js"></script>
   <script type="text/javascript" src="/lib/fancybox/jquery.fancybox.pack.js"></script>
   <script type="text/javascript" src="/lib/pjax/jquery.pjax.min.js"></script>
